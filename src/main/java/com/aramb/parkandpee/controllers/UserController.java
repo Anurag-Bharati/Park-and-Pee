@@ -20,13 +20,26 @@ public class UserController {
 
     @PostMapping("/register")
     public User register(@RequestBody User user){
-        logger.info(user.number + " has registered with \"" + user.password+"\" password");
+        if (user.name == null || user.number == null || user.password == null){
+            logger.info("[REGISTER]: Invalid register parameter!");
+            return null;
+        }
+        User result = userRepo.findByNumber(user.number);
+        if (result!=null){
+            logger.info("[REGISTER]: User already exist!");
+            return null;
+        }
+        logger.info("[REGISTER]: "+user.name + " with " + user.number + " has registered with \"" + user.password+"\" password");
         return userRepo.save(user);
     }
     @PostMapping("/login")
     public User login(@RequestBody User user){
-        logger.info(user.number + " has logged with \"" + user.password+"\" password");
         User result = userRepo.findByNumberAndPassword(user.number, user.password);
+        if (result!=null) {
+            logger.info("[LOGIN]: "+result.name + " has logged with \"" + user.password+"\" password");
+        } else {
+            logger.info("[LOGIN]: User doesn't exists!");
+        }
         System.out.println(result);
         return result;
     }

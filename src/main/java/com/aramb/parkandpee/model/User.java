@@ -11,5 +11,5 @@ public class User {
     @GeneratedValue
     Integer id;
 
-    public String number, password;
+    public String name, number, password;
 }
