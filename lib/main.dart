@@ -17,7 +17,7 @@ void main() {
       'verification': (context) =>    const MyVerification(),
       'homepage': (context) =>    const MyHomePage(),
 
-      // 'verification':(context)=> Verification(),
+    //  'verification':(context)=> Verification(),
     },
   ));
 }                                   
