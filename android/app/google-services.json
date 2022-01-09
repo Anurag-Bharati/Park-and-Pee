@@ -1,0 +1,47 @@
+{
+    "project_info": {
+        "project_number": "507335977359",
+        "project_id": "velvety-transit-335902",
+        "storage_bucket": "velvety-transit-335902.appspot.com"
+    },
+    "client": [
+        {
+            "client_info": {
+                "mobilesdk_app_id": "1:507335977359:android:e1c63c03c78b7f10d183fa",
+                "android_client_info": {
+                    "package_name": "com.aramb.parkandpee"
+                }
+            },
+            "oauth_client": [
+                {
+                    "client_id": "507335977359-gbu11os59p154m8minerr4g06h1vc8vo.apps.googleusercontent.com",
+                    "client_type": 1,
+                    "android_info": {
+                        "package_name": "com.aramb.parkandpee",
+                        "certificate_hash": "da39a3ee5e6b4b0d3255bfef95601890afd80709"
+                    }
+                },
+                {
+                    "client_id": "507335977359-cha6fnf3somd152upd75b574s5gqcgj4.apps.googleusercontent.com",
+                    "client_type": 3
+                }
+            ],
+            "api_key": [
+                {
+                    "current_key": "AIzaSyAplAanlVSCpbVkGGoHMdh-j_zwRJqWMCM"
+                }
+            ],
+            "services": {
+                "appinvite_service": {
+                    "other_platform_oauth_client": [
+                        {
+                            "client_id": "507335977359-cha6fnf3somd152upd75b574s5gqcgj4.apps.googleusercontent.com",
+                            "client_type": 3
+                        }
+                    ]
+                }
+            }
+        }
+    ],
+    "configuration_version": "1"
+}
