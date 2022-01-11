@@ -21,13 +21,12 @@ class _MySettingPagestate extends State<MySettingPage> {
         image: DecorationImage(
             image: AssetImage('assets/homebackground.png'), fit: BoxFit.cover),
       ),
-      child:SafeArea(top: false,
-      
+      child:SafeArea(
+        top:true,
       child: Scaffold(
         resizeToAvoidBottomInset: false,
         backgroundColor: Colors.transparent,
         body: SafeArea(
-          top: false,
           child: Padding(
             padding: const EdgeInsets.symmetric(vertical: 24, horizontal: 32),
             child: Column(
@@ -45,24 +44,25 @@ class _MySettingPagestate extends State<MySettingPage> {
                         ),
                       ),
                     ),
-                    const SizedBox(
-                      width: 245,
-                    ),
-                    Align(
-                      alignment: Alignment.topRight,
-                      child: GestureDetector(
-                        onTap: () => Navigator,
-                        child: const Icon(
-                          Icons.notifications_none_outlined,
-                          size: 40,
-                          color: Colors.white,
-                        ),
+                                      
+                        IconButton(
+                          padding: EdgeInsets.only(
+                      //   // top: deviceHeight(context) * 0.4,
+                        left: deviceWidth(context) * 0.65,
+                        // right: deviceWidth(context) *0.6,
+                      //   // bottom: deviceHeight(context) * 0.0,
                       ),
-                    ),
+                          onPressed: () {
+                            Navigator.pushNamed(context, '');
+                          },
+                          icon: const Icon(Icons.notifications_none),
+                          iconSize: 40,
+                          color: Colors.white,
+                        )
                   ],
                 ),
                 const SizedBox(
-                  height: 150,
+                  height: 50,
                 ),
                 Container(
                   // padding: const EdgeInsets.all(28),

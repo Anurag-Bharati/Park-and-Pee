@@ -40,18 +40,22 @@ class _MyHomePagestate extends State<MyHomePage> {
                           child: GestureDetector(
                             onTap: () => Navigator.pop(context),
                             child: const Icon(
-                              MdiIcons.arrowLeft,
+                              Icons.arrow_back,
                               size: 40,
                               color: Colors.white,
                             ),
                           ),
                         ),
-                        const SizedBox(
-                          width: 300,
-                        ),
+                        
                         IconButton(
+                           padding: EdgeInsets.only(
+                      //   // top: deviceHeight(context) * 0.4,
+                        left: deviceWidth(context) * 0.65,
+                        // right: deviceWidth(context) *0.6,
+                      //   // bottom: deviceHeight(context) * 0.0,
+                      ),
                           onPressed: () {
-                            Navigator.pushNamed(context, 'aboutus');
+                            Navigator.pushNamed(context, '');
                           },
                           icon: const Icon(Icons.notifications_none),
                           iconSize: 40,
@@ -60,7 +64,7 @@ class _MyHomePagestate extends State<MyHomePage> {
                       ],
                     ),
                     const SizedBox(
-                      height: 150,
+                      height: 50,
                     ),
                     Container(
                       // padding: const EdgeInsets.all(28),

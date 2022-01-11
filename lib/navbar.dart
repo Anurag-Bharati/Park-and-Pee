@@ -70,7 +70,7 @@ class _Mynavbarstate extends State<Mynavbar> {
                   color: Colors.white,
                 ),
               ],
-              animationDuration: const Duration(milliseconds: 250),
+              animationDuration: const Duration(milliseconds: 300),
               onTap: (index) {
                 debugPrint("Current Index is $index");
                 setState(() {

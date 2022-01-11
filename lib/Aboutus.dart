@@ -1,7 +1,6 @@
 // ignore_for_file: file_names
 
 import 'package:flutter/material.dart';
-import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 
 double deviceHeight(BuildContext context) => MediaQuery.of(context).size.height;
 double deviceWidth(BuildContext context) => MediaQuery.of(context).size.width;
@@ -22,11 +21,11 @@ class _Aboutusstate extends State<Aboutus> {
             image: AssetImage('assets/homebackground.png'), fit: BoxFit.fill),
       ),
       child:SafeArea(
+        top: true,
       child: Scaffold(
         resizeToAvoidBottomInset: false,
         backgroundColor: Colors.transparent,
         body: SafeArea(
-          bottom: true,
           child: Padding(
             padding: const EdgeInsets.symmetric(vertical: 24, horizontal: 32),
             child: Column(
@@ -44,9 +43,7 @@ class _Aboutusstate extends State<Aboutus> {
                         ),
                       ),
                     ),
-                    const SizedBox(
-                      width: 245,
-                    ),
+                    
                   ],
                 ),
                 const SizedBox(
@@ -74,7 +71,7 @@ class _Aboutusstate extends State<Aboutus> {
                         height: 20,
                       ),
                       Text(
-                          "Park and Pee is a service provider system. It serves two major solution to the daily occuring problems that are parking issue and emergency tolilet problem. As it has to main solution to the problems they are catagorised into Parking and Toilet. Parking offers you the most pleasant feature of parking your vehicles such as Car and Bike, you can find empty spaces for your automobile to park in a easy way. In a same way Toilet provides you the nearest location of the restrooms where you can feel fresh.",
+                          "Park and Pee is a service provider system. It serves two major solution to the daily occuring problems that are parking issue and emergency toilet problem. As it has to main solution to the problems they are catagorised into Parking and Toilet. Parking offers you the most pleasant feature of parking your vehicles such as Car and Bike, you can find empty spaces for your automobile to park in a easy way. In a same way Toilet provides you the nearest location of the restrooms where you can feel fresh.",
                           style: TextStyle(fontSize: 15),
                           textAlign: TextAlign.justify),
                     ],
