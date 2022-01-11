@@ -1,6 +1,5 @@
 // ignore_for_file: file_names
 
-import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 
@@ -23,9 +22,11 @@ class _MyHomePagestate extends State<MyHomePage> {
             image: AssetImage('assets/homebackground.png'), fit: BoxFit.cover),
       ),
       child: Scaffold(
+
         resizeToAvoidBottomInset: false,
         backgroundColor: Colors.transparent,
         body: SafeArea(
+          top: false,
           child: Padding(
             padding: const EdgeInsets.symmetric(vertical: 24, horizontal: 32),
             child: Column(
@@ -159,44 +160,6 @@ class _MyHomePagestate extends State<MyHomePage> {
               ],
             ),
           ),
-        ),
-        bottomNavigationBar: CurvedNavigationBar(
-          backgroundColor: Colors.transparent,
-          color: const Color.fromRGBO(147, 127, 238, 1.0),
-          buttonBackgroundColor: const Color.fromRGBO(84, 230, 215, 1.0),
-          height: 50,
-          items: const <Widget>[
-            Icon(
-              Icons.home,
-              size: 25,
-              color: Colors.white,
-            ),
-            Icon(
-              Icons.receipt_rounded,
-              size: 25,
-              color: Colors.white,
-            ),
-            Icon(
-              Icons.people_alt,
-              size: 25,
-              color: Colors.white,
-            ),
-            Icon(
-              Icons.account_circle,
-              size: 25,
-              color: Colors.white,
-            ),
-            Icon(
-              Icons.settings,
-              size: 25,
-              color: Colors.white,
-            ),
-          ],
-          index: 0,
-          animationDuration: const Duration(milliseconds: 300),
-          onTap: (index) {
-            debugPrint("Current Index is $index");
-          },
         ),
       ),
     );

@@ -100,6 +100,7 @@ class _MyLoginState extends State<MyLogin> {
                               width: 320,
                               height: 50,
                               child: TextFormField(
+                                keyboardType: TextInputType.number,
                                 autovalidateMode:
                                     AutovalidateMode.onUserInteraction,
                                 style: const TextStyle(color: Colors.black),
@@ -109,17 +110,20 @@ class _MyLoginState extends State<MyLogin> {
                                   user.phone = val;
                                 },
                                 validator: (value) {
+
                                   if (value!.isEmpty) {
                                     return 'Contact No is Empty';
                                   }
                                   return null;
                                 },
                                 decoration: InputDecoration(
+                                  
                                     contentPadding:
                                         const EdgeInsets.fromLTRB(10, 0, 0, 0),
                                     fillColor: Colors.white,
                                     filled: true,
                                     hintText: "Contact Number",
+                                    
                                     border: OutlineInputBorder(
                                       borderRadius: BorderRadius.circular(25),
                                     )),
