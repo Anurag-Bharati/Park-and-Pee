@@ -46,16 +46,15 @@ class _MyHomePagestate extends State<MyHomePage> {
                             ),
                           ),
                         ),
-                        
                         IconButton(
-                           padding: EdgeInsets.only(
-                      //   // top: deviceHeight(context) * 0.4,
-                        left: deviceWidth(context) * 0.65,
-                        // right: deviceWidth(context) *0.6,
-                      //   // bottom: deviceHeight(context) * 0.0,
-                      ),
+                          padding: EdgeInsets.only(
+                            //   // top: deviceHeight(context) * 0.4,
+                            left: deviceWidth(context) * 0.65,
+                            // right: deviceWidth(context) *0.6,
+                            //   // bottom: deviceHeight(context) * 0.0,
+                          ),
                           onPressed: () {
-                            Navigator.pushNamed(context, '');
+                            Navigator.pushNamed(context, 'login');
                           },
                           icon: const Icon(Icons.notifications_none),
                           iconSize: 40,
