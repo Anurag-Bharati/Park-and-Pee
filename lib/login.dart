@@ -75,6 +75,7 @@ class _MyLoginState extends State<MyLogin> {
         image: DecorationImage(
             image: AssetImage('assets/LRVBackground.png'), fit: BoxFit.cover),
       ),
+      child:SafeArea(
       child: Scaffold(
         resizeToAvoidBottomInset: false,
         backgroundColor: Colors.transparent,
@@ -334,13 +335,8 @@ class _MyLoginState extends State<MyLogin> {
             ),
           ],
         ),
-      ),
+      ),)
     );
   }
 }
 
-@override
-Widget build(BuildContext context) {
-  // TODO: implement build
-  throw UnimplementedError();
-}

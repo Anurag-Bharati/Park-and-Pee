@@ -1,6 +1,5 @@
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter/material.dart';
-import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:parkandpee/account.dart';
 import 'package:parkandpee/home_page.dart';
 import 'package:parkandpee/property.dart';
@@ -36,7 +35,6 @@ class _Mynavbarstate extends State<Mynavbar> {
         ),
         child: SafeArea(
           top: false,
-
           child: Scaffold(
             extendBody: true,
             bottomNavigationBar: CurvedNavigationBar(
@@ -62,7 +60,7 @@ class _Mynavbarstate extends State<Mynavbar> {
                   color: Colors.white,
                 ),
                 Icon(
-                  MdiIcons.paperRoll,
+                  Icons.real_estate_agent,
                   size: 25,
                   color: Colors.white,
                 ),
