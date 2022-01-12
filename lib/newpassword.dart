@@ -44,7 +44,7 @@ class _MyNewPasswordstate extends State<MyNewPassword> {
                   'Create a new Password',
                   style: TextStyle(
                     color: Colors.white,
-                    fontSize: 25,
+                    fontSize: 22,
                     fontWeight: FontWeight.bold,
                   ),
                 ),
@@ -53,7 +53,7 @@ class _MyNewPasswordstate extends State<MyNewPassword> {
                 ),
                 Container(
                   // padding: const EdgeInsets.all(28),
-                  padding: const EdgeInsets.only(top:50,left:28,right:28,bottom: 50),
+                  padding: const EdgeInsets.only(top:30,left:28,right:28,bottom: 30),
                   // margin: const EdgeInsets.only(top:50),
                   decoration: BoxDecoration(
                     color: Colors.grey[100],
@@ -70,12 +70,29 @@ class _MyNewPasswordstate extends State<MyNewPassword> {
                               decoration: InputDecoration(
                                   fillColor: Colors.white,
                                   filled: true,
-                                  hintText: "Type a new Password",
+                                  hintText: "New Password",
                                   border: OutlineInputBorder(
                                     borderRadius: BorderRadius.circular(25),
                                   )),
                             ),
                           ),
+                      const SizedBox(
+                        height: 30,
+                      ),    
+                      SizedBox(
+                            width: 320,
+                            height: 50,
+                            child: TextField(
+                              style: const TextStyle(color: Colors.black),
+                              decoration: InputDecoration(
+                                  fillColor: Colors.white,
+                                  filled: true,
+                                  hintText: "Confirm Password",
+                                  border: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(25),
+                                  )),
+                            ),
+                          ),    
                       const SizedBox(
                         height: 30,
                       ),

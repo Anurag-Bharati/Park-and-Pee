@@ -51,7 +51,19 @@ class _MyForgetPasswordstate extends State<MyForgetPassword> {
                   ),
                 ),
                 const SizedBox(
-                  height: 30,
+                  height: 10,
+                ),
+                const Text(
+                  "Please Enter Your Registered Number",
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 15,
+                    fontWeight: FontWeight.bold,
+                  ),
+                  textAlign: TextAlign.center,
+                ),
+                const SizedBox(
+                  height: 20,
                 ),
                 Container(
                   // padding: const EdgeInsets.all(28),
@@ -68,7 +80,7 @@ class _MyForgetPasswordstate extends State<MyForgetPassword> {
                             width: 320,
                             height: 50,
                             child: TextField(
-                              style: const TextStyle(color: Colors.white),
+                              style: const TextStyle(color: Colors.black),
                               decoration: InputDecoration(
                                   fillColor: Colors.white,
                                   filled: true,
