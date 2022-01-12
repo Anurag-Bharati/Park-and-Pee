@@ -177,7 +177,7 @@ class _MyLoginState extends State<MyLogin> {
                                       color: Color.fromARGB(1000, 49, 53, 49)),
                                 ),
                                 onPressed: () {
-                                  Navigator.pushNamed(context, 'register');
+                                  Navigator.pushNamed(context, 'forgetpassword');
                                 },
                                 style: ElevatedButton.styleFrom(
                                   textStyle: const TextStyle(
