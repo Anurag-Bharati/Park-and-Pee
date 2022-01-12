@@ -102,13 +102,13 @@ class _MyAccountPagestate extends State<MyAccountPage> {
                             style: TextStyle(
                               fontFamily: 'Poppins',
                               fontSize: 28,
-                              fontWeight: FontWeight.bold,
+                              fontWeight: FontWeight.w500,
                             ),
                           ),
                           const Text(
                             'USER ID : 00001',
                             style: const TextStyle(
-                              fontWeight: FontWeight.w500,
+                              fontWeight: FontWeight.w300,
                               fontFamily: 'Poppins',
                               fontSize: 18,
                             ),
@@ -133,7 +133,7 @@ class _MyAccountPagestate extends State<MyAccountPage> {
                             style: TextStyle(
                               fontFamily: 'Poppins',
                               fontSize: 21,
-                              fontWeight: FontWeight.w600,
+                              fontWeight: FontWeight.w400,
                             ),
                           ),
                           Row(
@@ -149,7 +149,7 @@ class _MyAccountPagestate extends State<MyAccountPage> {
                                   Text(
                                     'Contact',
                                     style: TextStyle(
-                                      fontWeight: FontWeight.w500,
+                                      fontWeight: FontWeight.w300,
                                       fontFamily: 'Poppins',
                                       fontSize: 18,
                                     ),
@@ -157,7 +157,7 @@ class _MyAccountPagestate extends State<MyAccountPage> {
                                   Text(
                                     'Location',
                                     style: TextStyle(
-                                      fontWeight: FontWeight.w500,
+                                      fontWeight: FontWeight.w300,
                                       fontFamily: 'Poppins',
                                       fontSize: 18,
                                     ),
@@ -165,7 +165,7 @@ class _MyAccountPagestate extends State<MyAccountPage> {
                                   Text(
                                     'Gender',
                                     style: TextStyle(
-                                      fontWeight: FontWeight.w500,
+                                      fontWeight: FontWeight.w300,
                                       fontFamily: 'Poppins',
                                       fontSize: 18,
                                     ),
@@ -173,7 +173,7 @@ class _MyAccountPagestate extends State<MyAccountPage> {
                                   Text(
                                     'Position',
                                     style: TextStyle(
-                                      fontWeight: FontWeight.w500,
+                                      fontWeight: FontWeight.w300,
                                       fontFamily: 'Poppins',
                                       fontSize: 18,
                                     ),
@@ -181,7 +181,7 @@ class _MyAccountPagestate extends State<MyAccountPage> {
                                   Text(
                                     'Reputation',
                                     style: TextStyle(
-                                      fontWeight: FontWeight.w500,
+                                      fontWeight: FontWeight.w300,
                                       fontFamily: 'Poppins',
                                       fontSize: 18,
                                     ),
@@ -196,7 +196,7 @@ class _MyAccountPagestate extends State<MyAccountPage> {
                                   Text(
                                     '98480XXXXX',
                                     style: TextStyle(
-                                      fontWeight: FontWeight.w500,
+                                      fontWeight: FontWeight.w300,
                                       fontFamily: 'Poppins',
                                       fontSize: 18,
                                     ),
@@ -204,7 +204,7 @@ class _MyAccountPagestate extends State<MyAccountPage> {
                                   Text(
                                     'Nepal , KTM',
                                     style: TextStyle(
-                                      fontWeight: FontWeight.w500,
+                                      fontWeight: FontWeight.w300,
                                       fontFamily: 'Poppins',
                                       fontSize: 18,
                                     ),
@@ -212,7 +212,7 @@ class _MyAccountPagestate extends State<MyAccountPage> {
                                   Text(
                                     'MALE',
                                     style: TextStyle(
-                                      fontWeight: FontWeight.w500,
+                                      fontWeight: FontWeight.w300,
                                       fontFamily: 'Poppins',
                                       fontSize: 18,
                                     ),
@@ -220,7 +220,7 @@ class _MyAccountPagestate extends State<MyAccountPage> {
                                   Text(
                                     'Customer',
                                     style: TextStyle(
-                                      fontWeight: FontWeight.w500,
+                                      fontWeight: FontWeight.w300,
                                       fontFamily: 'Poppins',
                                       fontSize: 18,
                                     ),
@@ -228,7 +228,7 @@ class _MyAccountPagestate extends State<MyAccountPage> {
                                   Text(
                                     '8.4/10',
                                     style: TextStyle(
-                                      fontWeight: FontWeight.w500,
+                                      fontWeight: FontWeight.w300,
                                       fontFamily: 'Poppins',
                                       fontSize: 18,
                                     ),
@@ -249,7 +249,7 @@ class _MyAccountPagestate extends State<MyAccountPage> {
                             child: const Text(
                               'Change Number or Password',
                               style: const TextStyle(
-                                fontWeight: FontWeight.bold,
+                                fontWeight: FontWeight.w500,
                                 height: 1,
                                 fontFamily: 'Poppins',
                                 color: Colors.red,
@@ -321,6 +321,7 @@ class _MyAccountPagestate extends State<MyAccountPage> {
                       ),
                       onPressed: () {
                         print('IconButton pressed ...');
+                        Navigator.pushNamed(context, 'account_edit');
                       },
                     ),
                   ),
