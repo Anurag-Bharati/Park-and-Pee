@@ -16,7 +16,7 @@ class _MyNewPasswordstate extends State<MyNewPassword> {
     return Container(
       decoration: const BoxDecoration(
         image: DecorationImage(
-            image: AssetImage('assets/LRVBackground.png'), fit: BoxFit.cover),
+            image: AssetImage('assets/LRVBackground.png'), fit: BoxFit.fill),
       ),
       child: Scaffold(
         resizeToAvoidBottomInset: false,
@@ -107,7 +107,7 @@ class _MyNewPasswordstate extends State<MyNewPassword> {
                                   fontFamily:
                                       "fonts/Poppins-Bold.ttf")),
                           onPressed: () {
-                            Navigator.pushNamed(context, 'homepage');
+                            Navigator.pushNamed(context, 'navbar');
                           },
                           style: ElevatedButton.styleFrom(
                             primary: Colors.deepPurpleAccent[400],

@@ -16,7 +16,7 @@ class _MyVerificationstate extends State<MyVerification> {
     return Container(
       decoration: const BoxDecoration(
         image: DecorationImage(
-            image: AssetImage('assets/LRVBackground.png'), fit: BoxFit.cover),
+            image: AssetImage('assets/LRVBackground.png'), fit: BoxFit.fill),
       ),
       child: Scaffold(
         resizeToAvoidBottomInset: false,

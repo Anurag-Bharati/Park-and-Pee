@@ -82,7 +82,7 @@ class _MyRegisterState extends State<MyRegister> {
     return Container(
       decoration: BoxDecoration(
         image: DecorationImage(
-            image: AssetImage('assets/LRVBackground.png'), fit: BoxFit.cover),
+            image: AssetImage('assets/LRVBackground.png'), fit: BoxFit.fill),
       ),
       child: Scaffold(
         resizeToAvoidBottomInset: false,
