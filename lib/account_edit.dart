@@ -478,13 +478,13 @@ class _MyAccountPageEditstate extends State<MyAccountPageEdit> {
                               child: Stack(
                                 children: [
                                   ClipRRect(
-                                    borderRadius: BorderRadius.circular(1000),
-                                    child: Image.network(
-                                      'https://cdn-icons-png.flaticon.com/512/168/168726.png',
-                                      width: MediaQuery.of(context).size.width,
+                                    borderRadius: BorderRadius.circular(100),
+                                    child: Image.asset(
+                                      'assets/avatar.png',
+                                      width:
+                                          MediaQuery.of(context).size.width * 1,
                                       height:
-                                          MediaQuery.of(context).size.height *
-                                              1,
+                                          MediaQuery.of(context).size.width * 1,
                                       fit: BoxFit.cover,
                                     ),
                                   ),
@@ -492,9 +492,11 @@ class _MyAccountPageEditstate extends State<MyAccountPageEdit> {
                                     alignment:
                                         const AlignmentDirectional(0, -0.60),
                                     child: Container(
-                                      width: MediaQuery.of(context).size.width,
+                                      width:
+                                          MediaQuery.of(context).size.width * 1,
                                       height:
-                                          MediaQuery.of(context).size.height,
+                                          MediaQuery.of(context).size.height *
+                                              1,
                                       decoration: const BoxDecoration(
                                         color: const Color(0xA7000000),
                                         shape: BoxShape.circle,
