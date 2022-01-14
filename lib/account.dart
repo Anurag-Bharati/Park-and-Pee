@@ -25,7 +25,8 @@ class _MyAccountPagestate extends State<MyAccountPage> {
         preferredSize: Size.zero,
         child: AppBar(
           elevation: 0,
-          backgroundColor: const Color(0xFF937FEE), // Colors.transparent
+          backgroundColor:
+              const Color.fromRGBO(64, 224, 208, 1), // Colors.transparent
         ),
       ),
       body: SafeArea(
@@ -58,7 +59,7 @@ class _MyAccountPagestate extends State<MyAccountPage> {
                     maxWidth: MediaQuery.of(context).size.width,
                   ),
                   decoration: const BoxDecoration(
-                    color: const Color(0xFF937FEE),
+                    color: const Color.fromRGBO(64, 224, 208, 1),
                   ),
                 ),
                 Align(
@@ -95,8 +96,8 @@ class _MyAccountPagestate extends State<MyAccountPage> {
                       borderRadius: BorderRadius.only(
                         bottomLeft: Radius.circular(0),
                         bottomRight: Radius.circular(0),
-                        topLeft: Radius.circular(80),
-                        topRight: const Radius.circular(80),
+                        topLeft: Radius.circular(40),
+                        topRight: Radius.circular(40),
                       ),
                       shape: BoxShape.rectangle,
                     ),
@@ -110,7 +111,7 @@ class _MyAccountPagestate extends State<MyAccountPage> {
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
                           const Text(
-                            'MOHAN BASNET',
+                            'Mohan Basnet',
                             style: TextStyle(
                               fontFamily: 'fonts/Poppins-light.ttf',
                               fontSize: 25,
@@ -118,7 +119,7 @@ class _MyAccountPagestate extends State<MyAccountPage> {
                             ),
                           ),
                           const Text(
-                            'USER ID : 00001',
+                            'User ID : 00001',
                             style: const TextStyle(
                               fontWeight: FontWeight.w300,
                               fontFamily: 'fonts/Poppins-light.ttf',
@@ -141,7 +142,7 @@ class _MyAccountPagestate extends State<MyAccountPage> {
                             color: Color(0x7A000000),
                           ),
                           const Text(
-                            'MY INFO',
+                            'My Info',
                             style: TextStyle(
                               fontFamily: 'fonts/Poppins-light.ttf',
                               fontSize: 20,
@@ -289,7 +290,7 @@ class _MyAccountPagestate extends State<MyAccountPage> {
                         width: MediaQuery.of(context).size.width * 1,
                         height: MediaQuery.of(context).size.height * 1,
                         child: ClipRRect(
-                          borderRadius: BorderRadius.circular(25),
+                          borderRadius: BorderRadius.circular(100),
                           child: Image.asset(
                             'assets/avatar.png',
                             width: MediaQuery.of(context).size.width * 1,

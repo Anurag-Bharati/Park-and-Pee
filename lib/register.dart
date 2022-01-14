@@ -1,9 +1,11 @@
 // ignore_for_file: prefer_const_constructors
+
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_signin_button/flutter_signin_button.dart';
 import 'package:http/http.dart' as http;
+import 'package:parkandpee/verification.dart';
 
 import 'user.dart';
 import 'api.dart';
@@ -34,7 +36,8 @@ class _MyRegisterState extends State<MyRegister> {
       // ignore: avoid_print
       print(
           "Thanks ${a['name']}! Your number (${user.phone}) has been successfully registered and your ID is ${a['id']}");
-      Navigator.pushNamed(context, 'verification');
+      Navigator.of(context).push(
+          MaterialPageRoute(builder: (context) => MyVerification(user.phone)));
     } else {
       // ignore: avoid_print
       print("User Doesn't Exists!");

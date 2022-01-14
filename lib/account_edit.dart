@@ -26,7 +26,7 @@ class _MyAccountPageEditstate extends State<MyAccountPageEdit> {
   @override
   void initState() {
     super.initState();
-    textController1 = TextEditingController(text: 'MOHAN BASNET');
+    textController1 = TextEditingController(text: 'Mohan Basnet');
     textController2 = TextEditingController(
         text:
             'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eligendi non quis.');
@@ -41,7 +41,8 @@ class _MyAccountPageEditstate extends State<MyAccountPageEdit> {
           preferredSize: Size.zero,
           child: AppBar(
             elevation: 0,
-            backgroundColor: const Color(0xFF937FEE), // Colors.transparent
+            backgroundColor:
+                const Color.fromRGBO(64, 224, 208, 1), // Colors.transparent
           ),
         ),
         body: Form(
@@ -80,7 +81,7 @@ class _MyAccountPageEditstate extends State<MyAccountPageEdit> {
                           maxWidth: MediaQuery.of(context).size.width,
                         ),
                         decoration: const BoxDecoration(
-                          color: Color(0xFF937FEE),
+                          color: const Color.fromRGBO(64, 224, 208, 1),
                         ),
                       ),
                       Align(
@@ -117,9 +118,9 @@ class _MyAccountPageEditstate extends State<MyAccountPageEdit> {
                             ],
                             borderRadius: BorderRadius.only(
                               bottomLeft: Radius.circular(0),
-                              bottomRight: const Radius.circular(0),
-                              topLeft: Radius.circular(80),
-                              topRight: const Radius.circular(80),
+                              bottomRight: Radius.circular(0),
+                              topLeft: Radius.circular(40),
+                              topRight: const Radius.circular(40),
                             ),
                             shape: BoxShape.rectangle,
                           ),
@@ -189,7 +190,7 @@ class _MyAccountPageEditstate extends State<MyAccountPageEdit> {
                                   ),
                                 ),
                                 const Text(
-                                  'USER ID : 00001',
+                                  'User ID : 00001',
                                   style: const TextStyle(
                                     fontWeight: FontWeight.w300,
                                     fontFamily: 'Poppins',
@@ -246,10 +247,10 @@ class _MyAccountPageEditstate extends State<MyAccountPageEdit> {
                                   color: Color(0x7A000000),
                                 ),
                                 const Text(
-                                  'MY INFO',
+                                  'My Info',
                                   style: TextStyle(
                                     fontFamily: 'Poppins',
-                                    fontSize: 21,
+                                    fontSize: 20,
                                     fontWeight: FontWeight.w400,
                                   ),
                                 ),
@@ -443,7 +444,7 @@ class _MyAccountPageEditstate extends State<MyAccountPageEdit> {
                                                   width: 1,
                                                 ),
                                                 shape:
-                                                    const BeveledRectangleBorder(
+                                                    const RoundedRectangleBorder(
                                                         borderRadius:
                                                             BorderRadius.all(
                                                                 Radius.circular(
@@ -470,7 +471,7 @@ class _MyAccountPageEditstate extends State<MyAccountPageEdit> {
                                                 width: 1,
                                               ),
                                               shape:
-                                                  const BeveledRectangleBorder(
+                                                  const RoundedRectangleBorder(
                                                 borderRadius: BorderRadius.all(
                                                   Radius.circular(5),
                                                 ),
@@ -504,7 +505,7 @@ class _MyAccountPageEditstate extends State<MyAccountPageEdit> {
                               child: Stack(
                                 children: [
                                   ClipRRect(
-                                    borderRadius: BorderRadius.circular(25),
+                                    borderRadius: BorderRadius.circular(100),
                                     child: Image.asset(
                                       'assets/avatar.png',
                                       width:
@@ -527,7 +528,7 @@ class _MyAccountPageEditstate extends State<MyAccountPageEdit> {
                                           color: const Color(0xA7000000),
                                           shape: BoxShape.rectangle,
                                           borderRadius: BorderRadius.all(
-                                              Radius.circular(25))),
+                                              Radius.circular(100))),
                                       child: IconButton(
                                         icon: const Icon(
                                           Icons.add_box_outlined,
