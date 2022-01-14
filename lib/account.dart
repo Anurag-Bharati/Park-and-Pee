@@ -77,7 +77,19 @@ class _MyAccountPagestate extends State<MyAccountPage> {
                           blurRadius: 0,
                           color: Color.fromRGBO(0, 0, 0, 0.25),
                           offset: Offset(0, -15),
-                          spreadRadius: 0.1,
+                          spreadRadius: 10,
+                        ),
+                        BoxShadow(
+                          blurRadius: 0,
+                          color: Color.fromRGBO(0, 0, 0, 0.15),
+                          offset: Offset(0, -30),
+                          spreadRadius: 15,
+                        ),
+                        BoxShadow(
+                          blurRadius: 0,
+                          color: Color.fromRGBO(0, 0, 0, 0.1),
+                          offset: Offset(0, -45),
+                          spreadRadius: 20,
                         )
                       ],
                       borderRadius: BorderRadius.only(
@@ -91,7 +103,7 @@ class _MyAccountPagestate extends State<MyAccountPage> {
                     alignment: const AlignmentDirectional(0, 0),
                     child: Padding(
                       padding:
-                          const EdgeInsetsDirectional.fromSTEB(30, 110, 30, 30),
+                          const EdgeInsetsDirectional.fromSTEB(30, 100, 30, 30),
                       child: Column(
                         mainAxisSize: MainAxisSize.max,
                         mainAxisAlignment: MainAxisAlignment.start,
@@ -100,16 +112,16 @@ class _MyAccountPagestate extends State<MyAccountPage> {
                           const Text(
                             'MOHAN BASNET',
                             style: TextStyle(
-                              fontFamily: 'Poppins',
-                              fontSize: 28,
-                              fontWeight: FontWeight.w500,
+                              fontFamily: 'fonts/Poppins-light.ttf',
+                              fontSize: 25,
+                              fontWeight: FontWeight.w400,
                             ),
                           ),
                           const Text(
                             'USER ID : 00001',
                             style: const TextStyle(
                               fontWeight: FontWeight.w300,
-                              fontFamily: 'Poppins',
+                              fontFamily: 'fonts/Poppins-light.ttf',
                               fontSize: 18,
                             ),
                           ),
@@ -118,7 +130,7 @@ class _MyAccountPagestate extends State<MyAccountPage> {
                             'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eligendi non quis.',
                             textAlign: TextAlign.center,
                             style: TextStyle(
-                              fontFamily: 'Poppins',
+                              fontFamily: 'fonts/Poppins-light.ttf',
                               fontSize: 15,
                             ),
                           ),
@@ -131,8 +143,8 @@ class _MyAccountPagestate extends State<MyAccountPage> {
                           const Text(
                             'MY INFO',
                             style: TextStyle(
-                              fontFamily: 'Poppins',
-                              fontSize: 21,
+                              fontFamily: 'fonts/Poppins-light.ttf',
+                              fontSize: 20,
                               fontWeight: FontWeight.w400,
                             ),
                           ),
@@ -150,7 +162,7 @@ class _MyAccountPagestate extends State<MyAccountPage> {
                                     'Contact',
                                     style: TextStyle(
                                       fontWeight: FontWeight.w300,
-                                      fontFamily: 'Poppins',
+                                      fontFamily: 'fonts/Poppins-light.ttf',
                                       fontSize: 18,
                                     ),
                                   ),
@@ -158,7 +170,7 @@ class _MyAccountPagestate extends State<MyAccountPage> {
                                     'Location',
                                     style: TextStyle(
                                       fontWeight: FontWeight.w300,
-                                      fontFamily: 'Poppins',
+                                      fontFamily: 'fonts/Poppins-light.ttf',
                                       fontSize: 18,
                                     ),
                                   ),
@@ -166,7 +178,7 @@ class _MyAccountPagestate extends State<MyAccountPage> {
                                     'Gender',
                                     style: TextStyle(
                                       fontWeight: FontWeight.w300,
-                                      fontFamily: 'Poppins',
+                                      fontFamily: 'fonts/Poppins-light.ttf',
                                       fontSize: 18,
                                     ),
                                   ),
@@ -174,7 +186,7 @@ class _MyAccountPagestate extends State<MyAccountPage> {
                                     'Position',
                                     style: TextStyle(
                                       fontWeight: FontWeight.w300,
-                                      fontFamily: 'Poppins',
+                                      fontFamily: 'fonts/Poppins-light.ttf',
                                       fontSize: 18,
                                     ),
                                   ),
@@ -182,7 +194,7 @@ class _MyAccountPagestate extends State<MyAccountPage> {
                                     'Reputation',
                                     style: TextStyle(
                                       fontWeight: FontWeight.w300,
-                                      fontFamily: 'Poppins',
+                                      fontFamily: 'fonts/Poppins-light.ttf',
                                       fontSize: 18,
                                     ),
                                   ),
@@ -197,7 +209,7 @@ class _MyAccountPagestate extends State<MyAccountPage> {
                                     '98480XXXXX',
                                     style: TextStyle(
                                       fontWeight: FontWeight.w300,
-                                      fontFamily: 'Poppins',
+                                      fontFamily: 'fonts/Poppins-light.ttf',
                                       fontSize: 18,
                                     ),
                                   ),
@@ -205,7 +217,7 @@ class _MyAccountPagestate extends State<MyAccountPage> {
                                     'Nepal , KTM',
                                     style: TextStyle(
                                       fontWeight: FontWeight.w300,
-                                      fontFamily: 'Poppins',
+                                      fontFamily: 'fonts/Poppins-light.ttf',
                                       fontSize: 18,
                                     ),
                                   ),
@@ -213,7 +225,7 @@ class _MyAccountPagestate extends State<MyAccountPage> {
                                     'MALE',
                                     style: TextStyle(
                                       fontWeight: FontWeight.w300,
-                                      fontFamily: 'Poppins',
+                                      fontFamily: 'fonts/Poppins-light.ttf',
                                       fontSize: 18,
                                     ),
                                   ),
@@ -221,7 +233,7 @@ class _MyAccountPagestate extends State<MyAccountPage> {
                                     'Customer',
                                     style: TextStyle(
                                       fontWeight: FontWeight.w300,
-                                      fontFamily: 'Poppins',
+                                      fontFamily: 'fonts/Poppins-light.ttf',
                                       fontSize: 18,
                                     ),
                                   ),
@@ -229,7 +241,7 @@ class _MyAccountPagestate extends State<MyAccountPage> {
                                     '8.4/10',
                                     style: TextStyle(
                                       fontWeight: FontWeight.w300,
-                                      fontFamily: 'Poppins',
+                                      fontFamily: 'fonts/Poppins-light.ttf',
                                       fontSize: 18,
                                     ),
                                   ),
@@ -249,9 +261,9 @@ class _MyAccountPagestate extends State<MyAccountPage> {
                             child: const Text(
                               'Change Number or Password',
                               style: const TextStyle(
-                                fontWeight: FontWeight.w500,
+                                fontWeight: FontWeight.w300,
                                 height: 1,
-                                fontFamily: 'Poppins',
+                                fontFamily: 'fonts/Poppins-light.ttf',
                                 color: Colors.red,
                                 fontSize: 18,
                               ),
@@ -263,36 +275,28 @@ class _MyAccountPagestate extends State<MyAccountPage> {
                   ),
                 ),
                 Align(
-                  alignment: const AlignmentDirectional(-0.03, -0.75),
-                  child: Container(
-                    width: 150,
-                    height: 150,
-                    decoration: const BoxDecoration(
-                      color: Colors.white,
-                      shape: BoxShape.circle,
-                    ),
-                    child: ClipRRect(
-                      borderRadius: BorderRadius.circular(100),
-                      child: Image.asset(
-                        'assets/avatar.png',
-                        width: 100,
-                        height: 100,
-                        fit: BoxFit.cover,
-                      ),
-                    ),
-                  ),
-                ),
-                Align(
-                  alignment: const AlignmentDirectional(-0.00, -0.38),
-                  child: Container(
-                    width: 50,
-                    height: 50,
-                    decoration: BoxDecoration(
-                      color: const Color(0xFF54E676),
-                      shape: BoxShape.circle,
-                      border: Border.all(
+                  child: Padding(
+                    padding:
+                        const EdgeInsetsDirectional.fromSTEB(0, 50, 0, 430),
+                    child: Container(
+                      width: 125,
+                      height: 125,
+                      decoration: const BoxDecoration(
                         color: Colors.white,
-                        width: 15,
+                        shape: BoxShape.circle,
+                      ),
+                      child: SizedBox(
+                        width: MediaQuery.of(context).size.width * 1,
+                        height: MediaQuery.of(context).size.height * 1,
+                        child: ClipRRect(
+                          borderRadius: BorderRadius.circular(25),
+                          child: Image.asset(
+                            'assets/avatar.png',
+                            width: MediaQuery.of(context).size.width * 1,
+                            height: MediaQuery.of(context).size.width * 1,
+                            fit: BoxFit.cover,
+                          ),
+                        ),
                       ),
                     ),
                   ),

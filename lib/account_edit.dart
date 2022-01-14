@@ -100,7 +100,19 @@ class _MyAccountPageEditstate extends State<MyAccountPageEdit> {
                                 blurRadius: 0,
                                 color: Color.fromRGBO(0, 0, 0, 0.25),
                                 offset: Offset(0, -15),
-                                spreadRadius: 0.1,
+                                spreadRadius: 10,
+                              ),
+                              BoxShadow(
+                                blurRadius: 0,
+                                color: Color.fromRGBO(0, 0, 0, 0.15),
+                                offset: Offset(0, -30),
+                                spreadRadius: 15,
+                              ),
+                              BoxShadow(
+                                blurRadius: 0,
+                                color: Color.fromRGBO(0, 0, 0, 0.1),
+                                offset: Offset(0, -45),
+                                spreadRadius: 20,
                               )
                             ],
                             borderRadius: BorderRadius.only(
@@ -114,7 +126,7 @@ class _MyAccountPageEditstate extends State<MyAccountPageEdit> {
                           alignment: const AlignmentDirectional(0, 0),
                           child: Padding(
                             padding: const EdgeInsetsDirectional.fromSTEB(
-                                30, 115, 30, 30),
+                                30, 100, 30, 10),
                             child: Column(
                               mainAxisSize: MainAxisSize.max,
                               mainAxisAlignment: MainAxisAlignment.start,
@@ -127,9 +139,9 @@ class _MyAccountPageEditstate extends State<MyAccountPageEdit> {
                                     isDense: true,
                                     hintText: 'YOUR NAME',
                                     hintStyle: TextStyle(
-                                      fontFamily: 'Poppins',
-                                      fontSize: 28,
-                                      fontWeight: FontWeight.w500,
+                                      fontFamily: 'fonts/Poppins-light.ttf',
+                                      fontSize: 25,
+                                      fontWeight: FontWeight.w400,
                                     ),
                                     enabledBorder: UnderlineInputBorder(
                                       borderSide: BorderSide(
@@ -153,9 +165,9 @@ class _MyAccountPageEditstate extends State<MyAccountPageEdit> {
                                     ),
                                   ),
                                   style: const TextStyle(
-                                    fontFamily: 'Poppins',
-                                    fontSize: 28,
-                                    fontWeight: FontWeight.w500,
+                                    fontFamily: 'fonts/Poppins-light.ttf',
+                                    fontSize: 25,
+                                    fontWeight: FontWeight.w400,
                                   ),
                                   textAlign: TextAlign.center,
                                   maxLines: 1,
@@ -168,6 +180,13 @@ class _MyAccountPageEditstate extends State<MyAccountPageEdit> {
                                     }
                                     return null;
                                   },
+                                ),
+                                Container(
+                                  width: MediaQuery.of(context).size.width,
+                                  height: 5,
+                                  decoration: const BoxDecoration(
+                                    color: Colors.transparent,
+                                  ),
                                 ),
                                 const Text(
                                   'USER ID : 00001',
@@ -250,7 +269,7 @@ class _MyAccountPageEditstate extends State<MyAccountPageEdit> {
                                     Column(
                                       mainAxisSize: MainAxisSize.max,
                                       mainAxisAlignment:
-                                          MainAxisAlignment.spaceEvenly,
+                                          MainAxisAlignment.start,
                                       crossAxisAlignment:
                                           CrossAxisAlignment.start,
                                       children: const [
@@ -271,12 +290,20 @@ class _MyAccountPageEditstate extends State<MyAccountPageEdit> {
                                             fontSize: 18,
                                           ),
                                         ),
+                                        Text(
+                                          ' ',
+                                          style: TextStyle(
+                                            fontWeight: FontWeight.w300,
+                                            fontFamily: 'Poppins',
+                                            fontSize: 15,
+                                          ),
+                                        ),
                                       ],
                                     ),
                                     Column(
                                       mainAxisSize: MainAxisSize.min,
                                       mainAxisAlignment:
-                                          MainAxisAlignment.center,
+                                          MainAxisAlignment.spaceAround,
                                       crossAxisAlignment:
                                           CrossAxisAlignment.start,
                                       children: [
@@ -329,7 +356,7 @@ class _MyAccountPageEditstate extends State<MyAccountPageEdit> {
                                         ),
                                         Container(
                                           width: 200,
-                                          height: 23,
+                                          height: 24,
                                           decoration: const BoxDecoration(),
                                           child: TextFormField(
                                             controller: textController4,
@@ -432,23 +459,23 @@ class _MyAccountPageEditstate extends State<MyAccountPageEdit> {
                                               print('Button pressed ...');
                                             },
                                             style: ElevatedButton.styleFrom(
-                                                primary:
-                                                    const Color(0xFF58EC7B),
-                                                textStyle: const TextStyle(
-                                                  fontFamily: 'Poppins',
-                                                  color: Colors.white,
-                                                  fontSize: 18,
+                                              primary: const Color(0xFF58EC7B),
+                                              textStyle: const TextStyle(
+                                                fontFamily: 'Poppins',
+                                                color: Colors.white,
+                                                fontSize: 18,
+                                              ),
+                                              side: const BorderSide(
+                                                color: Colors.transparent,
+                                                width: 1,
+                                              ),
+                                              shape:
+                                                  const BeveledRectangleBorder(
+                                                borderRadius: BorderRadius.all(
+                                                  Radius.circular(5),
                                                 ),
-                                                side: const BorderSide(
-                                                  color: Colors.transparent,
-                                                  width: 1,
-                                                ),
-                                                shape:
-                                                    const BeveledRectangleBorder(
-                                                        borderRadius:
-                                                            BorderRadius.all(
-                                                                Radius.circular(
-                                                                    5)))),
+                                              ),
+                                            ),
                                           ),
                                         ),
                                       ],
@@ -461,13 +488,12 @@ class _MyAccountPageEditstate extends State<MyAccountPageEdit> {
                         ),
                       ),
                       Align(
-                        alignment: const AlignmentDirectional(0, -0.5),
                         child: Padding(
                           padding: const EdgeInsetsDirectional.fromSTEB(
                               0, 50, 0, 380),
                           child: Container(
-                            width: 150,
-                            height: 150,
+                            width: 125,
+                            height: 125,
                             decoration: const BoxDecoration(
                               color: Colors.white,
                               shape: BoxShape.circle,
@@ -478,7 +504,7 @@ class _MyAccountPageEditstate extends State<MyAccountPageEdit> {
                               child: Stack(
                                 children: [
                                   ClipRRect(
-                                    borderRadius: BorderRadius.circular(100),
+                                    borderRadius: BorderRadius.circular(25),
                                     child: Image.asset(
                                       'assets/avatar.png',
                                       width:
@@ -498,9 +524,10 @@ class _MyAccountPageEditstate extends State<MyAccountPageEdit> {
                                           MediaQuery.of(context).size.height *
                                               1,
                                       decoration: const BoxDecoration(
-                                        color: const Color(0xA7000000),
-                                        shape: BoxShape.circle,
-                                      ),
+                                          color: const Color(0xA7000000),
+                                          shape: BoxShape.rectangle,
+                                          borderRadius: BorderRadius.all(
+                                              Radius.circular(25))),
                                       child: IconButton(
                                         icon: const Icon(
                                           Icons.add_box_outlined,
