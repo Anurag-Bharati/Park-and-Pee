@@ -19,7 +19,7 @@ class _MyHomePagestate extends State<MyHomePage> {
         decoration: const BoxDecoration(
           image: DecorationImage(
               image: AssetImage('assets/homebackground.png'),
-              fit: BoxFit.cover),
+              fit: BoxFit.fill),
         ),
         child: SafeArea(
           top: false,

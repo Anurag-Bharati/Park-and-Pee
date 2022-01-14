@@ -80,29 +80,39 @@ class _MyRegisterState extends State<MyRegister> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      decoration: BoxDecoration(
-        image: DecorationImage(
-            image: AssetImage('assets/LRVBackground.png'), fit: BoxFit.fill),
-      ),
-      child: Scaffold(
-        resizeToAvoidBottomInset: false,
-        backgroundColor: Colors.transparent,
-        body: Stack(
-          children: [
-            PageView(
+        decoration: const BoxDecoration(
+          image: DecorationImage(
+              image: AssetImage('assets/LRVBackground.png'), fit: BoxFit.fill),
+        ),
+        child: SafeArea(
+          top: true,
+          child: Scaffold(
+            resizeToAvoidBottomInset: false,
+            backgroundColor: Colors.transparent,
+            body: Stack(
               children: [
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Container(
-                      margin:
-                          EdgeInsets.only(left: 35, right: 35, top: 320 - 45),
+                SingleChildScrollView(
+                  child:Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Container(
+                            padding: const EdgeInsets.symmetric(
+                                vertical: 250, horizontal: 10),
                       child: Form(
                         key: _formKey,
                         child: Column(
                           children: [
+                            Container(
+                                    padding: const EdgeInsets.symmetric(
+                                        vertical: 24, horizontal: 24),
+                                    decoration: BoxDecoration(
+                                        color: Colors.transparent,
+                                        borderRadius: BorderRadius.circular(25),
+                                        border: Border.all(
+                                            color: Colors.transparent)),
+                                    child: Column(
+                                      children: [
                             SizedBox(
-                              width: 320,
                               height: 50,
                               child: TextFormField(
                                 autovalidateMode:
@@ -134,7 +144,7 @@ class _MyRegisterState extends State<MyRegister> {
                               height: 15,
                             ),
                             SizedBox(
-                              width: 320,
+                          
                               height: 50,
                               child: TextFormField(
                                 autovalidateMode:
@@ -166,7 +176,6 @@ class _MyRegisterState extends State<MyRegister> {
                               height: 15,
                             ),
                             SizedBox(
-                              width: 320,
                               height: 50,
                               child: TextFormField(
                                 autovalidateMode:
@@ -199,7 +208,6 @@ class _MyRegisterState extends State<MyRegister> {
                               height: 15,
                             ),
                             SizedBox(
-                              width: 320,
                               height: 50,
                               child: TextFormField(
                                 autovalidateMode:
@@ -249,7 +257,7 @@ class _MyRegisterState extends State<MyRegister> {
                                     child: ElevatedButton(
                                         child: Text('SIGN UP',
                                             style: TextStyle(
-                                                fontSize: 20,
+                                                fontSize: 15,
                                                 fontFamily:
                                                     "fonts/Poppins-Bold.ttf")),
                                         onPressed: () {
@@ -320,7 +328,6 @@ class _MyRegisterState extends State<MyRegister> {
                             Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
-                                Padding(padding: EdgeInsets.only(right: 5)),
                                 Text(
                                   "Already have an account?",
                                   style: TextStyle(
@@ -346,15 +353,19 @@ class _MyRegisterState extends State<MyRegister> {
                             )
                           ],
                         ),
+                        )
+                          ]
+                          )
                       ),
                     )
                   ],
                 ),
-              ],
+              
             ),
           ],
         ),
       ),
+      )
     );
   }
 }

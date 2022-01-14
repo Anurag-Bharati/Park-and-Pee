@@ -2,7 +2,6 @@
 
 import 'dart:convert';
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:flutter_signin_button/flutter_signin_button.dart';
 import 'package:http/http.dart' as http;
@@ -84,127 +83,155 @@ class _MyLoginState extends State<MyLogin> {
             body: Stack(
               children: [
                 SingleChildScrollView(
-                  child:Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Container(
-                            padding: const EdgeInsets.symmetric(
-                                vertical: 250, horizontal: 10),
-                            child: Form(
-                                key: _formKey,
-                                child: Column(children: [
-                                  Container(
-                                    padding: const EdgeInsets.symmetric(
-                                        vertical: 24, horizontal: 24),
-                                    decoration: BoxDecoration(
-                                        color: Colors.transparent,
-                                        borderRadius: BorderRadius.circular(25),
-                                        border: Border.all(
-                                            color: Colors.transparent)),
-                                    child: Column(
-                                      children: [
-                                        SizedBox(
-                                          height: 50,
-                                          child: TextFormField(
-                                            keyboardType: TextInputType.number,
-                                            autovalidateMode: AutovalidateMode
-                                                .onUserInteraction,
-                                            style: const TextStyle(
-                                                color: Colors.black),
-                                            controller: TextEditingController(
-                                                text: user.phone),
-                                            onChanged: (val) {
-                                              user.phone = val;
-                                            },
-                                            validator: (value) {
-                                              if (value!.isEmpty) {
-                                                return 'Contact No is Empty';
-                                              }
-                                              return null;
-                                            },
-                                            decoration: InputDecoration(
-                                                contentPadding:
-                                                    const EdgeInsets.fromLTRB(
-                                                        10, 0, 0, 0),
-                                                fillColor: Colors.white,
-                                                filled: true,
-                                                hintText: "Contact Number",
-                                                border: OutlineInputBorder(
-                                                  borderRadius:
-                                                      BorderRadius.circular(25),
-                                                )),
-                                          ),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Container(
+                          padding: const EdgeInsets.symmetric(
+                              vertical: 250, horizontal: 10),
+                          child: Form(
+                              key: _formKey,
+                              child: Column(children: [
+                                Container(
+                                  padding: const EdgeInsets.symmetric(
+                                      vertical: 40, horizontal: 24),
+                                  decoration: BoxDecoration(
+                                      color: Colors.transparent,
+                                      borderRadius: BorderRadius.circular(25),
+                                      border: Border.all(
+                                          color: Colors.transparent)),
+                                  child: Column(
+                                    children: [
+                                      SizedBox(
+                                        height: 50,
+                                        child: TextFormField(
+                                          keyboardType: TextInputType.number,
+                                          autovalidateMode: AutovalidateMode
+                                              .onUserInteraction,
+                                          style: const TextStyle(
+                                              color: Colors.black),
+                                          controller: TextEditingController(
+                                              text: user.phone),
+                                          onChanged: (val) {
+                                            user.phone = val;
+                                          },
+                                          validator: (value) {
+                                            if (value!.isEmpty) {
+                                              return 'Contact No is Empty';
+                                            }
+                                            return null;
+                                          },
+                                          decoration: InputDecoration(
+                                              errorStyle: TextStyle(
+                                                color: Colors.red[400],
+                                                fontWeight: FontWeight.bold,
+                                                fontSize: 13,
+                                              ),
+                                              contentPadding:
+                                                  const EdgeInsets.fromLTRB(
+                                                      10, 0, 0, 0),
+                                              fillColor: Colors.white,
+                                              filled: true,
+                                              hintText: "Contact Number",
+                                              border: OutlineInputBorder(
+                                                borderRadius:
+                                                    BorderRadius.circular(25),
+                                              )),
                                         ),
-                                        const SizedBox(
-                                          height: 15,
+                                      ),
+                                      const SizedBox(
+                                        height: 15,
+                                      ),
+                                      SizedBox(
+                                        height: 50,
+                                        child: TextFormField(
+                                          autovalidateMode: AutovalidateMode
+                                              .onUserInteraction,
+                                          style: const TextStyle(
+                                              color: Colors.black),
+                                          controller: TextEditingController(
+                                              text: user.password),
+                                          onChanged: (val) {
+                                            user.password = val;
+                                          },
+                                          validator: (value) {
+                                            if (value!.isEmpty) {
+                                              return 'Password is Empty';
+                                            }
+                                            return null;
+                                          },
+                                          obscureText: true,
+                                          decoration: InputDecoration(
+                                              contentPadding:
+                                                  const EdgeInsets.fromLTRB(
+                                                      10, 0, 0, 0),
+                                              fillColor: Colors.white,
+                                              filled: true,
+                                              hintText: "Password",
+                                              border: OutlineInputBorder(
+                                                borderRadius:
+                                                    BorderRadius.circular(25),
+                                              )),
                                         ),
-                                        SizedBox(
-                                          
-                                          height: 50,
-                                          child: TextFormField(
-                                            autovalidateMode: AutovalidateMode
-                                                .onUserInteraction,
-                                            style: const TextStyle(
-                                                color: Colors.black),
-                                            obscureText: true,
-                                            controller: TextEditingController(
-                                                text: user.password),
-                                            onChanged: (val) {
-                                              user.password = val;
-                                            },
-                                            validator: (value) {
-                                              if (value!.isEmpty) {
-                                                return 'Password is Empty';
-                                              }
-                                              return null;
-                                            },
-                                            decoration: InputDecoration(
-                                                contentPadding:
-                                                
-                                                    const EdgeInsets.fromLTRB(
-                                                        10, 0, 0, 0),
-                                                fillColor: Colors.white,
-                                                filled: true,
-                                                hintText: "Password",
-                                                border: OutlineInputBorder(
-                                                  borderRadius:
-                                                      BorderRadius.circular(25),
-                                                )),
-                                          ),
-                                        ),
-                                        const SizedBox(
-                                          height: 5,
-                                        ),
-                                        Container(
-                                          padding: const EdgeInsets.symmetric( vertical:0,horizontal: 50,),
-                                          // padding:
-                                          //     const EdgeInsets.only(left: 165),
-                                          child: TextButton(
-                                            child: const Text(
-                                              'Forgot Password',
-                                              style: TextStyle(
+                                      ),
+                                      const SizedBox(height: 5),
+                                      Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceBetween,
+                                          children: [
+                                            SizedBox(
+                                              height: 23,
+                                              width: 150,
+                                              child: TextFormField(
+                                                maxLines: 1,
+                                                readOnly: true,
+                                                decoration:
+                                                    const InputDecoration(
+                                                        border:
+                                                            InputBorder.none),
+                                                // controller:
+                                                //     TextEditingController(
+                                                //   text: user.phone,
+                                                // ),
+                                                // onChanged: (val) {
+                                                //   user.phone = val;
+                                                //   user.password = val;
+                                                // },
+                                                // validator: (value) {
+                                                //   if (value!.isEmpty ) {
+                                                //     return 'Enter Phone or Password';
+                                                //   }
+                                                //   else {
+                                                //     return null;
+                                                //   }
+                                                // },
+                                              ),
+                                            ),
+                                            TextButton(
+                                              child: const Text(
+                                                'Forgot Password',
+                                                style: TextStyle(
+                                                  fontWeight: FontWeight.bold,
+                                                  color: Colors.black54,
                                                   fontSize: 18,
-                                                  fontFamily:
-                                                      "fonts/Poppins-SemiBold.ttf",
-                                                  color: Color.fromARGB(
-                                                      1000, 49, 53, 49)),
+                                                ),
+                                              ),
+                                              onPressed: () {
+                                                Navigator.pushNamed(
+                                                    context, 'forgetpassword');
+                                              },
+                                              style: ElevatedButton.styleFrom(
+                                                textStyle: const TextStyle(
+                                                    fontWeight:
+                                                        FontWeight.w700),
+                                              ),
                                             ),
-                                            onPressed: () {
-                                              Navigator.pushNamed(
-                                                  context, 'forgetpassword');
-                                            },
-                                            style: ElevatedButton.styleFrom(
-                                              textStyle: const TextStyle(
-                                                  fontWeight: FontWeight.w700),
-                                            ),
-                                          ),
-                                        ),
+                                          ]),
                                       Row(
                                         mainAxisAlignment:
-                                              MainAxisAlignment.spaceBetween,
+                                            MainAxisAlignment.spaceBetween,
                                         children: [
-                                        Row(
-                                          children: <Widget>[
+                                          Row(children: <Widget>[
                                             Checkbox(
                                               value: value,
                                               onChanged: (value) {
@@ -219,151 +246,145 @@ class _MyLoginState extends State<MyLogin> {
                                             const Text(
                                               'Remember me',
                                               style: TextStyle(
-                                                  fontSize: 18,
+                                                  color: Colors.black45,
+                                                  fontSize: 20,
                                                   fontFamily:
                                                       "fonts/Poppins-Regular.ttf"),
                                             ),
-                                            ]
+                                          ]),
+                                          Container(
+                                            padding: const EdgeInsets.symmetric(
+                                              vertical: 0,
+                                              horizontal: 5.5,
                                             ),
-                                            Container(
-                                          padding: const EdgeInsets.symmetric( vertical:0,horizontal: 5.5,),
-                                              height: 40,
-                                              width: 130,
-                                              child: ElevatedButton.icon(
-                                                  onPressed: () {
-                                                    // ignore: unrelated_type_equality_checks
+                                            height: 40,
+                                            width: 130,
+                                            child: ElevatedButton.icon(
+                                                onPressed: () {
+                                                  // ignore: unrelated_type_equality_checks
 
-                                                    if (_formKey.currentState!
-                                                        .validate()) {
-                                                      if (check()) {
-                                                        save();
-                                                      } else {
-                                                        // ignore: avoid_print
-                                                        print(
-                                                            "Invalid Credentials");
-                                                      }
+                                                  if (_formKey.currentState!
+                                                      .validate()) {
+                                                    if (check()) {
+                                                      save();
+                                                    } else {
+                                                      // ignore: avoid_print
+                                                      print(
+                                                          "Invalid Credentials");
                                                     }
-                                                  },
-                                                  style:
-                                                      ElevatedButton.styleFrom(
-                                                    primary: Colors
-                                                        .deepPurpleAccent[400],
-                                                    padding:
-                                                        const EdgeInsets.only(
-                                                            left: 15),
-                                                    shape:
-                                                        RoundedRectangleBorder(
-                                                            borderRadius:
-                                                                BorderRadius
-                                                                    .circular(
-                                                                        25)),
-                                                  ),
-                                                  label: const Icon(
-                                                    MdiIcons
-                                                        .arrowRightBoldCircle,
-                                                    size: 40,
-                                                  ),
-                                                  icon: const Text("SIGN IN",
-                                                      style: TextStyle(
-                                                          fontSize: 15,
-                                                          fontFamily:
-                                                              "fonts/Poppins-Bold.ttf"))),
-                                            ),
-                                          ],),
-                                        
-                                        const SizedBox(
-                                          height: 15,
-                                        ),
-                                        Row(children: const <Widget>[
-                                          Expanded(
-                                              child: Divider(
-                                            color: Colors.black,
-                                            height: 20,
-                                          )),
-                                          Text(
-                                            "OR",
-                                            style: TextStyle(
-                                                fontWeight: FontWeight.bold,
-                                                fontSize: 14),
+                                                  }
+                                                },
+                                                style: ElevatedButton.styleFrom(
+                                                  primary: Colors
+                                                      .deepPurpleAccent[400],
+                                                  padding:
+                                                      const EdgeInsets.only(
+                                                          left: 15),
+                                                  shape: RoundedRectangleBorder(
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              25)),
+                                                ),
+                                                label: const Icon(
+                                                  MdiIcons.arrowRightBoldCircle,
+                                                  size: 40,
+                                                ),
+                                                icon: const Text("SIGN IN",
+                                                    style: TextStyle(
+                                                        fontSize: 15,
+                                                        fontFamily:
+                                                            "fonts/Poppins-Bold.ttf"))),
                                           ),
-                                          Expanded(
-                                              child: Divider(
-                                            color: Colors.black,
-                                          )),
-                                        ]),
-                                        const SizedBox(
-                                          height: 15,
+                                        ],
+                                      ),
+                                      const SizedBox(
+                                        height: 15,
+                                      ),
+                                      Row(children: const <Widget>[
+                                        Expanded(
+                                            child: Divider(
+                                          color: Colors.black,
+                                          height: 20,
+                                        )),
+                                        Text(
+                                          "OR",
+                                          style: TextStyle(
+                                              fontWeight: FontWeight.bold,
+                                              fontSize: 14),
                                         ),
-                                        Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.spaceBetween,
-                                          children: [
-                                            SignInButton(
-                                              Buttons.GoogleDark,
-                                              mini: false,
-                                              onPressed: () {},
-                                            ),
-                                            SignInButton(
-                                              Buttons.Facebook,
-                                              mini: true,
-                                              onPressed: () {},
-                                            ),
-                                            SignInButton(
-                                              Buttons.Apple,
-                                              mini: true,
-                                              onPressed: () {},
-                                            ),
-                                          ],
-                                        ),
-                                        const SizedBox(
-                                          height: 15,
-                                        ),
-                                        Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.spaceBetween,
-                                          children: [
-                                            const Text(
-                                              "Don't Have Account?",
+                                        Expanded(
+                                            child: Divider(
+                                          color: Colors.black,
+                                        )),
+                                      ]),
+                                      const SizedBox(
+                                        height: 15,
+                                      ),
+                                      Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
+                                        children: [
+                                          SignInButton(
+                                            Buttons.GoogleDark,
+                                            mini: false,
+                                            onPressed: () {},
+                                          ),
+                                          SignInButton(
+                                            Buttons.Facebook,
+                                            mini: true,
+                                            onPressed: () {},
+                                          ),
+                                          SignInButton(
+                                            Buttons.Apple,
+                                            mini: true,
+                                            onPressed: () {},
+                                          ),
+                                        ],
+                                      ),
+                                      const SizedBox(
+                                        height: 15,
+                                      ),
+                                      Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
+                                        children: [
+                                          const Text(
+                                            "Don't Have Account?",
+                                            style: TextStyle(
+                                                color: Colors.black38,
+                                                fontWeight: FontWeight.w300,
+                                                fontSize: 18,
+                                                fontFamily:
+                                                    "fonts/Poppins-Regular.ttf"),
+                                          ),
+                                          TextButton(
+                                            onPressed: () {
+                                              Navigator.pushNamed(
+                                                  context, 'register');
+                                            },
+                                            child: const Text(
+                                              'Sign up',
                                               style: TextStyle(
-                                                  fontWeight: FontWeight.w300,
-                                                  fontSize: 18,
                                                   fontFamily:
-                                                      "fonts/Poppins-Regular.ttf"),
+                                                      "fonts/Poppins-Bold.ttf",
+                                                  color: Color.fromARGB(
+                                                      1000, 42, 111, 249),
+                                                  fontSize: 25,
+                                                  fontWeight: FontWeight.bold),
                                             ),
-                                            TextButton(
-                                              onPressed: () {
-                                                Navigator.pushNamed(
-                                                    context, 'register');
-                                              },
-                                              child: const Text(
-                                                'Sign up',
-                                                style: TextStyle(
-                                                    fontFamily:
-                                                        "fonts/Poppins-Bold.ttf",
-                                                    color: Color.fromARGB(
-                                                        1000, 42, 111, 249),
-                                                    fontSize: 25,
-                                                    fontWeight:
-                                                        FontWeight.bold),
-                                              ),
-                                            ),
-                                          ],
-                                        )
-                                      ],
-                                    ),
+                                          ),
+                                        ],
+                                      )
+                                    ],
                                   ),
-                                ]
-                                )
-                                )
-                                )
-                      ],
-                    ),
-                
+                                ),
+                              ])))
+                    ],
+                  ),
                 ),
               ],
             ),
           ),
-        )
-        );
+        ));
   }
 }

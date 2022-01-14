@@ -19,7 +19,7 @@ class _MyProperyPagestate extends State<MyProperyPage> {
     return Container(
       decoration: const BoxDecoration(
         image: DecorationImage(
-            image: AssetImage('assets/homebackground.png'), fit: BoxFit.cover),
+            image: AssetImage('assets/homebackground.png'), fit: BoxFit.fill),
       ),
       child: const Scaffold(
         resizeToAvoidBottomInset: false,

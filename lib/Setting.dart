@@ -19,7 +19,7 @@ class _MySettingPagestate extends State<MySettingPage> {
     return Container(
       decoration: const BoxDecoration(
         image: DecorationImage(
-            image: AssetImage('assets/homebackground.png'), fit: BoxFit.cover),
+            image: AssetImage('assets/homebackground.png'), fit: BoxFit.fill),
       ),
       child:SafeArea(
         top:true,
