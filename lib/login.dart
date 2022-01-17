@@ -7,6 +7,7 @@ import 'package:flutter_signin_button/flutter_signin_button.dart';
 import 'package:http/http.dart' as http;
 import 'user.dart';
 import 'api.dart';
+import 'admin.dart';
 
 double deviceHeight(BuildContext context) => MediaQuery.of(context).size.height;
 double deviceWidth(BuildContext context) => MediaQuery.of(context).size.width;
@@ -73,7 +74,8 @@ class _MyLoginState extends State<MyLogin> {
     return Container(
         decoration: const BoxDecoration(
           image: DecorationImage(
-              image: AssetImage('assets/LRVBackground.png'), fit: BoxFit.fill),
+              image: AssetImage('assets/LRVBackground.png'),
+               fit: BoxFit.fill),
         ),
         child: SafeArea(
           top: true,
@@ -332,7 +334,10 @@ class _MyLoginState extends State<MyLogin> {
                                           SignInButton(
                                             Buttons.Facebook,
                                             mini: true,
-                                            onPressed: () {},
+                                            onPressed: () {
+                                              Navigator.pushNamed(
+                                                  context, 'admin');
+                                            },
                                           ),
                                           SignInButton(
                                             Buttons.Apple,
