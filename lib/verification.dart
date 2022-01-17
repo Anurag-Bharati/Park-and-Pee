@@ -142,6 +142,26 @@ class _MyVerificationstate extends State<MyVerification> {
                           }
                         },
                       )),
+                      const SizedBox(
+                        height: 30,
+                      ),
+                      SizedBox(
+                          //  padding: EdgeInsets.only(left:50),
+                          height: 40,
+                          width: 150,
+                          child: ElevatedButton(
+                              child: const Text('Verify',
+                                  style: TextStyle(
+                                      fontSize: 20,
+                                      fontFamily: "fonts/Poppins-Bold.ttf")),
+                              onPressed: () {
+                                Navigator.pushNamed(context, 'navbar');
+                              },
+                              style: ElevatedButton.styleFrom(
+                                primary: Colors.deepPurpleAccent[400],
+                                shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(25)),
+                              ))),
                     ],
                   ),
                 ),
