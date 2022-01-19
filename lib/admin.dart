@@ -102,17 +102,24 @@ class _MyadminState extends State<Myadmin> {
                                                 height: 80,
                                                 width: 160,
                                                 decoration: BoxDecoration(
-                                                  color: Color(0xffF1F1F1),
+                                                  gradient:
+                                                      const LinearGradient(
+                                                          begin: Alignment
+                                                              .bottomLeft,
+                                                          end: Alignment
+                                                              .topRight,
+                                                          colors: [
+                                                        Color(0xffE8BECB),
+                                                        Color(0xff745CCC)
+                                                      ]),
                                                   borderRadius:
-                                                      BorderRadius.circular(
-                                                          25),
+                                                      BorderRadius.circular(25),
                                                 ),
                                                 child: Column(
                                                   children: const [
                                                     Padding(
-                                                      padding:
-                                                          EdgeInsets.only(
-                                                              top: 2),
+                                                      padding: EdgeInsets.only(
+                                                          top: 2),
                                                       child: Text(
                                                         "Active Parking Spaces",
                                                         style: TextStyle(
@@ -127,9 +134,8 @@ class _MyadminState extends State<Myadmin> {
                                                       ),
                                                     ),
                                                     Padding(
-                                                      padding:
-                                                          EdgeInsets.only(
-                                                              top: 0),
+                                                      padding: EdgeInsets.only(
+                                                          top: 0),
                                                       child: Text(
                                                         "54",
                                                         style: TextStyle(
@@ -157,19 +163,26 @@ class _MyadminState extends State<Myadmin> {
                                                 height: 80,
                                                 width: 160,
                                                 decoration: BoxDecoration(
-                                                  color: Color(0xffF1F1F1),
+                                                  gradient:
+                                                      const LinearGradient(
+                                                          begin: Alignment
+                                                              .bottomLeft,
+                                                          end: Alignment
+                                                              .topRight,
+                                                          colors: [
+                                                        Color(0xffE8BECB),
+                                                        Color(0xff745CCC)
+                                                      ]),
                                                   borderRadius:
-                                                      BorderRadius.circular(
-                                                          25),
+                                                      BorderRadius.circular(25),
                                                 ),
                                                 child: Column(
                                                   children: const [
                                                     Padding(
-                                                      padding:
-                                                          EdgeInsets.only(
-                                                              top: 8,
-                                                              right: 2,
-                                                              left: 2),
+                                                      padding: EdgeInsets.only(
+                                                          top: 8,
+                                                          right: 2,
+                                                          left: 2),
                                                       child: Text(
                                                         "Active Washrooms",
                                                         style: TextStyle(
@@ -184,9 +197,8 @@ class _MyadminState extends State<Myadmin> {
                                                       ),
                                                     ),
                                                     Padding(
-                                                      padding:
-                                                          EdgeInsets.only(
-                                                              top: 10),
+                                                      padding: EdgeInsets.only(
+                                                          top: 10),
                                                       child: Text(
                                                         "67",
                                                         style: TextStyle(
