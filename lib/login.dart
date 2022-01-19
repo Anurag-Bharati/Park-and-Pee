@@ -73,8 +73,7 @@ class _MyLoginState extends State<MyLogin> {
     return Container(
         decoration: const BoxDecoration(
           image: DecorationImage(
-              image: AssetImage('assets/LRVBackground.png'),
-               fit: BoxFit.fill),
+              image: AssetImage('assets/LRVBackground.png'), fit: BoxFit.fill),
         ),
         child: SafeArea(
           top: true,
@@ -180,33 +179,51 @@ class _MyLoginState extends State<MyLogin> {
                                           mainAxisAlignment:
                                               MainAxisAlignment.spaceBetween,
                                           children: [
-                                            SizedBox(
-                                              height: 23,
-                                              width: 150,
-                                              child: TextFormField(
-                                                maxLines: 1,
-                                                readOnly: true,
-                                                decoration:
-                                                    const InputDecoration(
-                                                        border:
-                                                            InputBorder.none),
-                                                // controller:
-                                                //     TextEditingController(
-                                                //   text: user.phone,
-                                                // ),
-                                                // onChanged: (val) {
-                                                //   user.phone = val;
-                                                //   user.password = val;
-                                                // },
-                                                // validator: (value) {
-                                                //   if (value!.isEmpty ) {
-                                                //     return 'Enter Phone or Password';
-                                                //   }
-                                                //   else {
-                                                //     return null;
-                                                //   }
-                                                // },
+                                            // SizedBox(
+                                            //   height: 23,
+                                            //   width: 150,
+                                            //   child: TextFormField(
+                                            //     maxLines: 1,
+                                            //     readOnly: true,
+                                            //     decoration:
+                                            //         const InputDecoration(
+                                            //             border:
+                                            //                 InputBorder.none),
+                                            //     // controller:
+                                            //     //     TextEditingController(
+                                            //     //   text: user.phone,
+                                            //     // ),
+                                            //     // onChanged: (val) {
+                                            //     //   user.phone = val;
+                                            //     //   user.password = val;
+                                            //     // },
+                                            //     // validator: (value) {
+                                            //     //   if (value!.isEmpty ) {
+                                            //     //     return 'Enter Phone or Password';
+                                            //     //   }
+                                            //     //   else {
+                                            //     //     return null;
+                                            //     //   }
+                                            //     // },
+                                            //   ),
+                                            // ),
+
+                                            ElevatedButton(
+                                              child: const Text(
+                                                "Admin",
+                                                style: TextStyle(
+                                                    fontWeight: FontWeight.bold,
+                                                    color: Color(0xffE32C32),
+                                                    fontSize: 18),
                                               ),
+                                              // style: ElevatedButton.styleFrom(
+
+                                              // ),
+
+                                              onPressed: () {
+                                                Navigator.pushNamed(
+                                                    context, "admin");
+                                              },
                                             ),
                                             TextButton(
                                               child: const Text(

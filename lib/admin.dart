@@ -36,7 +36,7 @@ class _MyadminState extends State<Myadmin> {
                                   children: [
                                     Padding(
                                       padding: const EdgeInsets.only(
-                                          top: 0, left: 5, right: 5),
+                                          top: 5, left: 5, right: 5),
                                       child: Row(
                                         mainAxisAlignment:
                                             MainAxisAlignment.spaceBetween,
@@ -82,7 +82,7 @@ class _MyadminState extends State<Myadmin> {
                                                 )
                                               ],
                                             ),
-                                          )
+                                          ),
                                         ],
                                       ),
                                     ),
@@ -114,6 +114,16 @@ class _MyadminState extends State<Myadmin> {
                                                       ]),
                                                   borderRadius:
                                                       BorderRadius.circular(25),
+                                                  boxShadow: [
+                                                    BoxShadow(
+                                                      color: Colors.black
+                                                          .withOpacity(0.7),
+                                                      spreadRadius: 7,
+                                                      blurRadius: 9,
+                                                      offset:
+                                                          const Offset(2, 3),
+                                                    ),
+                                                  ],
                                                 ),
                                                 child: Column(
                                                   children: const [
@@ -142,6 +152,8 @@ class _MyadminState extends State<Myadmin> {
                                                             fontFamily:
                                                                 "fonts/Poppins-light.ttf",
                                                             fontSize: 25,
+                                                            color: Color(
+                                                                0xff0B2E82),
                                                             fontWeight:
                                                                 FontWeight
                                                                     .bold),
@@ -171,8 +183,18 @@ class _MyadminState extends State<Myadmin> {
                                                               .topRight,
                                                           colors: [
                                                         Color(0xffE8BECB),
-                                                        Color(0xff745CCC)
+                                                        Color(0xff745CCC),
                                                       ]),
+                                                  boxShadow: [
+                                                    BoxShadow(
+                                                      color: Colors.black
+                                                          .withOpacity(0.7),
+                                                      spreadRadius: 7,
+                                                      blurRadius: 9,
+                                                      offset:
+                                                          const Offset(2, 3),
+                                                    ),
+                                                  ],
                                                   borderRadius:
                                                       BorderRadius.circular(25),
                                                 ),
@@ -180,11 +202,11 @@ class _MyadminState extends State<Myadmin> {
                                                   children: const [
                                                     Padding(
                                                       padding: EdgeInsets.only(
-                                                          top: 8,
+                                                          top: 2,
                                                           right: 2,
                                                           left: 2),
                                                       child: Text(
-                                                        "Active Washrooms",
+                                                        "Active   Washrooms",
                                                         style: TextStyle(
                                                             fontFamily:
                                                                 "fonts/Poppins-light.ttf",
@@ -198,13 +220,15 @@ class _MyadminState extends State<Myadmin> {
                                                     ),
                                                     Padding(
                                                       padding: EdgeInsets.only(
-                                                          top: 10),
+                                                          top: 0),
                                                       child: Text(
                                                         "67",
                                                         style: TextStyle(
                                                             fontFamily:
                                                                 "fonts/Poppins-light.ttf",
                                                             fontSize: 25,
+                                                            color: Color(
+                                                                0xff0B2E82),
                                                             fontWeight:
                                                                 FontWeight
                                                                     .bold),
@@ -219,12 +243,22 @@ class _MyadminState extends State<Myadmin> {
                                           )
                                         ],
                                       ),
-                                    )
+                                    ),
                                   ],
                                 )
                               ],
                             ),
-                          ))
+                          )),
+                      Padding(
+                        padding:
+                            const EdgeInsets.only(top: 50, left: 50, right: 30),
+                        child: Container(
+                          height: 100,
+                          width: 200,
+                          color: Colors.white.withOpacity(0.5),
+                          child: Text("hello"),
+                        ),
+                      ),
                     ],
                   ),
                 ),

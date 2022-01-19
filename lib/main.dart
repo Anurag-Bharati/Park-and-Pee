@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:parkandpee/aboutus.dart';
 import 'package:parkandpee/account.dart';
+import 'package:parkandpee/home_page.dart';
 import 'package:parkandpee/login.dart';
 import 'package:parkandpee/navbar.dart';
 import 'package:parkandpee/property.dart';
@@ -19,7 +20,8 @@ void main() {
     // home: const MyLogin(),
     // home: const MyVerification()
     // home: const Myadmin(),
-    home: const MyProperyPage(),
+    // home: const MyProperyPage(),
+    home: const MyLogin(),
     routes: {
       'register': (context) => const MyRegister(),
       'login': (context) => const MyLogin(),
