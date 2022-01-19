@@ -5,6 +5,7 @@ import 'package:parkandpee/login.dart';
 import 'package:parkandpee/navbar.dart';
 import 'package:parkandpee/property.dart';
 import 'package:parkandpee/register.dart';
+import 'package:parkandpee/service_owner/so_navbar.dart';
 import 'package:parkandpee/verification.dart';
 import 'package:parkandpee/forgetpassword.dart';
 import 'package:parkandpee/newpassword.dart';
@@ -19,7 +20,7 @@ void main() {
     // home: const MyLogin(),
     // home: const MyVerification()
     // home: const Myadmin(),
-    home: const MyProperyPage(),
+    home: const MySoNavbar(),
     routes: {
       'register': (context) => const MyRegister(),
       'login': (context) => const MyLogin(),
@@ -31,7 +32,8 @@ void main() {
       'account': (context) => const MyAccountPage(),
       'account_edit': (context) => const MyAccountPageEdit(),
       'admin': (context) => const Myadmin(),
-      'property': (context) => const MyProperyPage()
+      'property': (context) => const MyProperyPage(),
+      'so_navbar':(context) => const MySoNavbar()
 
       //  'verification':(context)=> Verification(),
     },
