@@ -8,12 +8,14 @@ class MySoDashboard extends StatefulWidget {
 }
 
 class _MySoDashboardState extends State<MySoDashboard> {
+  bool isSwitched = false;
+  bool isSwitched1 = false;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
       body: Container(
-        padding: const EdgeInsets.only(top:70, left:14),
+        padding: const EdgeInsets.only(top:55, left:14),
         child: Column(
           children: [
             Container(
@@ -56,8 +58,24 @@ class _MySoDashboardState extends State<MySoDashboard> {
                 ),
               ),   
             ),
-
-            const SizedBox(height: 25,),
+            const SizedBox(height: 2,),
+            Container(
+              padding: const EdgeInsets.only(right: 250, top: 15),
+              child: Column (
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: const [
+                  Text(
+                  "My Request",
+                  style: TextStyle(
+                    fontSize: 15,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.grey,
+                    ),
+                  )
+                ],
+              ),
+            ),
+            const SizedBox(height: 2,),
             Container(
               height: 277,
               width: 364,
@@ -67,22 +85,41 @@ class _MySoDashboardState extends State<MySoDashboard> {
               ),
               child: Column(
                 children: [
-                  const SizedBox(height: 12,),
+                  const SizedBox(height: 1,),
                   Row(
-                    children: const [
-                      SizedBox(width: 20,),
-                      Text(
+                    children: [
+                      const SizedBox(width: 20,),
+                      const Text(
                         "Toilet",
                         style: TextStyle(
                           fontSize: 17,
                           fontWeight: FontWeight.bold,
                           color: Colors.white
                         ),
+                      ),
+                      const SizedBox(width: 180,),
+                      Row(
+                        children: [
+                          Switch(
+                            activeColor: Colors.green,
+                            inactiveThumbColor: Colors.red,
+                            activeTrackColor: Colors.greenAccent,
+                            inactiveTrackColor: Colors.redAccent,
+                            value: isSwitched,
+                            onChanged: (value){
+                              setState(() {
+                              isSwitched = value;  
+                              });
+                            }
+                          ),
+                          if(isSwitched == true)
+                            (const Text("Online",style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold, color: Colors.green),))
+                          else
+                            (const Text("Offline",style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold, color: Colors.red),))
+                        ],
                       )
-                     
                     ],
                   ),
-                  const SizedBox(height: 12,),
                   Container(
                     height: 82,
                     width: 332,
@@ -138,21 +175,41 @@ class _MySoDashboardState extends State<MySoDashboard> {
                       ],
                     ),
                   ),
-                  const SizedBox(height: 12,),
+                  const SizedBox(height: 2,),
                   Row(
-                    children: const [
-                      SizedBox(width: 20,),
-                      Text(
+                    children:  [
+                      const SizedBox(width: 20,),
+                      const Text(
                         "Parking",
                         style: TextStyle(
                           fontWeight: FontWeight.bold,
                           fontSize: 17,
                           color: Colors.white
                         ),
+                      ),
+                      const SizedBox(width: 160,),
+                      Row(
+                        children: [
+                          Switch(
+                            activeColor: Colors.green,
+                            inactiveThumbColor: Colors.red,
+                            activeTrackColor: Colors.greenAccent,
+                            inactiveTrackColor: Colors.redAccent,
+                            value: isSwitched1,
+                            onChanged: (value){
+                              setState(() {
+                              isSwitched1 = value; 
+                              });
+                            }
+                          ),
+                          if(isSwitched1 == true)
+                            (const Text("Online",style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold, color: Colors.green),))
+                          else
+                            (const Text("Offline",style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold, color: Colors.red),))
+                        ],
                       )
                     ],
                   ),
-                  const SizedBox(height: 10,),
                   Container(
                     height: 82,
                     width: 332,
@@ -211,8 +268,25 @@ class _MySoDashboardState extends State<MySoDashboard> {
                 ],
               ),            
             ),
+            const SizedBox(height: 2,),
+            Container(
+              padding: const EdgeInsets.only(right: 230, top: 15),
+              child: Column (
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: const [
+                  Text(
+                  "Recent Request",
+                  style: TextStyle(
+                    fontSize: 15,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.grey,
+                    ),
+                  )
+                ],
+              ),
+            ),
 
-            const SizedBox(height: 25,),
+            const SizedBox(height: 2,),
             Container(
               height: 220,
               width: 364,
