@@ -23,8 +23,14 @@ class _MapViewState extends State<MapView> {
     setCustomMarker();
   }
 
+  // For Custom Initial Location and its Icon
   final Set<Marker> _markers = {};
   late BitmapDescriptor mapMarker;
+
+  // Initials for stepping sequence
+  static const stepIcons = [Icons.password, Icons.verified_user];
+  final List<String> titles = ["step1", "step2"];
+  final int _curStep = 1;
 
   @override
   Widget build(BuildContext context) {
