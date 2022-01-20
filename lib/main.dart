@@ -35,7 +35,6 @@ void main() {
       'account_edit': (context) => const MyAccountPageEdit(),
       'admin': (context) => const Myadmin(),
       'property': (context) => const MyProperyPage()
-
       //  'verification':(context)=> Verification(),
     },
   ));
