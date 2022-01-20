@@ -18,7 +18,7 @@ class _MyHomePagestate extends State<MyHomePage> {
     return Container(
         decoration: const BoxDecoration(
           image: DecorationImage(
-              image: AssetImage('assets/homebackground.png'),
+              image: AssetImage('assets/insidebackground.png'),
               fit: BoxFit.fill),
         ),
         child: SafeArea(
