@@ -17,7 +17,8 @@ void main() {
   runApp(MaterialApp(
     debugShowCheckedModeBanner: false,
     // theme: ThemeData(fontFamily: 'Poppins-Bold.ttf'),
-    home: const MyLogin(),
+    // home: const MyLogin(),
+    home:  const Mynavbar(),
     // home: const MyLogin(),
     // home: const MyVerification()
     // home: const Myadmin(),
