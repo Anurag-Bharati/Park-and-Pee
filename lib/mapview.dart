@@ -1,5 +1,9 @@
+import 'package:flutter/foundation.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+
+import 'Model/progress_step_widget.dart';
 
 class MapView extends StatefulWidget {
   const MapView({Key? key}) : super(key: key);
@@ -12,6 +16,7 @@ class MapView extends StatefulWidget {
 
 class _MapViewState extends State<MapView> {
   final scaffoldKey = GlobalKey<ScaffoldState>();
+
   late TextEditingController textController1;
   late TextEditingController textController2;
 
@@ -23,17 +28,24 @@ class _MapViewState extends State<MapView> {
     setCustomMarker();
   }
 
+  // Option 2
+
   // For Custom Initial Location and its Icon
   final Set<Marker> _markers = {};
   late BitmapDescriptor mapMarker;
 
   // Initials for stepping sequence
-  static const stepIcons = [Icons.password, Icons.verified_user];
-  final List<String> titles = ["step1", "step2"];
+  static const stepIcons = [Icons.location_on, Icons.file_copy, Icons.verified];
   final int _curStep = 1;
 
   @override
+  void dispose() {
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
+    String _selected = "1";
     return Scaffold(
       key: scaffoldKey,
       backgroundColor: const Color(0xFFF5F5F5),
@@ -57,6 +69,12 @@ class _MapViewState extends State<MapView> {
                       height: MediaQuery.of(context).size.height,
                       width: MediaQuery.of(context).size.width,
                       child: GoogleMap(
+                        gestureRecognizers: <
+                            Factory<OneSequenceGestureRecognizer>>{
+                          Factory<OneSequenceGestureRecognizer>(
+                            () => EagerGestureRecognizer(),
+                          ),
+                        },
                         markers: _markers,
                         onMapCreated: _onMapCreated,
                         initialCameraPosition: const CameraPosition(
@@ -70,11 +88,11 @@ class _MapViewState extends State<MapView> {
                     ),
                   ),
                   Padding(
-                    padding: const EdgeInsetsDirectional.fromSTEB(0, 330, 0, 0),
+                    padding: const EdgeInsetsDirectional.fromSTEB(0, 300, 0, 0),
                     child: SingleChildScrollView(
                       child: Container(
                         width: MediaQuery.of(context).size.width,
-                        height: MediaQuery.of(context).size.height * 0.515,
+                        height: MediaQuery.of(context).size.height * 0.555,
                         decoration: const BoxDecoration(
                           color: Color(0xFFEEEEEE),
                           boxShadow: [
@@ -115,155 +133,146 @@ class _MapViewState extends State<MapView> {
                                   ),
                                 ),
                               ),
-                              Container(
-                                // TODO
+                              StepProgressView(
+                                icons: stepIcons,
+                                curStep: _curStep,
                                 width: MediaQuery.of(context).size.width,
-                                height: 20,
-                                decoration: const BoxDecoration(
-                                  color: Color(0xFFEEEEEE),
+                                color: const Color(0xff937FEE),
+                              ),
+                              const Padding(
+                                padding:
+                                    EdgeInsetsDirectional.fromSTEB(0, 15, 0, 0),
+                                child: Center(
+                                  child: Text(
+                                    'Select Location & Type',
+                                    textAlign: TextAlign.center,
+                                    style: TextStyle(
+                                      fontWeight: FontWeight.w400,
+                                      fontSize: 20,
+                                    ),
+                                  ),
                                 ),
                               ),
                               const Padding(
                                 padding:
-                                    EdgeInsetsDirectional.fromSTEB(0, 5, 0, 0),
-                                child: Text(
-                                  'Select The Location',
-                                  style: TextStyle(
-                                    fontWeight: FontWeight.w400,
-                                    fontFamily: 'fonts/Poppins-light.ttf',
-                                    fontSize: 18,
-                                  ),
-                                ),
+                                    EdgeInsetsDirectional.fromSTEB(0, 10, 0, 0),
                               ),
                               Row(
                                 mainAxisSize: MainAxisSize.max,
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                crossAxisAlignment: CrossAxisAlignment.center,
                                 children: [
                                   Expanded(
-                                    child: Padding(
-                                      padding:
-                                          const EdgeInsetsDirectional.fromSTEB(
-                                              0, 5, 0, 0),
-                                      child: TextFormField(
-                                        controller: textController1,
-                                        obscureText: false,
-                                        decoration: InputDecoration(
-                                          isDense: true,
-                                          hintText:
-                                              'Your Service Location Here',
-                                          hintStyle: const TextStyle(
-                                            fontWeight: FontWeight.w400,
-                                            fontFamily:
-                                                'fonts/Poppins-light.ttf',
-                                            fontSize: 15,
-                                          ),
-                                          enabledBorder: OutlineInputBorder(
-                                            borderSide: const BorderSide(
-                                              color: Color(0xFFA0A0A0),
-                                              width: 1,
-                                            ),
-                                            borderRadius:
-                                                BorderRadius.circular(5),
-                                          ),
-                                          focusedBorder: OutlineInputBorder(
-                                            borderSide: const BorderSide(
-                                              color: Color(0xFFA0A0A0),
-                                              width: 1,
-                                            ),
-                                            borderRadius:
-                                                BorderRadius.circular(5),
-                                          ),
-                                          filled: true,
-                                          fillColor: const Color(0xFFEFEFEF),
-                                          prefixIcon: const Icon(
-                                            Icons.location_on,
-                                          ),
-                                          suffixIcon: textController1
-                                                  .text.isNotEmpty
-                                              ? InkWell(
-                                                  onTap: () => setState(
-                                                    () =>
-                                                        textController1.clear(),
-                                                  ),
-                                                  child: const Icon(
-                                                    Icons.clear,
-                                                    color: Colors.grey,
-                                                    size: 20,
-                                                  ),
-                                                )
-                                              : null,
-                                        ),
-                                        style: const TextStyle(
+                                    child: TextFormField(
+                                      controller: textController1,
+                                      obscureText: false,
+                                      decoration: InputDecoration(
+                                        isDense: true,
+                                        hintText: 'Your Service Location Here',
+                                        hintStyle: const TextStyle(
                                           fontWeight: FontWeight.w400,
                                           fontFamily: 'fonts/Poppins-light.ttf',
-                                          fontSize: 18,
+                                          fontSize: 15,
                                         ),
-                                        textAlign: TextAlign.start,
+                                        enabledBorder: OutlineInputBorder(
+                                          borderSide: const BorderSide(
+                                            color: Color(0xFFA0A0A0),
+                                            width: 1,
+                                          ),
+                                          borderRadius:
+                                              BorderRadius.circular(5),
+                                        ),
+                                        focusedBorder: OutlineInputBorder(
+                                          borderSide: const BorderSide(
+                                            color: Color(0xFFA0A0A0),
+                                            width: 1,
+                                          ),
+                                          borderRadius:
+                                              BorderRadius.circular(5),
+                                        ),
+                                        filled: true,
+                                        fillColor: const Color(0xFFEFEFEF),
+                                        prefixIcon: const Icon(
+                                          Icons.location_on,
+                                        ),
+                                        suffixIcon: textController1
+                                                .text.isNotEmpty
+                                            ? InkWell(
+                                                onTap: () => setState(
+                                                  () => textController1.clear(),
+                                                ),
+                                                child: const Icon(
+                                                  Icons.clear,
+                                                  color: Colors.grey,
+                                                  size: 20,
+                                                ),
+                                              )
+                                            : null,
                                       ),
+                                      style: const TextStyle(
+                                        fontWeight: FontWeight.w400,
+                                        fontFamily: 'fonts/Poppins-light.ttf',
+                                        fontSize: 15,
+                                      ),
+                                      textAlign: TextAlign.start,
                                     ),
                                   ),
                                   Padding(
                                     padding:
                                         const EdgeInsetsDirectional.fromSTEB(
-                                            10, 5, 0, 0),
-                                    child: Container(
-                                      width: 50,
-                                      height: 45,
-                                      decoration: const BoxDecoration(
-                                        color: Color(0xFFD62F2F),
+                                            10, 0, 0, 0),
+                                    child: SizedBox(
+                                      width: 60,
+                                      height: 50,
+                                      child: ElevatedButton(
+                                        child: const Text("GO"),
+                                        onPressed: () {
+                                          print('Button pressed ...');
+                                        },
+                                        style: ElevatedButton.styleFrom(
+                                          primary: const Color(0xFF58EC7B),
+                                          textStyle: const TextStyle(
+                                            fontFamily: 'Poppins',
+                                            fontWeight: FontWeight.bold,
+                                            color: Colors.white,
+                                            fontSize: 18,
+                                          ),
+                                          side: const BorderSide(
+                                            color: Colors.transparent,
+                                            width: 1,
+                                          ),
+                                          shape: const RoundedRectangleBorder(
+                                            borderRadius: BorderRadius.all(
+                                              Radius.circular(5),
+                                            ),
+                                          ),
+                                        ),
                                       ),
                                     ),
                                   ),
                                 ],
                               ),
-                              const Padding(
-                                padding:
-                                    EdgeInsetsDirectional.fromSTEB(0, 5, 0, 0),
-                                child: Text(
-                                  'Select Service Type',
-                                  style: TextStyle(
-                                    fontSize: 18,
-                                  ),
-                                ),
-                              ),
+
+                              // ignore: todo
+                              //TODO
                               Padding(
                                 padding: const EdgeInsetsDirectional.fromSTEB(
                                     0, 5, 0, 0),
-                                child: TextFormField(
-                                  controller: textController2,
-                                  obscureText: false,
-                                  decoration: const InputDecoration(
-                                    hintText: '[Some hint text...]',
-                                    hintStyle: TextStyle(
-                                      fontWeight: FontWeight.w300,
-                                      fontFamily: 'fonts/Poppins-light.ttf',
-                                      fontSize: 24,
-                                    ),
-                                    enabledBorder: UnderlineInputBorder(
-                                      borderSide: BorderSide(
-                                        color: Color(0x00000000),
-                                        width: 1,
-                                      ),
-                                      borderRadius: BorderRadius.only(
-                                        topLeft: Radius.circular(4.0),
-                                        topRight: Radius.circular(4.0),
-                                      ),
-                                    ),
-                                    focusedBorder: UnderlineInputBorder(
-                                      borderSide: BorderSide(
-                                        color: Color(0x00000000),
-                                        width: 1,
-                                      ),
-                                      borderRadius: BorderRadius.only(
-                                        topLeft: Radius.circular(4.0),
-                                        topRight: Radius.circular(4.0),
-                                      ),
-                                    ),
-                                  ),
-                                  style: const TextStyle(
-                                    fontWeight: FontWeight.w300,
-                                    fontFamily: 'fonts/Poppins-light.ttf',
-                                    fontSize: 24,
-                                  ),
+                                child: DropdownButton(
+                                  hint: const Text(
+                                      'Please choose a location'), // Not necessary for Option 1
+                                  value: _selected,
+                                  onChanged: (newValue) {
+                                    setState(() {
+                                      _selected = newValue.toString();
+                                    });
+                                  },
+                                  items: ['1', '2'].map((location) {
+                                    return DropdownMenuItem(
+                                      child: Text(location),
+                                      value: location,
+                                    );
+                                  }).toList(),
                                 ),
                               ),
                               Container(
@@ -281,24 +290,44 @@ class _MapViewState extends State<MapView> {
                                         'Tip: You can drag the map to make the location more precise',
                                         textAlign: TextAlign.center,
                                         style: TextStyle(
-                                          fontWeight: FontWeight.w500,
-                                          fontSize: 10,
+                                          fontFamily: 'Poppins',
+                                          fontWeight: FontWeight.w400,
+                                          fontSize: 11,
                                         ),
                                       ),
                                     ),
                                     Padding(
                                       padding:
                                           const EdgeInsetsDirectional.fromSTEB(
-                                              0, 25, 0, 0),
-                                      child: Container(
+                                              0, 20, 0, 0),
+                                      child: SizedBox(
                                         width:
-                                            MediaQuery.of(context).size.width *
-                                                0.8,
+                                            MediaQuery.of(context).size.width,
                                         height: 50,
-                                        decoration: BoxDecoration(
-                                          color: const Color(0xFFD62F2F),
-                                          borderRadius:
-                                              BorderRadius.circular(5),
+                                        child: ElevatedButton(
+                                          child: const Text("NEXT"),
+                                          onPressed: () {
+                                            print('Button pressed ...');
+                                          },
+                                          style: ElevatedButton.styleFrom(
+                                            primary: const Color(0xFF58B6EC),
+                                            textStyle: const TextStyle(
+                                              fontFamily: 'Poppins',
+                                              color: Colors.white,
+                                              fontWeight: FontWeight.w500,
+                                              letterSpacing: 10,
+                                              fontSize: 20,
+                                            ),
+                                            side: const BorderSide(
+                                              color: Colors.transparent,
+                                              width: 1,
+                                            ),
+                                            shape: const RoundedRectangleBorder(
+                                              borderRadius: BorderRadius.all(
+                                                Radius.circular(5),
+                                              ),
+                                            ),
+                                          ),
                                         ),
                                       ),
                                     ),
