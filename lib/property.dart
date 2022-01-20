@@ -1,4 +1,4 @@
-// ignore_for_file: file_names, unnecessary_const
+// ignore_for_file: file_names, unnecessary_const, unused_field, non_constant_identifier_names, duplicate_ignore
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
@@ -55,6 +55,7 @@ class _MyProperyPagestate extends State<MyProperyPage> {
   }
 
   bool checkNumber() {
+    // ignore: unnecessary_null_comparison
     return user.phone != null && user.phone.length == 10;
   }
 

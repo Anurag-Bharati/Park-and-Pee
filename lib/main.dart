@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:parkandpee/aboutus.dart';
 import 'package:parkandpee/account.dart';
-import 'package:parkandpee/home_page.dart';
+import 'package:parkandpee/account_change_phone_pass.dart';
 import 'package:parkandpee/login.dart';
 import 'package:parkandpee/navbar.dart';
 import 'package:parkandpee/property.dart';
@@ -10,6 +10,7 @@ import 'package:parkandpee/verification.dart';
 import 'package:parkandpee/forgetpassword.dart';
 import 'package:parkandpee/newpassword.dart';
 import 'package:parkandpee/account_edit.dart';
+import 'account_change_phone_pass.dart';
 import 'admin.dart';
 
 void main() {
@@ -20,8 +21,7 @@ void main() {
     // home: const MyLogin(),
     // home: const MyVerification()
     // home: const Myadmin(),
-    // home: const MyProperyPage(),
-    home: const MyLogin(),
+    home: const MyAccountPageChange(),
     routes: {
       'register': (context) => const MyRegister(),
       'login': (context) => const MyLogin(),

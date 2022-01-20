@@ -256,7 +256,7 @@ class _MyadminState extends State<Myadmin> {
                           height: 100,
                           width: 200,
                           color: Colors.white.withOpacity(0.5),
-                          child: Text("hello"),
+                          child: const Text("hello"),
                         ),
                       ),
                     ],

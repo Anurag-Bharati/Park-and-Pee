@@ -1,4 +1,4 @@
-// ignore_for_file: file_names, unnecessary_const
+// ignore_for_file: file_names, unnecessary_const, avoid_print
 
 import 'package:flutter/material.dart';
 
@@ -257,6 +257,8 @@ class _MyAccountPagestate extends State<MyAccountPage> {
                           TextButton(
                             onPressed: () {
                               print('Button pressed ...');
+                              Navigator.pushNamed(
+                                  context, 'account_change_phone_pass');
                             },
                             child: const Text(
                               'Change Number or Password',

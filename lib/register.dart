@@ -46,6 +46,7 @@ class _MyRegisterState extends State<MyRegister> {
   }
 
   bool checkNumber() {
+    // ignore: unnecessary_null_comparison
     return user.phone != null && user.phone.length == 10;
   }
 
@@ -92,280 +93,290 @@ class _MyRegisterState extends State<MyRegister> {
             body: Stack(
               children: [
                 SingleChildScrollView(
-                  child:Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Container(
-                            padding: const EdgeInsets.symmetric(
-                                vertical: 250, horizontal: 10),
-                      child: Form(
-                        key: _formKey,
-                        child: Column(
-                          children: [
-                            Container(
-                                    padding: const EdgeInsets.symmetric(
-                                        vertical: 24, horizontal: 24),
-                                    decoration: BoxDecoration(
-                                        color: Colors.transparent,
-                                        borderRadius: BorderRadius.circular(25),
-                                        border: Border.all(
-                                            color: Colors.transparent)),
-                                    child: Column(
-                                      children: [
-                            SizedBox(
-                              height: 50,
-                              child: TextFormField(
-                                autovalidateMode:
-                                    AutovalidateMode.onUserInteraction,
-                                style: const TextStyle(color: Colors.black),
-                                controller:
-                                    TextEditingController(text: user.name),
-                                onChanged: (val) {
-                                  user.name = val;
-                                },
-                                validator: (value) {
-                                  if (value!.isEmpty) {
-                                    return 'Name is Empty';
-                                  }
-                                  return null;
-                                },
-                                decoration: InputDecoration(
-                                    contentPadding:
-                                        EdgeInsets.fromLTRB(10, 0, 0, 0),
-                                    fillColor: Colors.white,
-                                    filled: true,
-                                    hintText: "Full Name",
-                                    border: OutlineInputBorder(
-                                      borderRadius: BorderRadius.circular(25),
-                                    )),
-                              ),
-                            ),
-                            SizedBox(
-                              height: 15,
-                            ),
-                            SizedBox(
-                          
-                              height: 50,
-                              child: TextFormField(
-                                autovalidateMode:
-                                    AutovalidateMode.onUserInteraction,
-                                style: TextStyle(color: Colors.black),
-                                controller:
-                                    TextEditingController(text: user.phone),
-                                onChanged: (val) {
-                                  user.phone = val;
-                                },
-                                validator: (value) {
-                                  if (value!.isEmpty) {
-                                    return 'Contact is Empty';
-                                  }
-                                  return null;
-                                },
-                                decoration: InputDecoration(
-                                    contentPadding:
-                                        EdgeInsets.fromLTRB(10, 0, 0, 0),
-                                    fillColor: Colors.white,
-                                    filled: true,
-                                    hintText: "Contact Number",
-                                    border: OutlineInputBorder(
-                                      borderRadius: BorderRadius.circular(25),
-                                    )),
-                              ),
-                            ),
-                            SizedBox(
-                              height: 15,
-                            ),
-                            SizedBox(
-                              height: 50,
-                              child: TextFormField(
-                                autovalidateMode:
-                                    AutovalidateMode.onUserInteraction,
-                                style: TextStyle(),
-                                obscureText: true,
-                                controller:
-                                    TextEditingController(text: user.password),
-                                onChanged: (val) {
-                                  user.password = val;
-                                },
-                                validator: (value) {
-                                  if (value!.isEmpty) {
-                                    return 'Password is Empty';
-                                  }
-                                  return null;
-                                },
-                                decoration: InputDecoration(
-                                    contentPadding:
-                                        EdgeInsets.fromLTRB(10, 0, 0, 0),
-                                    fillColor: Colors.white,
-                                    filled: true,
-                                    hintText: "Password",
-                                    border: OutlineInputBorder(
-                                      borderRadius: BorderRadius.circular(25),
-                                    )),
-                              ),
-                            ),
-                            SizedBox(
-                              height: 15,
-                            ),
-                            SizedBox(
-                              height: 50,
-                              child: TextFormField(
-                                autovalidateMode:
-                                    AutovalidateMode.onUserInteraction,
-                                style: TextStyle(),
-                                obscureText: true,
-                                controller: TextEditingController(
-                                    text: user.confirmPass),
-                                onChanged: (val) {
-                                  user.confirmPass = val;
-                                },
-                                validator: (value) {
-                                  if (value!.isEmpty) {
-                                    return 'Confirm Password is Empty';
-                                  }
-                                  return null;
-                                },
-                                decoration: InputDecoration(
-                                    contentPadding:
-                                        EdgeInsets.fromLTRB(10, 0, 0, 0),
-                                    fillColor: Colors.white,
-                                    filled: true,
-                                    hintText: "Confirm Password",
-                                    border: OutlineInputBorder(
-                                      borderRadius: BorderRadius.circular(25),
-                                    )),
-                              ),
-                            ),
-                            SizedBox(
-                              height: 10,
-                            ),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Text(
-                                  "     Please, Fill up all details.",
-                                  style: TextStyle(
-                                      color: Colors.red,
-                                      fontSize: 14,
-                                      fontFamily: "fonts/Poppins-Regular.ttf"),
-                                  textAlign: TextAlign.center,
-                                ),
-                                SizedBox(
-                                    //  padding: EdgeInsets.only(left:50),
-                                    height: 40,
-                                    width: 150,
-                                    child: ElevatedButton(
-                                        child: Text('SIGN UP',
-                                            style: TextStyle(
-                                                fontSize: 15,
-                                                fontFamily:
-                                                    "fonts/Poppins-Bold.ttf")),
-                                        onPressed: () {
-                                          if (_formKey.currentState!
-                                              .validate()) {
-                                            if (check()) {
-                                              save();
-                                            } else {
-                                              // ignore: avoid_print
-                                              print("Invalid Credentials");
-                                            }
-                                          }
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Container(
+                        padding: const EdgeInsets.symmetric(
+                            vertical: 250, horizontal: 10),
+                        child: Form(
+                            key: _formKey,
+                            child: Column(children: [
+                              Container(
+                                padding: const EdgeInsets.symmetric(
+                                    vertical: 24, horizontal: 24),
+                                decoration: BoxDecoration(
+                                    color: Colors.transparent,
+                                    borderRadius: BorderRadius.circular(25),
+                                    border:
+                                        Border.all(color: Colors.transparent)),
+                                child: Column(
+                                  children: [
+                                    SizedBox(
+                                      height: 50,
+                                      child: TextFormField(
+                                        autovalidateMode:
+                                            AutovalidateMode.onUserInteraction,
+                                        style: const TextStyle(
+                                            color: Colors.black),
+                                        controller: TextEditingController(
+                                            text: user.name),
+                                        onChanged: (val) {
+                                          user.name = val;
                                         },
-                                        style: ElevatedButton.styleFrom(
-                                          primary: Colors.deepPurpleAccent[400],
-                                          shape: RoundedRectangleBorder(
+                                        validator: (value) {
+                                          if (value!.isEmpty) {
+                                            return 'Name is Empty';
+                                          }
+                                          return null;
+                                        },
+                                        decoration: InputDecoration(
+                                            contentPadding: EdgeInsets.fromLTRB(
+                                                10, 0, 0, 0),
+                                            fillColor: Colors.white,
+                                            filled: true,
+                                            hintText: "Full Name",
+                                            border: OutlineInputBorder(
                                               borderRadius:
-                                                  BorderRadius.circular(25)),
-                                        ))),
-                              ],
-                            ),
-                            SizedBox(
-                              height: 15,
-                            ),
-                            // ignore: prefer_const_literals_to_create_immutables
-                            Row(children: <Widget>[
-                              Expanded(
-                                  child: Divider(
-                                color: Colors.black,
-                                height: 20,
-                              )),
-                              Text(
-                                "OR",
-                                style: TextStyle(
-                                    fontWeight: FontWeight.bold, fontSize: 14),
-                              ),
-                              Expanded(
-                                  child: Divider(
-                                color: Colors.black,
-                              )),
-                            ]),
-                            SizedBox(
-                              height: 15,
-                            ),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                SignInButton(
-                                  Buttons.GoogleDark,
-                                  mini: false,
-                                  onPressed: () {},
+                                                  BorderRadius.circular(25),
+                                            )),
+                                      ),
+                                    ),
+                                    SizedBox(
+                                      height: 15,
+                                    ),
+                                    SizedBox(
+                                      height: 50,
+                                      child: TextFormField(
+                                        autovalidateMode:
+                                            AutovalidateMode.onUserInteraction,
+                                        style: TextStyle(color: Colors.black),
+                                        controller: TextEditingController(
+                                            text: user.phone),
+                                        onChanged: (val) {
+                                          user.phone = val;
+                                        },
+                                        validator: (value) {
+                                          if (value!.isEmpty) {
+                                            return 'Contact is Empty';
+                                          }
+                                          return null;
+                                        },
+                                        decoration: InputDecoration(
+                                            contentPadding: EdgeInsets.fromLTRB(
+                                                10, 0, 0, 0),
+                                            fillColor: Colors.white,
+                                            filled: true,
+                                            hintText: "Contact Number",
+                                            border: OutlineInputBorder(
+                                              borderRadius:
+                                                  BorderRadius.circular(25),
+                                            )),
+                                      ),
+                                    ),
+                                    SizedBox(
+                                      height: 15,
+                                    ),
+                                    SizedBox(
+                                      height: 50,
+                                      child: TextFormField(
+                                        autovalidateMode:
+                                            AutovalidateMode.onUserInteraction,
+                                        style: TextStyle(),
+                                        obscureText: true,
+                                        controller: TextEditingController(
+                                            text: user.password),
+                                        onChanged: (val) {
+                                          user.password = val;
+                                        },
+                                        validator: (value) {
+                                          if (value!.isEmpty) {
+                                            return 'Password is Empty';
+                                          }
+                                          return null;
+                                        },
+                                        decoration: InputDecoration(
+                                            contentPadding: EdgeInsets.fromLTRB(
+                                                10, 0, 0, 0),
+                                            fillColor: Colors.white,
+                                            filled: true,
+                                            hintText: "Password",
+                                            border: OutlineInputBorder(
+                                              borderRadius:
+                                                  BorderRadius.circular(25),
+                                            )),
+                                      ),
+                                    ),
+                                    SizedBox(
+                                      height: 15,
+                                    ),
+                                    SizedBox(
+                                      height: 50,
+                                      child: TextFormField(
+                                        autovalidateMode:
+                                            AutovalidateMode.onUserInteraction,
+                                        style: TextStyle(),
+                                        obscureText: true,
+                                        controller: TextEditingController(
+                                            text: user.confirmPass),
+                                        onChanged: (val) {
+                                          user.confirmPass = val;
+                                        },
+                                        validator: (value) {
+                                          if (value!.isEmpty) {
+                                            return 'Confirm Password is Empty';
+                                          }
+                                          return null;
+                                        },
+                                        decoration: InputDecoration(
+                                            contentPadding: EdgeInsets.fromLTRB(
+                                                10, 0, 0, 0),
+                                            fillColor: Colors.white,
+                                            filled: true,
+                                            hintText: "Confirm Password",
+                                            border: OutlineInputBorder(
+                                              borderRadius:
+                                                  BorderRadius.circular(25),
+                                            )),
+                                      ),
+                                    ),
+                                    SizedBox(
+                                      height: 10,
+                                    ),
+                                    Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        Text(
+                                          "     Please, Fill up all details.",
+                                          style: TextStyle(
+                                              color: Colors.red,
+                                              fontSize: 14,
+                                              fontFamily:
+                                                  "fonts/Poppins-Regular.ttf"),
+                                          textAlign: TextAlign.center,
+                                        ),
+                                        SizedBox(
+                                            //  padding: EdgeInsets.only(left:50),
+                                            height: 40,
+                                            width: 150,
+                                            child: ElevatedButton(
+                                                child: Text('SIGN UP',
+                                                    style: TextStyle(
+                                                        fontSize: 15,
+                                                        fontFamily:
+                                                            "fonts/Poppins-Bold.ttf")),
+                                                onPressed: () {
+                                                  if (_formKey.currentState!
+                                                      .validate()) {
+                                                    if (check()) {
+                                                      save();
+                                                    } else {
+                                                      // ignore: avoid_print
+                                                      print(
+                                                          "Invalid Credentials");
+                                                    }
+                                                  }
+                                                },
+                                                style: ElevatedButton.styleFrom(
+                                                  primary: Colors
+                                                      .deepPurpleAccent[400],
+                                                  shape: RoundedRectangleBorder(
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              25)),
+                                                ))),
+                                      ],
+                                    ),
+                                    SizedBox(
+                                      height: 15,
+                                    ),
+                                    // ignore: prefer_const_literals_to_create_immutables
+                                    Row(children: <Widget>[
+                                      Expanded(
+                                          child: Divider(
+                                        color: Colors.black,
+                                        height: 20,
+                                      )),
+                                      Text(
+                                        "OR",
+                                        style: TextStyle(
+                                            fontWeight: FontWeight.bold,
+                                            fontSize: 14),
+                                      ),
+                                      Expanded(
+                                          child: Divider(
+                                        color: Colors.black,
+                                      )),
+                                    ]),
+                                    SizedBox(
+                                      height: 15,
+                                    ),
+                                    Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        SignInButton(
+                                          Buttons.GoogleDark,
+                                          mini: false,
+                                          onPressed: () {},
+                                        ),
+                                        SignInButton(
+                                          Buttons.Facebook,
+                                          mini: true,
+                                          onPressed: () {},
+                                        ),
+                                        SignInButton(
+                                          Buttons.Apple,
+                                          mini: true,
+                                          onPressed: () {},
+                                        ),
+                                      ],
+                                    ),
+                                    SizedBox(
+                                      height: 15,
+                                    ),
+                                    Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        Text(
+                                          "Already have an account?",
+                                          style: TextStyle(
+                                              fontWeight: FontWeight.w300,
+                                              fontSize: 18,
+                                              fontFamily:
+                                                  "fonts/Poppins-Regular.ttf"),
+                                        ),
+                                        TextButton(
+                                          onPressed: () {
+                                            Navigator.pushNamed(
+                                                context, 'login');
+                                          },
+                                          child: Text(
+                                            'Sign in',
+                                            style: TextStyle(
+                                                fontFamily:
+                                                    "fonts/Poppins-Bold.ttf",
+                                                color: Color.fromARGB(
+                                                    1000, 42, 111, 249),
+                                                fontSize: 25,
+                                                fontWeight: FontWeight.bold),
+                                          ),
+                                        ),
+                                      ],
+                                    )
+                                  ],
                                 ),
-                                SignInButton(
-                                  Buttons.Facebook,
-                                  mini: true,
-                                  onPressed: () {},
-                                ),
-                                SignInButton(
-                                  Buttons.Apple,
-                                  mini: true,
-                                  onPressed: () {},
-                                ),
-                              ],
-                            ),
-                            SizedBox(
-                              height: 15,
-                            ),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Text(
-                                  "Already have an account?",
-                                  style: TextStyle(
-                                      fontWeight: FontWeight.w300,
-                                      fontSize: 18,
-                                      fontFamily: "fonts/Poppins-Regular.ttf"),
-                                ),
-                                TextButton(
-                                  onPressed: () {
-                                    Navigator.pushNamed(context, 'login');
-                                  },
-                                  child: Text(
-                                    'Sign in',
-                                    style: TextStyle(
-                                        fontFamily: "fonts/Poppins-Bold.ttf",
-                                        color:
-                                            Color.fromARGB(1000, 42, 111, 249),
-                                        fontSize: 25,
-                                        fontWeight: FontWeight.bold),
-                                  ),
-                                ),
-                              ],
-                            )
-                          ],
-                        ),
-                        )
-                          ]
-                          )
-                      ),
-                    )
-                  ],
+                              )
+                            ])),
+                      )
+                    ],
+                  ),
                 ),
-              
+              ],
             ),
-          ],
-        ),
-      ),
-      )
-    );
+          ),
+        ));
   }
 }
