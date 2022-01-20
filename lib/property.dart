@@ -1,8 +1,13 @@
 // ignore_for_file: file_names, unnecessary_const, unused_field, non_constant_identifier_names, duplicate_ignore
 import 'dart:convert';
+import 'dart:io';
 
+import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:http/http.dart' as http;
+import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
+import 'package:open_file/open_file.dart';
 
 import 'user.dart';
 import 'api.dart';
@@ -18,12 +23,21 @@ class MyProperyPage extends StatefulWidget {
 }
 
 class _MyProperyPagestate extends State<MyProperyPage> {
+  FilePickerResult? result;
+  PlatformFile? file;
   final int _counter = 0;
   String? dropDownValue;
   List<String> ItemList = [
     'Parking',
     'Toilet',
     'Both',
+  ];
+
+  String? dropDownGenderValue;
+  List<String> GenderList = [
+    'Male',
+    'Female',
+    'Other',
   ];
   bool value = false;
   User user = User("", "", "");
@@ -166,41 +180,6 @@ class _MyProperyPagestate extends State<MyProperyPage> {
                                 const SizedBox(
                                   height: 15,
                                 ),
-                                SizedBox(
-                                  height: 50,
-                                  child: TextFormField(
-                                    autovalidateMode:
-                                        AutovalidateMode.onUserInteraction,
-                                    style: const TextStyle(color: Colors.black),
-                                    controller:
-                                        TextEditingController(text: user.phone),
-                                    onChanged: (val) {
-                                      user.phone = val;
-                                    },
-                                    validator: (value) {
-                                      if (value!.isEmpty) {
-                                        return 'Citizenship Number is Empty';
-                                      }
-                                      return null;
-                                    },
-                                    decoration: InputDecoration(
-                                        contentPadding:
-                                            const EdgeInsets.fromLTRB(
-                                                10, 0, 0, 0),
-                                        fillColor: Colors.white,
-                                        filled: true,
-                                        hintText: "Citizenship Number",
-                                        hintStyle:
-                                            const TextStyle(fontSize: 14),
-                                        border: OutlineInputBorder(
-                                          borderRadius:
-                                              BorderRadius.circular(25),
-                                        )),
-                                  ),
-                                ),
-                                const SizedBox(
-                                  height: 15,
-                                ),
                                 Row(
                                     mainAxisAlignment:
                                         MainAxisAlignment.spaceBetween,
@@ -243,7 +222,10 @@ class _MyProperyPagestate extends State<MyProperyPage> {
 // ~~~~~~~~~~~~~~~~~~~DropDown Butoon~~~~~~~~~~~~~~~~~~
                                       SizedBox(
                                           height: 60,
-                                         width: MediaQuery.of(context).size.width * 0.4,
+                                          width: MediaQuery.of(context)
+                                                  .size
+                                                  .width *
+                                              0.4,
                                           child: DropdownButtonFormField(
                                             icon: const Icon(
                                               Icons.keyboard_arrow_down,
@@ -317,6 +299,86 @@ class _MyProperyPagestate extends State<MyProperyPage> {
                                   ),
                                 ),
                                 const SizedBox(
+                                  height: 15,
+                                ),
+                                Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      SizedBox(
+                                          height: 50,
+                                          width: 170,
+                                          child: ElevatedButton.icon(
+                                            onPressed: () {
+                                              pickFiles();
+                                            },
+                                            style: ElevatedButton.styleFrom(
+                                              shape: RoundedRectangleBorder(
+                                                  borderRadius:
+                                                      BorderRadius.circular(
+                                                          25)),
+                                              primary: Colors.grey,
+                                              onPrimary: Colors.white,
+                                              textStyle:
+                                                  const TextStyle(fontSize: 12),
+                                            ),
+                                            icon: const Icon(
+                                              MdiIcons.fileDocumentEditOutline,
+                                            ),
+                                            label: const Text(
+                                                "Upload Citizenship"),
+                                          )
+                                          ),
+
+// ~~~~~~~~~~~~~~~~~~~DropDown Butoon~~~~~~~~~~~~~~~~~~
+                                      SizedBox(
+                                          height: 60,
+                                          width: MediaQuery.of(context)
+                                                  .size
+                                                  .width *
+                                              0.4,
+                                          child: DropdownButtonFormField(
+                                            icon: const Icon(
+                                              Icons.keyboard_arrow_down,
+                                            ),
+                                            iconSize: 25,
+                                            iconEnabledColor: Colors.green,
+                                            decoration: InputDecoration(
+                                                border:
+                                                    const OutlineInputBorder(
+                                                  borderRadius:
+                                                      BorderRadius.all(
+                                                    Radius.circular(25.0),
+                                                  ),
+                                                ),
+                                                filled: true,
+                                                hintStyle: TextStyle(
+                                                    color: Colors.grey[800]),
+                                                hintText: "Select Gender",
+                                                fillColor: Colors.white),
+                                            value: dropDownGenderValue,
+                                            // ignore: non_constant_identifier_names
+                                            onChanged: (String? Value) {
+                                              setState(() {
+                                                dropDownGenderValue = Value;
+                                              });
+                                            },
+                                            // ignore: non_constant_identifier_names
+                                            items: GenderList.map((GItems) =>
+                                                    DropdownMenuItem(
+                                                        value: GItems,
+                                                        child: Container(
+                                                            alignment: Alignment
+                                                                .center,
+                                                            child:
+                                                                Text(GItems))))
+                                                .toList(),
+                                          ))
+                                    ]),
+                                const SizedBox(
+                                  height: 15,
+                                ),
+                                const SizedBox(
                                   height: 30,
                                 ),
                                 Row(children: <Widget>[
@@ -383,5 +445,24 @@ class _MyProperyPagestate extends State<MyProperyPage> {
         ),
       ),
     );
+  }
+
+  void pickFiles() async {
+    result = await FilePicker.platform.pickFiles(
+        type: FileType.custom,
+        allowedExtensions: ['jpg', 'png', 'pdf', 'Webp', 'jpeg', 'RAW'],
+        allowMultiple: true);
+
+    if (result == null) return;
+
+    file =result!.files.first;
+    setState(() {
+      
+    });
+    // viewFile(file);
+  }
+
+  void viewFile(PlatformFile file) {
+    OpenFile.open(file.path);
   }
 }
