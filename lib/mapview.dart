@@ -3,6 +3,7 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
+import 'Model/map_util.dart';
 import 'Model/progress_step_widget.dart';
 
 class MapView extends StatefulWidget {
@@ -48,6 +49,13 @@ class _MapViewState extends State<MapView> {
     String _selected = "1";
     return Scaffold(
       key: scaffoldKey,
+      appBar: PreferredSize(
+        preferredSize: Size.zero,
+        child: AppBar(
+          elevation: 0,
+          backgroundColor: const Color(0xFE242f3e), // Colors.transparent
+        ),
+      ),
       backgroundColor: const Color(0xFFF5F5F5),
       body: SafeArea(
         child: Container(
@@ -137,7 +145,7 @@ class _MapViewState extends State<MapView> {
                                 icons: stepIcons,
                                 curStep: _curStep,
                                 width: MediaQuery.of(context).size.width,
-                                color: const Color(0xff937FEE),
+                                color: const Color(0xff58B6EC),
                               ),
                               const Padding(
                                 padding:
@@ -362,6 +370,7 @@ class _MapViewState extends State<MapView> {
           position: const LatLng(27.706381548294303, 85.33003338878844),
           infoWindow: const InfoWindow(
               title: 'Softwarica College', snippet: "An IT College")));
+      controller.setMapStyle(Utils.mapStyle);
     });
   }
 }
