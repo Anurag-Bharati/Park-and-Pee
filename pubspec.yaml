@@ -44,6 +44,7 @@ dependencies:
     path_provider: ^2.0.8
     fl_chart: ^0.41.0
     pie_chart: ^5.1.0
+    pinput: ^1.2.2
 
     # Firebase Integration
     # firebase_core: ^1.10.6
