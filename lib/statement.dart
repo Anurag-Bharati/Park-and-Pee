@@ -18,7 +18,7 @@ class _MyStatementPagestate extends State<MyStatementPage> {
     return Container(
       decoration: const BoxDecoration(
         image: DecorationImage(
-            image: AssetImage('assets/insidebackground.png'), fit: BoxFit.fill),
+            image: AssetImage('assets/bodybackground.png'), fit: BoxFit.fill),
       ),
       child: const Scaffold(
         resizeToAvoidBottomInset: false,

@@ -535,34 +535,6 @@ class _MyPropertyPagestate extends State<MyPropertyPage> {
                                 const SizedBox(
                                   height: 30,
                                 ),
-                                // SizedBox(
-                                //     //  padding: EdgeInsets.only(left:50),
-                                //     height: 40,
-                                //     width: 150,
-                                //     child: ElevatedButton(
-                                //         child: const Text('Register',
-                                //             style: TextStyle(
-                                //                 fontSize: 15,
-                                //                 fontFamily:
-                                //                     "fonts/Poppins-Bold.ttf")),
-                                //         onPressed: () {
-                                //           uploadFile();
-                                //           if (_formKey.currentState!
-                                //               .validate()) {
-                                //             if (check()) {
-                                //               save();
-                                //             } else {
-                                //               // ignore: avoid_print
-                                //               print("Invalid Credentials");
-                                //             }
-                                //           }
-                                //         },
-                                //         style: ElevatedButton.styleFrom(
-                                //           primary: Colors.green,
-                                //           shape: RoundedRectangleBorder(
-                                //               borderRadius:
-                                //                   BorderRadius.circular(25)),
-                                //         ))),
                                 SizedBox(
                                     //  padding: EdgeInsets.only(left:50),
                                     height: 40,
@@ -573,8 +545,17 @@ class _MyPropertyPagestate extends State<MyPropertyPage> {
                                                 fontSize: 15,
                                                 fontFamily:
                                                     "fonts/Poppins-Bold.ttf")),
-                                        onPressed: () async {
+                                        onPressed: () {
                                           uploadFile();
+                                          if (_formKey.currentState!
+                                              .validate()) {
+                                            if (check()) {
+                                              save();
+                                            } else {
+                                              // ignore: avoid_print
+                                              print("Invalid Credentials");
+                                            }
+                                          }
                                         },
                                         style: ElevatedButton.styleFrom(
                                           primary: Colors.green,
