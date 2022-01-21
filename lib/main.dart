@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:parkandpee/aboutus.dart';
 import 'package:parkandpee/account.dart';
 import 'package:parkandpee/account_change_phone_pass.dart';
+import 'package:parkandpee/account_verification.dart';
 import 'package:parkandpee/login.dart';
 import 'package:parkandpee/navbar.dart';
 import 'package:parkandpee/property.dart';
@@ -19,7 +20,7 @@ void main() {
     // theme: ThemeData(fontFamily: 'Poppins-Bold.ttf'),
     // home: const MyLogin(),
     // home:  const Mynavbar(),
-    home: const MyLogin(),
+    home: const MyAccountPage(),
     // home: const MyVerification()
     // home: const Myadmin(),
     // home: const MyAccountPageChange(),
@@ -34,8 +35,8 @@ void main() {
       'account': (context) => const MyAccountPage(),
       'account_edit': (context) => const MyAccountPageEdit(),
       'admin': (context) => const Myadmin(),
-      'property': (context) => const MyProperyPage()
-
+      'property': (context) => const MyProperyPage(),
+      'account_change_phone_pass': (context) => const MyAccountPageChange()
       //  'verification':(context)=> Verification(),
     },
   ));
