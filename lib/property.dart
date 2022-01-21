@@ -34,7 +34,7 @@ class _MyProperyPagestate extends State<MyProperyPage> {
   ];
 
   String? dropDownGenderValue;
-  List<String> GenderList = [
+  List<String> GenderList = [ 
     'Male',
     'Female',
     'Other',
