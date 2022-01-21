@@ -1,3 +1,4 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:parkandpee/aboutus.dart';
 import 'package:parkandpee/account.dart';
@@ -13,13 +14,17 @@ import 'package:parkandpee/account_edit.dart';
 import 'account_change_phone_pass.dart';
 import 'admin.dart';
 
-void main() {
+Future main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+
+  await Firebase.initializeApp();
+
   runApp(MaterialApp(
     debugShowCheckedModeBanner: false,
     // theme: ThemeData(fontFamily: 'Poppins-Bold.ttf'),
     // home: const MyLogin(),
-    // home:  const Mynavbar(),
-    home: const MyLogin(),
+    home: const Mynavbar(),
+    // home: const MyLogin(),
     // home: const MyVerification()
     // home: const Myadmin(),
     // home: const MyAccountPageChange(),
@@ -34,7 +39,7 @@ void main() {
       'account': (context) => const MyAccountPage(),
       'account_edit': (context) => const MyAccountPageEdit(),
       'admin': (context) => const Myadmin(),
-      'property': (context) => const MyProperyPage()
+      'property': (context) => const MyPropertyPage()
 
       //  'verification':(context)=> Verification(),
     },

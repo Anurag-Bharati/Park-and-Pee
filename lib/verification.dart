@@ -65,13 +65,13 @@ class _MyVerificationstate extends State<MyVerification> {
                 ),
                 Container(
                   // padding: const EdgeInsets.all(28),
-                  padding: const EdgeInsets.only(top:50,left:28,right:28,bottom: 50),
+                  padding: const EdgeInsets.only(
+                      top: 50, left: 28, right: 28, bottom: 50),
                   // margin: const EdgeInsets.only(top:50),
                   decoration: BoxDecoration(
-                    color: Colors.grey[100],
-                    borderRadius: BorderRadius.circular(25),
-                    border: Border.all(color: Colors.black12)
-                  ),
+                      color: Colors.grey[100],
+                      borderRadius: BorderRadius.circular(25),
+                      border: Border.all(color: Colors.black12)),
                   child: Column(
                     children: [
                       Row(
@@ -89,26 +89,22 @@ class _MyVerificationstate extends State<MyVerification> {
                         height: 30,
                       ),
                       SizedBox(
-                      //  padding: EdgeInsets.only(left:50),
-                      height: 40,
-                      width: 150,
-                      child: ElevatedButton(
-                          child: const Text('Verify',
-                              style: TextStyle(
-                                  fontSize: 20,
-                                  fontFamily:
-                                      "fonts/Poppins-Bold.ttf")),
-                          onPressed: () {
-                            Navigator.pushNamed(context, 'newpassword');
-                          },
-                          style: ElevatedButton.styleFrom(
-                            primary: Colors.deepPurpleAccent[400],
-                            shape: RoundedRectangleBorder(
-                                borderRadius:
-                                    BorderRadius.circular(25)),
-                          )
-                          )
-                          ),
+                          //  padding: EdgeInsets.only(left:50),
+                          height: 40,
+                          width: 150,
+                          child: ElevatedButton(
+                              child: const Text('Verify',
+                                  style: TextStyle(
+                                      fontSize: 20,
+                                      fontFamily: "fonts/Poppins-Bold.ttf")),
+                              onPressed: () {
+                                Navigator.pushNamed(context, 'newpassword');
+                              },
+                              style: ElevatedButton.styleFrom(
+                                primary: Colors.deepPurpleAccent[400],
+                                shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(25)),
+                              ))),
                     ],
                   ),
                 ),
@@ -125,9 +121,9 @@ class _MyVerificationstate extends State<MyVerification> {
                   textAlign: TextAlign.center,
                 ),
                 const SizedBox(
-                  // height: 2,
-                ),
-                 TextButton(
+                    // height: 2,
+                    ),
+                TextButton(
                   onPressed: () {
                     Navigator.pushNamed(context, '');
                   },
