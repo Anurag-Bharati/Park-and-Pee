@@ -163,7 +163,7 @@ class _MyPropertyPagestate extends State<MyPropertyPage> {
                                     },
                                     validator: (value) {
                                       if (value!.isEmpty) {
-                                        return 'Name is Empty';
+                                        return 'Please Enter your Name';
                                       }
                                       return null;
                                     },
@@ -231,7 +231,7 @@ class _MyPropertyPagestate extends State<MyPropertyPage> {
                                           },
                                           validator: (value) {
                                             if (value!.isEmpty) {
-                                              return 'Current Address is Empty';
+                                              return 'Please Enter your Address';
                                             }
                                             return null;
                                           },
@@ -341,31 +341,71 @@ class _MyPropertyPagestate extends State<MyPropertyPage> {
                                         MainAxisAlignment.spaceBetween,
                                     children: [
                                       SizedBox(
+                                        height: 50,
+                                        width: 170,
+                                        child: TextFormField(
+                                          autovalidateMode: AutovalidateMode
+                                              .onUserInteraction,
+                                          style: const TextStyle(
+                                              color: Colors.black),
+                                          controller: TextEditingController(
+                                              text: user.name),
+                                          onChanged: (val) {
+                                            user.name = val;
+                                          },
+                                          validator: (value) {
+                                            if (value!.isEmpty) {
+                                              return 'Please Enter Contact No.';
+                                            }
+                                            return null;
+                                          },
+                                          decoration: InputDecoration(
+                                              contentPadding:
+                                                  const EdgeInsets.fromLTRB(
+                                                      10, 0, 0, 0),
+                                              fillColor: Colors.white,
+                                              filled: true,
+                                              errorStyle: const TextStyle(
+                                                height: 0.008,
+                                                color: Colors.redAccent,
+                                              ),
+                                              errorBorder: OutlineInputBorder(
+                                                borderRadius:
+                                                    BorderRadius.circular(25),
+                                                borderSide: const BorderSide(
+                                                    color: Colors.redAccent,
+                                                    width: 1),
+                                              ),
+                                              focusedErrorBorder:
+                                                  OutlineInputBorder(
+                                                borderRadius:
+                                                    BorderRadius.circular(25),
+                                                borderSide: const BorderSide(
+                                                    color: Colors.blue,
+                                                    width: 2),
+                                              ),
+                                              hintText: "Business Contact No.",
+                                              hintStyle:
+                                                  const TextStyle(fontSize: 14),
+                                              enabledBorder: OutlineInputBorder(
+                                                borderSide: const BorderSide(
+                                                    width: 2,
+                                                    color: Colors.black26),
+                                                borderRadius:
+                                                    BorderRadius.circular(25),
+                                              ),
+                                              border: OutlineInputBorder(
+                                                borderRadius:
+                                                    BorderRadius.circular(25),
+                                              )),
+                                        ),
+                                      ),
+                                      SizedBox(
                                           height: 50,
                                           width: MediaQuery.of(context)
                                                   .size
                                                   .width *
                                               0.4,
-                                          child: Container(
-                                            decoration: const BoxDecoration(
-                                                color: Colors.grey,
-                                                borderRadius: BorderRadius.only(
-                                                    bottomLeft:
-                                                        Radius.circular(20),
-                                                    topLeft:
-                                                        Radius.circular(20))),
-                                            padding: const EdgeInsets.only(
-                                                left: 30, top: 15),
-                                            child: Text(
-                                              '${date.year}/${date.month}/${date.day}',
-                                              style: const TextStyle(
-                                                  fontSize: 18,
-                                                  fontWeight: FontWeight.w300),
-                                            ),
-                                          )),
-                                      SizedBox(
-                                          height: 50,
-                                          width: 170,
                                           child: ElevatedButton.icon(
                                             onPressed: () async {
                                               DateTime? newDate =
@@ -384,10 +424,8 @@ class _MyPropertyPagestate extends State<MyPropertyPage> {
                                               shape:
                                                   const RoundedRectangleBorder(
                                                       borderRadius:
-                                                          BorderRadius.only(
-                                                topRight: Radius.circular(20),
-                                                bottomRight:
-                                                    Radius.circular(20),
+                                                          BorderRadius.all(
+                                                Radius.circular(25),
                                               )),
                                               primary: Colors.orange[500],
                                               textStyle:
@@ -397,8 +435,12 @@ class _MyPropertyPagestate extends State<MyPropertyPage> {
                                               MdiIcons.calendarToday,
                                               size: 25,
                                             ),
-                                            label: const Text(
-                                                "Enter Date of Birth"),
+                                            label: Text(
+                                              '${date.year}/${date.month}/${date.day}',
+                                              style: const TextStyle(
+                                                  fontSize: 15,
+                                                  fontWeight: FontWeight.w300),
+                                            ),
                                           )),
                                       const SizedBox(
                                         height: 15,
@@ -495,14 +537,27 @@ class _MyPropertyPagestate extends State<MyPropertyPage> {
                                 const SizedBox(
                                   height: 10,
                                 ),
-                                SizedBox(
-                                  height: 20,
-                                  width: 300,
-                                  child: Text(
-                                    fileName,
-                                    style: const TextStyle(color: Colors.grey),
-                                  ),
-                                ),
+                                Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      SizedBox(
+                                        height: 20,
+                                        width:
+                                            MediaQuery.of(context).size.width *
+                                                0.4,
+                                        child: Text(
+                                          fileName,
+                                          style: const TextStyle(
+                                              color: Colors.grey),
+                                        ),
+                                      ),
+                                      const SizedBox(height: 20),
+                                      task != null
+                                          ? buildUploadStatus(task!)
+                                          : Container(),
+                                    ]),
+
                                 const SizedBox(
                                   height: 20,
                                 ),
@@ -611,7 +666,7 @@ class _MyPropertyPagestate extends State<MyPropertyPage> {
 
             return Text(
               '$percentage %',
-              style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+              style: const TextStyle(color: Colors.grey),
             );
           } else {
             return Container();
