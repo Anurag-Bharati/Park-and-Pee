@@ -196,10 +196,9 @@ class _MyadminState extends State<Myadmin> {
                                                                   .orange),
                                                         ),
                                                       ),
-                                                      Padding(
+                                                      const Padding(
                                                         padding:
-                                                            const EdgeInsets
-                                                                .all(8.0),
+                                                            EdgeInsets.all(8.0),
                                                         child: Text(
                                                           "Inactive Washroom Spaces",
                                                           style: TextStyle(
@@ -471,7 +470,7 @@ class _MyadminState extends State<Myadmin> {
                                           height: 80,
                                           width: 160,
                                           decoration: BoxDecoration(
-                                            color: Color(0xff30DBE2),
+                                            color: const Color(0xff30DBE2),
                                             // gradient: const LinearGradient(
                                             //     begin: Alignment.bottomLeft,
                                             //     end: Alignment.topRight,
