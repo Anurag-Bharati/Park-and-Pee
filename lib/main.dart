@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:parkandpee/aboutus.dart';
 import 'package:parkandpee/account.dart';
 import 'package:parkandpee/account_change_phone_pass.dart';
+import 'package:parkandpee/add_service_details.dart';
 import 'package:parkandpee/login.dart';
 import 'package:parkandpee/mapview.dart';
 import 'package:parkandpee/navbar.dart';
@@ -22,7 +23,7 @@ void main() {
     // home: const MyLogin(),
     // home: const MyVerification()
     // home: const Myadmin(),
-    home: const MapView(),
+    home: const AddServiceDetails(),
     routes: {
       'register': (context) => const MyRegister(),
       'login': (context) => const MyLogin(),
