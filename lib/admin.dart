@@ -109,31 +109,36 @@ class _MyadminState extends State<Myadmin> {
                                     children: [
                                       Container(
                                         height: 180,
-                                        width: 390,
-                                        decoration: BoxDecoration(
+                                        width: 350,
+                                        decoration: const BoxDecoration(
                                             color: Colors.transparent),
                                         child: Row(
                                           children: [
                                             //for pie chart ie graph
-                                            Container(
-                                              width: 200,
-                                              height: 180,
-                                              decoration: const BoxDecoration(
-                                                  color: Colors.transparent),
-                                              child: PageView(
-                                                children: <Widget>[
-                                                  PieChart(
-                                                    PieChartData(
-                                                      sections: data,
-                                                      centerSpaceRadius:
-                                                          MediaQuery.of(context)
-                                                                  .size
-                                                                  .width /
-                                                              8,
-                                                      sectionsSpace: 0,
-                                                    ),
-                                                  )
-                                                ],
+                                            Padding(
+                                              padding: const EdgeInsets.only(
+                                                  left: 0, right: 10),
+                                              child: Container(
+                                                width: 150,
+                                                height: 220,
+                                                decoration: const BoxDecoration(
+                                                    color: Colors.transparent),
+                                                child: PageView(
+                                                  children: <Widget>[
+                                                    PieChart(
+                                                      PieChartData(
+                                                        sections: data,
+                                                        centerSpaceRadius:
+                                                            MediaQuery.of(
+                                                                        context)
+                                                                    .size
+                                                                    .width /
+                                                                11.2,
+                                                        sectionsSpace: 0,
+                                                      ),
+                                                    )
+                                                  ],
+                                                ),
                                               ),
                                             ),
 
@@ -142,41 +147,53 @@ class _MyadminState extends State<Myadmin> {
                                                 Padding(
                                                   padding:
                                                       const EdgeInsets.only(
-                                                          right: 25, top: 15),
+                                                          right: 0,
+                                                          top: 35,
+                                                          left: 15),
                                                   child: Container(
                                                       child: Column(
+                                                    // ignore: prefer_const_literals_to_create_immutables
                                                     children: [
-                                                      Padding(
+                                                      const Padding(
                                                         padding:
-                                                            const EdgeInsets
-                                                                .all(8.0),
+                                                            EdgeInsets.all(8.0),
                                                         child: Text(
                                                           "Active Parking spaces",
                                                           style: TextStyle(
+                                                              fontSize: 13,
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .bold,
                                                               color:
-                                                                  Colors.white),
+                                                                  Colors.red),
                                                         ),
                                                       ),
-                                                      Padding(
+                                                      const Padding(
                                                         padding:
-                                                            const EdgeInsets
-                                                                .all(8.0),
+                                                            EdgeInsets.all(8.0),
                                                         child: Text(
                                                           "Inactive parkinh Spaces",
                                                           style: TextStyle(
+                                                              fontSize: 13,
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .bold,
                                                               color:
-                                                                  Colors.white),
+                                                                  Colors.green),
                                                         ),
                                                       ),
-                                                      Padding(
+                                                      const Padding(
                                                         padding:
-                                                            const EdgeInsets
-                                                                .all(8.0),
-                                                        child: const Text(
+                                                            EdgeInsets.all(8.0),
+                                                        child: Text(
                                                           "Active Washroom Spaces",
                                                           style: TextStyle(
-                                                              color:
-                                                                  Colors.white),
+                                                              fontSize: 13,
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .bold,
+                                                              color: Colors
+                                                                  .orange),
                                                         ),
                                                       ),
                                                       Padding(
@@ -186,8 +203,12 @@ class _MyadminState extends State<Myadmin> {
                                                         child: Text(
                                                           "Inactive Washroom Spaces",
                                                           style: TextStyle(
+                                                              fontSize: 13,
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .bold,
                                                               color:
-                                                                  Colors.white),
+                                                                  Colors.blue),
                                                         ),
                                                       )
                                                     ],
