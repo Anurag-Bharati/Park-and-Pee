@@ -22,7 +22,7 @@ class _MySoDashboardState extends State<MySoDashboard> {
               height: 140,
               width: 364,
               decoration: BoxDecoration(
-                color: Colors.purple[100],
+                color: const Color(0xBD8066F2),
                 borderRadius: BorderRadius.circular(20),
               ),
               child: Container(
