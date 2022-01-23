@@ -44,7 +44,7 @@ class _MapViewState extends State<AddServiceDetails> {
 
   SnackBar showSnackBar(String message, context, Color? color, int duration) {
     final snackbar = SnackBar(
-        duration: const Duration(seconds: 1),
+        duration: Duration(seconds: duration),
         backgroundColor: color,
         content: Text(
           message,
@@ -54,6 +54,9 @@ class _MapViewState extends State<AddServiceDetails> {
         ));
     return snackbar;
   }
+
+  String? dropDownValue;
+  final List<String> itemList = ['Hotel', 'Restaurant', 'Home', 'Other'];
 
   @override
   void dispose() {
@@ -71,23 +74,24 @@ class _MapViewState extends State<AddServiceDetails> {
           backgroundColor: const Color(0xFE242f3e), // Colors.transparent
         ),
       ),
-      backgroundColor: const Color(0xFFF5F5F5),
+      backgroundColor: const Color(0xFFFFFFFF),
       body: SafeArea(
         child: Container(
           width: MediaQuery.of(context).size.width,
           height: MediaQuery.of(context).size.height * 1,
           decoration: const BoxDecoration(
-            color: Color(0xFFEEEEEE),
+            color: Color(0xFFFFFFFF),
           ),
           child: SingleChildScrollView(
             child: Column(
               mainAxisSize: MainAxisSize.max,
-              mainAxisAlignment: MainAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.end,
+              crossAxisAlignment: CrossAxisAlignment.end,
               children: [
                 Container(
                   transform: Matrix4.diagonal3Values(1.2, 1.2, 0),
                   width: MediaQuery.of(context).size.width,
-                  height: MediaQuery.of(context).size.height * 0.3,
+                  height: MediaQuery.of(context).size.height * 0.28,
                   child: Image.asset(
                     'assets/cover_park.jpg',
                     width: MediaQuery.of(context).size.width * 1,
@@ -101,7 +105,7 @@ class _MapViewState extends State<AddServiceDetails> {
                   width: MediaQuery.of(context).size.width,
                   height: MediaQuery.of(context).size.height * 0.7,
                   decoration: const BoxDecoration(
-                    color: Color(0xFFEEEEEE),
+                    color: Color(0xFFFFFFFF),
                     boxShadow: [
                       BoxShadow(
                         blurRadius: 30,
@@ -131,7 +135,7 @@ class _MapViewState extends State<AddServiceDetails> {
                               maxWidth: MediaQuery.of(context).size.width,
                             ),
                             decoration: const BoxDecoration(
-                              color: Color(0xFFEEEEEE),
+                              color: Color(0xFFFFFFFF),
                             ),
                             child: const Text(
                               'ADD A SERVICE',
@@ -152,14 +156,23 @@ class _MapViewState extends State<AddServiceDetails> {
                             width: MediaQuery.of(context).size.width,
                             height: 20,
                             decoration: const BoxDecoration(
-                              color: Color(0xFFEEEEEE),
+                              color: Color(0xFFFFFFFF),
+                            ),
+                          ),
+                          const Text(
+                            'Add Service Details',
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                              fontFamily: 'fonts/Poppins-light.ttf',
+                              fontSize: 20,
+                              fontWeight: FontWeight.w400,
                             ),
                           ),
                           Padding(
                             padding: const EdgeInsetsDirectional.fromSTEB(
-                                0, 10, 0, 0),
+                                0, 15, 0, 0),
                             child: Row(
-                              mainAxisSize: MainAxisSize.min,
+                              mainAxisSize: MainAxisSize.max,
                               mainAxisAlignment: MainAxisAlignment.center,
                               crossAxisAlignment: CrossAxisAlignment.center,
                               children: [
@@ -169,60 +182,76 @@ class _MapViewState extends State<AddServiceDetails> {
                                   crossAxisAlignment: CrossAxisAlignment.center,
                                   children: [
                                     const Text(
-                                      'Hello World',
+                                      'Service Name',
                                       textAlign: TextAlign.center,
                                       style: TextStyle(
                                         fontFamily: 'fonts/Poppins-light.ttf',
-                                        fontSize: 25,
-                                        fontWeight: FontWeight.w400,
+                                        fontSize: 18,
+                                        fontWeight: FontWeight.w300,
                                       ),
                                     ),
                                     Padding(
                                       padding:
                                           const EdgeInsetsDirectional.fromSTEB(
-                                              0, 0, 10, 0),
-                                      child: Container(
+                                              0, 10, 10, 0),
+                                      child: SizedBox(
+                                        height: 50,
                                         width: 150,
-                                        decoration: const BoxDecoration(),
                                         child: TextFormField(
                                           controller: textController1,
                                           obscureText: false,
-                                          decoration: const InputDecoration(
-                                            hintText: '[Some hint text...]',
-                                            hintStyle: TextStyle(
+                                          decoration: InputDecoration(
+                                            isDense: true,
+                                            hintText: 'Name',
+                                            hintStyle: const TextStyle(
+                                              fontWeight: FontWeight.w400,
                                               fontFamily:
                                                   'fonts/Poppins-light.ttf',
-                                              fontSize: 25,
-                                              fontWeight: FontWeight.w400,
+                                              fontSize: 15,
+                                              color: Color(0xFFA0A0A0),
                                             ),
-                                            enabledBorder: UnderlineInputBorder(
-                                              borderSide: BorderSide(
-                                                color: Color(0x00000000),
+                                            enabledBorder: OutlineInputBorder(
+                                              borderSide: const BorderSide(
+                                                color: Color(0xFFA0A0A0),
                                                 width: 1,
                                               ),
-                                              borderRadius: BorderRadius.only(
-                                                topLeft: Radius.circular(4.0),
-                                                topRight: Radius.circular(4.0),
-                                              ),
+                                              borderRadius:
+                                                  BorderRadius.circular(5),
                                             ),
-                                            focusedBorder: UnderlineInputBorder(
-                                              borderSide: BorderSide(
-                                                color: Color(0x00000000),
+                                            focusedBorder: OutlineInputBorder(
+                                              borderSide: const BorderSide(
+                                                color: Colors.green,
                                                 width: 1,
                                               ),
-                                              borderRadius: BorderRadius.only(
-                                                topLeft: Radius.circular(4.0),
-                                                topRight: Radius.circular(4.0),
-                                              ),
+                                              borderRadius:
+                                                  BorderRadius.circular(5),
                                             ),
+                                            filled: true,
+                                            fillColor: const Color(0xFFEFEFEF),
+                                            prefixIcon:
+                                                const Icon(Icons.text_fields),
+                                            suffixIcon: textController1
+                                                    .text.isNotEmpty
+                                                ? InkWell(
+                                                    onTap: () => setState(
+                                                      () => textController1
+                                                          .clear(),
+                                                    ),
+                                                    child: Icon(
+                                                      Icons.clear,
+                                                      color: Colors.red[400],
+                                                      size: 20,
+                                                    ),
+                                                  )
+                                                : null,
                                           ),
                                           style: const TextStyle(
+                                            fontWeight: FontWeight.w400,
                                             fontFamily:
                                                 'fonts/Poppins-light.ttf',
-                                            fontSize: 25,
-                                            fontWeight: FontWeight.w400,
+                                            fontSize: 15,
                                           ),
-                                          textAlign: TextAlign.center,
+                                          textAlign: TextAlign.start,
                                         ),
                                       ),
                                     ),
@@ -233,60 +262,86 @@ class _MapViewState extends State<AddServiceDetails> {
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
                                     const Text(
-                                      'Hello World',
+                                      'Location Type',
                                       style: TextStyle(
                                         fontFamily: 'fonts/Poppins-light.ttf',
-                                        fontSize: 25,
-                                        fontWeight: FontWeight.w400,
+                                        fontSize: 18,
+                                        fontWeight: FontWeight.w300,
                                       ),
                                     ),
                                     Container(
                                       width: 150,
                                       decoration: const BoxDecoration(),
                                       child: Padding(
-                                        padding: const EdgeInsetsDirectional
-                                            .fromSTEB(10, 0, 0, 0),
-                                        child: TextFormField(
-                                          controller: textController2,
-                                          obscureText: false,
-                                          decoration: const InputDecoration(
-                                            hintText: '[Some hint text...]',
-                                            hintStyle: TextStyle(
-                                              fontFamily:
-                                                  'fonts/Poppins-light.ttf',
-                                              fontSize: 25,
-                                              fontWeight: FontWeight.w400,
-                                            ),
-                                            enabledBorder: UnderlineInputBorder(
-                                              borderSide: BorderSide(
-                                                color: Color(0x00000000),
-                                                width: 1,
-                                              ),
-                                              borderRadius: BorderRadius.only(
-                                                topLeft: Radius.circular(4.0),
-                                                topRight: Radius.circular(4.0),
-                                              ),
-                                            ),
-                                            focusedBorder: UnderlineInputBorder(
-                                              borderSide: BorderSide(
-                                                color: Color(0x00000000),
-                                                width: 1,
-                                              ),
-                                              borderRadius: BorderRadius.only(
-                                                topLeft: Radius.circular(4.0),
-                                                topRight: Radius.circular(4.0),
-                                              ),
-                                            ),
-                                          ),
-                                          style: const TextStyle(
-                                            fontFamily:
-                                                'fonts/Poppins-light.ttf',
-                                            fontSize: 25,
-                                            fontWeight: FontWeight.w400,
-                                          ),
-                                          textAlign: TextAlign.center,
-                                        ),
-                                      ),
+                                          padding: const EdgeInsetsDirectional
+                                              .fromSTEB(10, 10, 0, 0),
+                                          child: SizedBox(
+                                              height: 50,
+                                              width: 170,
+                                              child: DropdownButtonFormField(
+                                                icon: const Icon(
+                                                  Icons.keyboard_arrow_down,
+                                                ),
+                                                iconSize: 25,
+                                                iconEnabledColor: Colors.green,
+
+                                                decoration: InputDecoration(
+                                                    enabledBorder:
+                                                        OutlineInputBorder(
+                                                      borderSide:
+                                                          const BorderSide(
+                                                        color:
+                                                            Color(0xFFA0A0A0),
+                                                        width: 1,
+                                                      ),
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              5),
+                                                    ),
+                                                    focusedBorder:
+                                                        OutlineInputBorder(
+                                                      borderSide:
+                                                          const BorderSide(
+                                                        color: Colors.green,
+                                                        width: 1,
+                                                      ),
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              5),
+                                                    ),
+                                                    filled: true,
+                                                    isDense: true,
+                                                    hintStyle: const TextStyle(
+                                                        fontSize: 14,
+                                                        color:
+                                                            Color(0xFFA0A0A0)),
+                                                    hintText: "Type",
+                                                    fillColor: const Color(
+                                                        0xFFEFEFEF)),
+                                                value: dropDownValue,
+                                                // ignore: non_constant_identifier_names
+                                                onChanged: (String? Value) {
+                                                  setState(() {
+                                                    dropDownValue = Value;
+                                                  });
+                                                },
+                                                // ignore: non_constant_identifier_names
+                                                items: itemList
+                                                    .map((items) =>
+                                                        DropdownMenuItem(
+                                                            value: items,
+                                                            child: Container(
+                                                                alignment:
+                                                                    Alignment
+                                                                        .center,
+                                                                child: Text(
+                                                                  items,
+                                                                  style: const TextStyle(
+                                                                      fontSize:
+                                                                          15),
+                                                                ))))
+                                                    .toList(),
+                                              ))),
                                     ),
                                   ],
                                 ),
@@ -294,12 +349,12 @@ class _MapViewState extends State<AddServiceDetails> {
                             ),
                           ),
                           const Padding(
-                            padding: EdgeInsetsDirectional.fromSTEB(0, 5, 0, 0),
+                            padding:
+                                EdgeInsetsDirectional.fromSTEB(0, 15, 0, 0),
                             child: Text(
-                              'Select Service Type',
+                              'Select The Parking Amenities',
                               style: TextStyle(
-                                fontSize: 18,
-                              ),
+                                  fontSize: 18, fontWeight: FontWeight.w300),
                             ),
                           ),
                           Padding(
@@ -315,7 +370,7 @@ class _MapViewState extends State<AddServiceDetails> {
                                     decoration: BoxDecoration(
                                       color: _amenity1
                                           ? Colors.green[400]
-                                          : Colors.red[400],
+                                          : Colors.grey[400],
                                       borderRadius: BorderRadius.circular(15),
                                     ),
                                     child: IconButton(
@@ -339,8 +394,8 @@ class _MapViewState extends State<AddServiceDetails> {
                                                   context,
                                                   _amenity1 == true
                                                       ? Colors.green[400]
-                                                      : Colors.red[400],
-                                                  2));
+                                                      : Colors.orange[400],
+                                                  1));
                                         })
                                       },
                                     )),
@@ -350,7 +405,7 @@ class _MapViewState extends State<AddServiceDetails> {
                                     decoration: BoxDecoration(
                                       color: _amenity2
                                           ? Colors.green[400]
-                                          : Colors.red[400],
+                                          : Colors.grey[400],
                                       borderRadius: BorderRadius.circular(15),
                                     ),
                                     child: IconButton(
@@ -374,8 +429,8 @@ class _MapViewState extends State<AddServiceDetails> {
                                                   context,
                                                   _amenity2 == true
                                                       ? Colors.green[400]
-                                                      : Colors.red[400],
-                                                  2));
+                                                      : Colors.orange[400],
+                                                  1));
                                         })
                                       },
                                     )),
@@ -385,7 +440,7 @@ class _MapViewState extends State<AddServiceDetails> {
                                     decoration: BoxDecoration(
                                       color: _amenity3
                                           ? Colors.green[400]
-                                          : Colors.red[400],
+                                          : Colors.grey[400],
                                       borderRadius: BorderRadius.circular(15),
                                     ),
                                     child: IconButton(
@@ -409,8 +464,8 @@ class _MapViewState extends State<AddServiceDetails> {
                                                   context,
                                                   _amenity3 == true
                                                       ? Colors.green[400]
-                                                      : Colors.red[400],
-                                                  2));
+                                                      : Colors.orange[400],
+                                                  1));
                                         })
                                       },
                                     )),
@@ -420,7 +475,7 @@ class _MapViewState extends State<AddServiceDetails> {
                                   decoration: BoxDecoration(
                                     color: _amenity4
                                         ? Colors.green[400]
-                                        : Colors.red[400],
+                                        : Colors.grey[400],
                                     borderRadius: BorderRadius.circular(15),
                                   ),
                                   child: IconButton(
@@ -445,8 +500,9 @@ class _MapViewState extends State<AddServiceDetails> {
                                                         context,
                                                         _amenity4 == true
                                                             ? Colors.green[400]
-                                                            : Colors.red[400],
-                                                        2));
+                                                            : Colors
+                                                                .orange[400],
+                                                        1));
                                               },
                                             ),
                                           }),
@@ -457,7 +513,7 @@ class _MapViewState extends State<AddServiceDetails> {
                                     decoration: BoxDecoration(
                                       color: _amenity5
                                           ? Colors.green[400]
-                                          : Colors.red[400],
+                                          : Colors.grey[400],
                                       borderRadius: BorderRadius.circular(15),
                                     ),
                                     child: IconButton(
@@ -481,8 +537,8 @@ class _MapViewState extends State<AddServiceDetails> {
                                                   context,
                                                   _amenity5 == true
                                                       ? Colors.green[400]
-                                                      : Colors.red[400],
-                                                  2));
+                                                      : Colors.orange[400],
+                                                  1));
                                         })
                                       },
                                     )),
@@ -492,7 +548,7 @@ class _MapViewState extends State<AddServiceDetails> {
                                     decoration: BoxDecoration(
                                       color: _amenity6
                                           ? Colors.green[400]
-                                          : Colors.red[400],
+                                          : Colors.grey[400],
                                       borderRadius: BorderRadius.circular(15),
                                     ),
                                     child: IconButton(
@@ -516,8 +572,8 @@ class _MapViewState extends State<AddServiceDetails> {
                                                   context,
                                                   _amenity6 == true
                                                       ? Colors.green[400]
-                                                      : Colors.red[400],
-                                                  2));
+                                                      : Colors.orange[400],
+                                                  1));
                                         })
                                       },
                                     )),
@@ -527,7 +583,7 @@ class _MapViewState extends State<AddServiceDetails> {
                           Container(
                             width: MediaQuery.of(context).size.width,
                             decoration: const BoxDecoration(
-                              color: Color(0xFFEEEEEE),
+                              color: Color(0xFFFFFFFF),
                             ),
                             child: Column(
                               mainAxisSize: MainAxisSize.max,
@@ -535,26 +591,87 @@ class _MapViewState extends State<AddServiceDetails> {
                               children: [
                                 const Padding(
                                   padding: EdgeInsetsDirectional.fromSTEB(
-                                      0, 5, 0, 0),
+                                      0, 15, 0, 0),
                                   child: Text(
-                                    'Tip: You can drag the map to make the location more precise',
+                                    'Note: Grey means not available and Green means available',
                                     textAlign: TextAlign.center,
                                     style: TextStyle(
-                                      fontWeight: FontWeight.w500,
-                                      fontSize: 10,
+                                      fontWeight: FontWeight.w300,
+                                      fontSize: 12,
                                     ),
                                   ),
                                 ),
                                 Padding(
                                   padding: const EdgeInsetsDirectional.fromSTEB(
-                                      0, 25, 0, 0),
-                                  child: Container(
-                                    width:
-                                        MediaQuery.of(context).size.width * 0.8,
+                                      0, 15, 0, 0),
+                                  child: SizedBox(
+                                    width: MediaQuery.of(context).size.width,
                                     height: 50,
-                                    decoration: BoxDecoration(
-                                      color: const Color(0xFFD62F2F),
-                                      borderRadius: BorderRadius.circular(5),
+                                    child: ElevatedButton(
+                                      child: const Text("NEXT"),
+                                      onPressed: () {
+                                        _scaffoldKey.currentState
+                                            ?.removeCurrentSnackBar();
+
+                                        if (textController1.text.length < 3) {
+                                          _scaffoldKey.currentState
+                                              ?.showSnackBar(showSnackBar(
+                                                  "The name must be at least 3 char long",
+                                                  context,
+                                                  Colors.red[400],
+                                                  1));
+                                        } else if (dropDownValue == null) {
+                                          _scaffoldKey.currentState
+                                              ?.showSnackBar(showSnackBar(
+                                                  "Please select the type of the service location",
+                                                  context,
+                                                  Colors.red[400],
+                                                  2));
+                                        } else if (itemList
+                                            .contains(dropDownValue)) {
+                                          if (_amenity6 || _amenity5) {
+                                            _scaffoldKey.currentState
+                                                ?.showSnackBar(showSnackBar(
+                                                    "All seems good so far!",
+                                                    context,
+                                                    Colors.green[400],
+                                                    1));
+                                          } else {
+                                            _scaffoldKey.currentState
+                                                ?.showSnackBar(showSnackBar(
+                                                    "Please select bike or car or both amenity to proceed",
+                                                    context,
+                                                    Colors.red[400],
+                                                    2));
+                                          }
+                                        } else {
+                                          _scaffoldKey.currentState
+                                              ?.showSnackBar(showSnackBar(
+                                                  "Sorry! Something went wrong",
+                                                  context,
+                                                  Colors.red[400],
+                                                  1));
+                                        }
+                                      },
+                                      style: ElevatedButton.styleFrom(
+                                        primary: const Color(0xFF58B6EC),
+                                        textStyle: const TextStyle(
+                                          fontFamily: 'Poppins',
+                                          color: Colors.white,
+                                          fontWeight: FontWeight.w500,
+                                          letterSpacing: 10,
+                                          fontSize: 20,
+                                        ),
+                                        side: const BorderSide(
+                                          color: Colors.transparent,
+                                          width: 1,
+                                        ),
+                                        shape: const RoundedRectangleBorder(
+                                          borderRadius: BorderRadius.all(
+                                            Radius.circular(5),
+                                          ),
+                                        ),
+                                      ),
                                     ),
                                   ),
                                 ),
