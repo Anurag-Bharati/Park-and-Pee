@@ -20,7 +20,7 @@ void main() {
     // home: const MyLogin(),
     // home: const MyVerification()
     // home: const Myadmin(),
-    home: const MySoNavbar(),
+    home: const Mynavbar(),
     routes: {
       'register': (context) => const MyRegister(),
       'login': (context) => const MyLogin(),
