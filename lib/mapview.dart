@@ -1,6 +1,9 @@
+// ignore_for_file: deprecated_member_use
+
 import 'package:flutter/foundation.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:parkandpee/add_service_details_park.dart';
 import 'package:parkandpee/add_service_details_pee.dart';
@@ -18,10 +21,17 @@ class MapView extends StatefulWidget {
 }
 
 class _MapViewState extends State<MapView> {
-  final scaffoldKey = GlobalKey<ScaffoldState>();
+  final _scaffoldKey = GlobalKey<ScaffoldState>();
 
   late TextEditingController textController1;
   late TextEditingController textController2;
+
+  late GoogleMapController _mapController;
+
+  LatLng _currentLatLng = const LatLng(27.62, 85.32);
+  late CameraPosition _newCameraPosition =
+      CameraPosition(target: _currentLatLng, zoom: 17);
+  bool _toggleHybrid = false;
 
   @override
   void initState() {
@@ -29,6 +39,13 @@ class _MapViewState extends State<MapView> {
     textController1 = TextEditingController();
     textController2 = TextEditingController();
     setCustomMarker();
+    locateMe();
+  }
+
+  Future<LatLng> locateMe() async {
+    final Position position = await Geolocator.getCurrentPosition();
+    _currentLatLng = LatLng(position.latitude, position.longitude);
+    return _currentLatLng;
   }
 
   SnackBar showSnackBar(String message, context, Color? color, int duration) {
@@ -58,14 +75,14 @@ class _MapViewState extends State<MapView> {
 
   @override
   void dispose() {
+    _mapController.dispose();
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
-    String _selected = "1";
     return Scaffold(
-      key: scaffoldKey,
+      key: _scaffoldKey,
       appBar: PreferredSize(
         preferredSize: Size.zero,
         child: AppBar(
@@ -100,16 +117,79 @@ class _MapViewState extends State<MapView> {
                             () => EagerGestureRecognizer(),
                           ),
                         },
+                        onTap: _getData,
+                        onLongPress: _getData,
                         markers: _markers,
-                        onMapCreated: _onMapCreated,
-                        initialCameraPosition: const CameraPosition(
-                            target:
-                                LatLng(27.706381548294303, 85.33003338878844),
-                            zoom: 15),
+                        onMapCreated: (controller) => {
+                          _mapController = controller,
+                          _onMapCreated(),
+                        },
+                        initialCameraPosition: _newCameraPosition,
+                        myLocationEnabled: true,
+                        mapType:
+                            _toggleHybrid ? MapType.hybrid : MapType.normal,
                       ),
                     ),
                     decoration: const BoxDecoration(
                       color: Color(0xFFEEEEEE),
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsetsDirectional.all(11),
+                    child: Container(
+                      width: MediaQuery.of(context).size.width,
+                      height: MediaQuery.of(context).size.height * 0.2,
+                      alignment: Alignment.centerRight,
+                      child: SizedBox(
+                        width: 38,
+                        height: 38,
+                        child: FloatingActionButton(
+                          shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(2)),
+                          backgroundColor: const Color(0xCCEF5350),
+                          child: const Icon(
+                            Icons.location_searching,
+                            size: 20,
+                          ),
+                          onPressed: () => _mapController.animateCamera(
+                            CameraUpdate.newCameraPosition(_newCameraPosition),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsetsDirectional.all(11),
+                    child: Container(
+                      width: MediaQuery.of(context).size.width,
+                      height: MediaQuery.of(context).size.height * 0.35,
+                      alignment: Alignment.centerRight,
+                      child: SizedBox(
+                        width: 38,
+                        height: 38,
+                        child: FloatingActionButton(
+                            shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(2)),
+                            backgroundColor: _toggleHybrid
+                                ? const Color(0xCC66BB6A)
+                                : const Color(0xCCFFA726),
+                            child: Icon(
+                              _toggleHybrid ? Icons.map : Icons.satellite,
+                              size: 20,
+                            ),
+                            onPressed: () {
+                              setState(() {
+                                _toggleHybrid = !_toggleHybrid;
+                                _toggleHybrid
+                                    ? _scaffoldKey.currentState?.showSnackBar(
+                                        showSnackBar("Satellite Mode Enabled",
+                                            context, Colors.green[400], 1))
+                                    : _scaffoldKey.currentState?.showSnackBar(
+                                        showSnackBar("Satellite Mode Disabled",
+                                            context, Colors.orange[400], 1));
+                              });
+                            }),
+                      ),
                     ),
                   ),
                   Padding(
@@ -285,73 +365,72 @@ class _MapViewState extends State<MapView> {
                                   width: double.infinity,
                                   decoration: const BoxDecoration(),
                                   child: Padding(
-                                      padding:
-                                          const EdgeInsetsDirectional.fromSTEB(
-                                              0, 10, 0, 0),
-                                      child: SizedBox(
-                                          height: 50,
-                                          width: 170,
-                                          child: DropdownButtonFormField(
-                                            icon: const Icon(
-                                              Icons.keyboard_arrow_down,
-                                            ),
-                                            iconSize: 25,
-                                            iconEnabledColor: Colors.grey,
+                                    padding:
+                                        const EdgeInsetsDirectional.fromSTEB(
+                                            0, 10, 0, 0),
+                                    child: SizedBox(
+                                      height: 50,
+                                      width: 170,
+                                      child: DropdownButtonFormField(
+                                        icon: const Icon(
+                                          Icons.keyboard_arrow_down,
+                                        ),
+                                        iconSize: 25,
+                                        iconEnabledColor: Colors.grey,
 
-                                            decoration: InputDecoration(
-                                                prefixIcon: const Icon(
-                                                  Icons.settings,
-                                                ),
-                                                enabledBorder:
-                                                    OutlineInputBorder(
-                                                  borderSide: const BorderSide(
-                                                    color: Color(0xFFA0A0A0),
-                                                    width: 1,
+                                        decoration: InputDecoration(
+                                            prefixIcon: const Icon(
+                                              Icons.settings,
+                                            ),
+                                            enabledBorder: OutlineInputBorder(
+                                              borderSide: const BorderSide(
+                                                color: Color(0xFFA0A0A0),
+                                                width: 1,
+                                              ),
+                                              borderRadius:
+                                                  BorderRadius.circular(5),
+                                            ),
+                                            focusedBorder: OutlineInputBorder(
+                                              borderSide: const BorderSide(
+                                                color: Colors.grey,
+                                                width: 1,
+                                              ),
+                                              borderRadius:
+                                                  BorderRadius.circular(5),
+                                            ),
+                                            filled: true,
+                                            isDense: true,
+                                            hintStyle: TextStyle(
+                                                fontSize: 14,
+                                                color: Colors.grey[600]),
+                                            hintText: "Type",
+                                            fillColor: const Color(0xFFEFEFEF)),
+                                        value: dropDownValue,
+                                        // ignore: non_constant_identifier_names
+                                        onChanged: (String? Value) {
+                                          setState(() {
+                                            dropDownValue = Value;
+                                          });
+                                        },
+                                        // ignore: non_constant_identifier_names
+                                        items: itemList
+                                            .map(
+                                              (items) => DropdownMenuItem(
+                                                value: items,
+                                                child: Container(
+                                                  alignment: Alignment.center,
+                                                  child: Text(
+                                                    items,
+                                                    style: const TextStyle(
+                                                        fontSize: 15),
                                                   ),
-                                                  borderRadius:
-                                                      BorderRadius.circular(5),
                                                 ),
-                                                focusedBorder:
-                                                    OutlineInputBorder(
-                                                  borderSide: const BorderSide(
-                                                    color: Colors.grey,
-                                                    width: 1,
-                                                  ),
-                                                  borderRadius:
-                                                      BorderRadius.circular(5),
-                                                ),
-                                                filled: true,
-                                                isDense: true,
-                                                hintStyle: TextStyle(
-                                                    fontSize: 14,
-                                                    color: Colors.grey[600]),
-                                                hintText: "Type",
-                                                fillColor:
-                                                    const Color(0xFFEFEFEF)),
-                                            value: dropDownValue,
-                                            // ignore: non_constant_identifier_names
-                                            onChanged: (String? Value) {
-                                              setState(() {
-                                                dropDownValue = Value;
-                                              });
-                                            },
-                                            // ignore: non_constant_identifier_names
-                                            items: itemList
-                                                .map((items) =>
-                                                    DropdownMenuItem(
-                                                        value: items,
-                                                        child: Container(
-                                                            alignment: Alignment
-                                                                .center,
-                                                            child: Text(
-                                                              items,
-                                                              style:
-                                                                  const TextStyle(
-                                                                      fontSize:
-                                                                          15),
-                                                            ))))
-                                                .toList(),
-                                          ))),
+                                              ),
+                                            )
+                                            .toList(),
+                                      ),
+                                    ),
+                                  ),
                                 ),
                               ),
                               Container(
@@ -436,20 +515,23 @@ class _MapViewState extends State<MapView> {
     );
   }
 
+  void _getData(LatLng pos) async {
+    setState(() {
+      _newCameraPosition = CameraPosition(target: pos, zoom: 15);
+      _markers.add(
+        Marker(icon: mapMarker, markerId: const MarkerId("one"), position: pos),
+      );
+    });
+  }
+
   void setCustomMarker() async {
     mapMarker = await BitmapDescriptor.fromAssetImage(
         const ImageConfiguration(), 'assets/mapmarker.png');
   }
 
-  void _onMapCreated(GoogleMapController controller) {
+  void _onMapCreated() {
     setState(() {
-      _markers.add(Marker(
-          icon: mapMarker,
-          markerId: const MarkerId("one"),
-          position: const LatLng(27.706381548294303, 85.33003338878844),
-          infoWindow: const InfoWindow(
-              title: 'Softwarica College', snippet: "An IT College")));
-      controller.setMapStyle(Utils.mapStyle);
+      _mapController.setMapStyle(Utils.mapStyle);
     });
   }
 }
