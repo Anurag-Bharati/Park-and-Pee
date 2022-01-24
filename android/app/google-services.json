@@ -1,33 +1,33 @@
 {
   "project_info": {
-    "project_number": "441590974670",
-    "project_id": "parkandpee-imageuploader",
-    "storage_bucket": "parkandpee-imageuploader.appspot.com"
+    "project_number": "376932927809",
+    "project_id": "parkandpee-1d828",
+    "storage_bucket": "parkandpee-1d828.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:441590974670:android:2a95d6bea94f1d7dfd289f",
+        "mobilesdk_app_id": "1:376932927809:android:1bc273ec5623b74c45b9c0",
         "android_client_info": {
           "package_name": "com.aramb.parkandpee"
         }
       },
       "oauth_client": [
         {
-          "client_id": "441590974670-37kll1djkos92ckn5m34f1pksibl223m.apps.googleusercontent.com",
+          "client_id": "376932927809-fhdikheq8d73j5tfq1fb5rbm4dqk4hbl.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyCNEVggLmQWqG7CJfcgqri-veoMyNFTL6M"
+          "current_key": "AIzaSyDI6d7hNFwjEmkeMq5bmaxVPGv15r34UKM"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "441590974670-37kll1djkos92ckn5m34f1pksibl223m.apps.googleusercontent.com",
+              "client_id": "376932927809-fhdikheq8d73j5tfq1fb5rbm4dqk4hbl.apps.googleusercontent.com",
               "client_type": 3
             }
           ]
