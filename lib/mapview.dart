@@ -2,6 +2,8 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:parkandpee/add_service_details_park.dart';
+import 'package:parkandpee/add_service_details_pee.dart';
 
 import 'Model/map_util.dart';
 import 'Model/progress_step_widget.dart';
@@ -29,11 +31,26 @@ class _MapViewState extends State<MapView> {
     setCustomMarker();
   }
 
+  SnackBar showSnackBar(String message, context, Color? color, int duration) {
+    final snackbar = SnackBar(
+        duration: Duration(seconds: duration),
+        backgroundColor: color,
+        content: Text(
+          message,
+          style: const TextStyle(
+              fontFamily: 'Poppins', fontWeight: FontWeight.w500),
+          textAlign: TextAlign.center,
+        ));
+    return snackbar;
+  }
   // Option 2
 
   // For Custom Initial Location and its Icon
   final Set<Marker> _markers = {};
   late BitmapDescriptor mapMarker;
+
+  String? dropDownValue;
+  final List<String> itemList = ['Parking', 'Toilet'];
 
   // Initials for stepping sequence
   static const stepIcons = [Icons.location_on, Icons.file_copy, Icons.verified];
@@ -177,10 +194,11 @@ class _MapViewState extends State<MapView> {
                                       decoration: InputDecoration(
                                         isDense: true,
                                         hintText: 'Your Service Location Here',
-                                        hintStyle: const TextStyle(
+                                        hintStyle: TextStyle(
                                           fontWeight: FontWeight.w400,
                                           fontFamily: 'fonts/Poppins-light.ttf',
                                           fontSize: 15,
+                                          color: Colors.grey[600],
                                         ),
                                         enabledBorder: OutlineInputBorder(
                                           borderSide: const BorderSide(
@@ -198,7 +216,7 @@ class _MapViewState extends State<MapView> {
                                           borderRadius:
                                               BorderRadius.circular(5),
                                         ),
-                                        filled: true,
+                                        filled: false,
                                         fillColor: const Color(0xFFEFEFEF),
                                         prefixIcon: const Icon(
                                           Icons.location_on,
@@ -260,27 +278,80 @@ class _MapViewState extends State<MapView> {
                                   ),
                                 ],
                               ),
-
-                              // ignore: todo
-                              //TODO
                               Padding(
                                 padding: const EdgeInsetsDirectional.fromSTEB(
                                     0, 5, 0, 0),
-                                child: DropdownButton(
-                                  hint: const Text(
-                                      'Please choose a location'), // Not necessary for Option 1
-                                  value: _selected,
-                                  onChanged: (newValue) {
-                                    setState(() {
-                                      _selected = newValue.toString();
-                                    });
-                                  },
-                                  items: ['1', '2'].map((location) {
-                                    return DropdownMenuItem(
-                                      child: Text(location),
-                                      value: location,
-                                    );
-                                  }).toList(),
+                                child: Container(
+                                  width: double.infinity,
+                                  decoration: const BoxDecoration(),
+                                  child: Padding(
+                                      padding:
+                                          const EdgeInsetsDirectional.fromSTEB(
+                                              0, 10, 0, 0),
+                                      child: SizedBox(
+                                          height: 50,
+                                          width: 170,
+                                          child: DropdownButtonFormField(
+                                            icon: const Icon(
+                                              Icons.keyboard_arrow_down,
+                                            ),
+                                            iconSize: 25,
+                                            iconEnabledColor: Colors.grey,
+
+                                            decoration: InputDecoration(
+                                                prefixIcon: const Icon(
+                                                  Icons.settings,
+                                                ),
+                                                enabledBorder:
+                                                    OutlineInputBorder(
+                                                  borderSide: const BorderSide(
+                                                    color: Color(0xFFA0A0A0),
+                                                    width: 1,
+                                                  ),
+                                                  borderRadius:
+                                                      BorderRadius.circular(5),
+                                                ),
+                                                focusedBorder:
+                                                    OutlineInputBorder(
+                                                  borderSide: const BorderSide(
+                                                    color: Colors.grey,
+                                                    width: 1,
+                                                  ),
+                                                  borderRadius:
+                                                      BorderRadius.circular(5),
+                                                ),
+                                                filled: true,
+                                                isDense: true,
+                                                hintStyle: TextStyle(
+                                                    fontSize: 14,
+                                                    color: Colors.grey[600]),
+                                                hintText: "Type",
+                                                fillColor:
+                                                    const Color(0xFFEFEFEF)),
+                                            value: dropDownValue,
+                                            // ignore: non_constant_identifier_names
+                                            onChanged: (String? Value) {
+                                              setState(() {
+                                                dropDownValue = Value;
+                                              });
+                                            },
+                                            // ignore: non_constant_identifier_names
+                                            items: itemList
+                                                .map((items) =>
+                                                    DropdownMenuItem(
+                                                        value: items,
+                                                        child: Container(
+                                                            alignment: Alignment
+                                                                .center,
+                                                            child: Text(
+                                                              items,
+                                                              style:
+                                                                  const TextStyle(
+                                                                      fontSize:
+                                                                          15),
+                                                            ))))
+                                                .toList(),
+                                          ))),
                                 ),
                               ),
                               Container(
@@ -293,7 +364,7 @@ class _MapViewState extends State<MapView> {
                                   children: [
                                     const Padding(
                                       padding: EdgeInsetsDirectional.fromSTEB(
-                                          0, 5, 0, 0),
+                                          0, 10, 0, 0),
                                       child: Text(
                                         'Tip: You can drag the map to make the location more precise',
                                         textAlign: TextAlign.center,
@@ -315,6 +386,14 @@ class _MapViewState extends State<MapView> {
                                         child: ElevatedButton(
                                           child: const Text("NEXT"),
                                           onPressed: () {
+                                            Navigator.push(
+                                              context,
+                                              MaterialPageRoute(
+                                                  builder: (context) =>
+                                                      dropDownValue == "Parking"
+                                                          ? const AddServiceDetails()
+                                                          : const AddServiceDetailsPee()),
+                                            );
                                             print('Button pressed ...');
                                           },
                                           style: ElevatedButton.styleFrom(

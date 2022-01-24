@@ -11,7 +11,7 @@ class StepProgressView extends StatelessWidget {
       var lineColor = _curStep > i + 1 ? _activeColor : _inactiveColor;
 
       var iconColor =
-          (i == 0 || _curStep > i + 1) ? _inactiveColor : _activeColor;
+          (i == 0 || _curStep > i + 1) ? Colors.white : _activeColor;
 
       list.add(
         //dot with icon view
@@ -67,7 +67,7 @@ class StepProgressView extends StatelessWidget {
         _curStep = curStep,
         _width = width,
         _activeColor = color,
-        assert(curStep > 0 == true && curStep <= icons.length),
+        assert(curStep > 0 == true && curStep <= icons.length + 1),
         assert(width > 0),
         super(key: key);
 

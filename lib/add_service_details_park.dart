@@ -92,6 +92,8 @@ class _MapViewState extends State<AddServiceDetails> {
                   transform: Matrix4.diagonal3Values(1.2, 1.2, 0),
                   width: MediaQuery.of(context).size.width,
                   height: MediaQuery.of(context).size.height * 0.28,
+                  // TOD  FadeInImage.memoryNetwork(
+
                   child: Image.asset(
                     'assets/cover_park.jpg',
                     width: MediaQuery.of(context).size.width * 1,

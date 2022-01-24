@@ -4,11 +4,12 @@ import 'package:file_picker/file_picker.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:parkandpee/Model/service.dart';
 
 import 'Model/progress_step_widget.dart';
 
-class AddServicePhotoPee extends StatefulWidget {
-  const AddServicePhotoPee({Key? key}) : super(key: key);
+class AddServicePhoto extends StatefulWidget {
+  const AddServicePhoto({Key? key}) : super(key: key);
   double deviceHeight(BuildContext context) =>
       MediaQuery.of(context).size.height;
   double deviceWidth(BuildContext context) => MediaQuery.of(context).size.width;
@@ -16,11 +17,13 @@ class AddServicePhotoPee extends StatefulWidget {
   _MapViewState createState() => _MapViewState();
 }
 
-class _MapViewState extends State<AddServicePhotoPee> {
+class _MapViewState extends State<AddServicePhoto> {
   final _scaffoldKey = GlobalKey<ScaffoldState>();
+  late final Service service;
 
   @override
   void initState() {
+    service = Service("parking", null, null);
     super.initState();
   }
 
@@ -73,16 +76,18 @@ class _MapViewState extends State<AddServicePhotoPee> {
           ),
           child: SingleChildScrollView(
             child: Column(
-              mainAxisSize: MainAxisSize.max,
+              mainAxisSize: MainAxisSize.min,
               mainAxisAlignment: MainAxisAlignment.end,
-              crossAxisAlignment: CrossAxisAlignment.end,
+              crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 Container(
                   transform: Matrix4.diagonal3Values(1.2, 1.2, 0),
                   width: MediaQuery.of(context).size.width,
                   height: MediaQuery.of(context).size.height * 0.28,
                   child: Image.asset(
-                    'assets/cover_pee.jpg',
+                    service.service == "parking"
+                        ? 'assets/cover_park.jpg'
+                        : 'assets/cover_pee.jpg',
                     width: MediaQuery.of(context).size.width * 1,
                     height: MediaQuery.of(context).size.height * 1,
                     fit: BoxFit.cover,
