@@ -34,11 +34,6 @@ class _MapViewState extends State<AddServiceDetailsPee> {
     textController2 = TextEditingController();
   }
 
-  // Option 2
-
-  // For Custom Initial Location and its Icon
-  late BitmapDescriptor mapMarker;
-
   // Initials for stepping sequence
   static const stepIcons = [Icons.location_on, Icons.file_copy, Icons.verified];
 
