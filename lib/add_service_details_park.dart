@@ -374,7 +374,7 @@ class _MapViewState extends State<AddServiceDetails> {
                                       borderRadius: BorderRadius.circular(15),
                                     ),
                                     child: IconButton(
-                                      icon: const Icon(Icons.ac_unit),
+                                      icon: const Icon(Icons.water),
                                       // 2
                                       color: _amenity1
                                           ? Colors.white
