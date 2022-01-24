@@ -90,6 +90,11 @@ class _MyPropertyPagestate extends State<MyPropertyPage> {
     return hasDigits & hasUppercase & hasLowercase & hasSpecialCharacters;
   }
 
+  @override
+  void dispose() {
+    super.dispose();
+  }
+
   bool checkPassword() {
     // ignore: unnecessary_null_comparison
     if (user.password == null || user.confirmPass == null) {
@@ -223,7 +228,6 @@ class _MyPropertyPagestate extends State<MyPropertyPage> {
                                           autovalidateMode: AutovalidateMode
                                               .onUserInteraction,
                                           style: const TextStyle(),
-                                          obscureText: true,
                                           controller: TextEditingController(
                                               text: user.password),
                                           onChanged: (val) {
