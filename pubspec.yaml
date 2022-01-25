@@ -51,6 +51,8 @@ dependencies:
     #firebase
     firebase_core: ^1.11.0
     firebase_storage: ^10.2.5
+    firebase_messaging: ^11.2.5
+    flutter_local_notifications: ^9.2.0
 
 
 
