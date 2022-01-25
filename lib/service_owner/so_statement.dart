@@ -14,7 +14,7 @@ class _MySoStatementState extends State<MySoStatement> {
     return Scaffold(
       resizeToAvoidBottomInset: false,
       backgroundColor: const Color(0xFFF7F7F7),
-      body: SingleChildScrollView(
+      body: Container(
         padding: const EdgeInsets.symmetric(),
         child:  Column(
           children: [
@@ -24,7 +24,7 @@ class _MySoStatementState extends State<MySoStatement> {
               decoration: const BoxDecoration(
                 color: Color(0xBD8066F2),
                 borderRadius: BorderRadius.only(
-                  bottomLeft: Radius.circular(50)
+                  bottomLeft: Radius.circular(30)
                 )
               ),
               child: Container(
@@ -34,7 +34,7 @@ class _MySoStatementState extends State<MySoStatement> {
                 ),
               ),
             ),
-            Container(
+            Expanded(child: SingleChildScrollView(
               padding: const EdgeInsets.only(top: 15),
               child: Column(
                 children: [
@@ -683,7 +683,7 @@ class _MySoStatementState extends State<MySoStatement> {
                   
                 ],
               ),
-            )
+            ),),
           ],     
         ),
       )
