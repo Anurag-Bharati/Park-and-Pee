@@ -11,6 +11,7 @@ import 'package:parkandpee/mapview.dart';
 import 'package:parkandpee/navbar.dart';
 import 'package:parkandpee/property.dart';
 import 'package:parkandpee/register.dart';
+import 'package:parkandpee/service_location_learn_more.dart';
 import 'package:parkandpee/verification.dart';
 import 'package:parkandpee/forgetpassword.dart';
 import 'package:parkandpee/newpassword.dart';
@@ -26,7 +27,7 @@ void main() {
     // home: const MyLogin(),
     // home: const MyVerification()
     // home: const Myadmin(),
-    home: const MapView(),
+    home: const MapViewLearnMore(),
     routes: {
       'register': (context) => const MyRegister(),
       'login': (context) => const MyLogin(),

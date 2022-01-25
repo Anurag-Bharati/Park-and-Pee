@@ -28,7 +28,6 @@ class _MapViewState extends State<MapView> {
   final _scaffoldKey = GlobalKey<ScaffoldState>();
 
   late TextEditingController textController1;
-  late TextEditingController textController2;
 
   late GoogleMapController _mapController;
 
@@ -41,7 +40,7 @@ class _MapViewState extends State<MapView> {
   void initState() {
     super.initState();
     textController1 = TextEditingController();
-    textController2 = TextEditingController();
+
     setCustomMarker();
     locateMe();
   }
@@ -287,7 +286,7 @@ class _MapViewState extends State<MapView> {
                                   ),
                                 ),
                                 Container(
-                                  height: 60,
+                                  height: 50,
                                   margin: const EdgeInsets.only(top: 20),
                                   child: Row(
                                     mainAxisSize: MainAxisSize.max,
@@ -298,11 +297,14 @@ class _MapViewState extends State<MapView> {
                                     children: [
                                       Expanded(
                                         child: TextFormField(
+                                          keyboardType: TextInputType.number,
                                           controller: textController1,
+                                          textCapitalization:
+                                              TextCapitalization.words,
                                           obscureText: false,
                                           decoration: InputDecoration(
                                             hintText:
-                                                'Your Service Location Here',
+                                                'Latitude and Longitude Value',
                                             hintStyle: TextStyle(
                                               fontWeight: FontWeight.w400,
                                               fontFamily:
@@ -327,6 +329,7 @@ class _MapViewState extends State<MapView> {
                                                   BorderRadius.circular(5),
                                             ),
                                             filled: false,
+                                            isDense: true,
                                             fillColor: const Color(0xFFEFEFEF),
                                             prefixIcon: const Icon(
                                               Icons.location_on,
@@ -386,9 +389,35 @@ class _MapViewState extends State<MapView> {
                                     ],
                                   ),
                                 ),
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  children: [
+                                    const Text(
+                                      'How does it work? ',
+                                      style: TextStyle(
+                                          fontSize: 15,
+                                          fontWeight: FontWeight.w400),
+                                    ),
+                                    TextButton(
+                                      child: Text(
+                                        "Click here to learn more",
+                                        textAlign: TextAlign.start,
+                                        style: TextStyle(
+                                            fontFamily: 'Poppins',
+                                            color: Colors.red[400],
+                                            fontSize: 15,
+                                            fontWeight: FontWeight.w400),
+                                      ),
+                                      // ignore: todo
+                                      onPressed: null, //TODO
+                                      style: TextButton.styleFrom(
+                                          padding: const EdgeInsets.all(5)),
+                                    ),
+                                  ],
+                                ),
                                 const Padding(
                                   padding: EdgeInsetsDirectional.fromSTEB(
-                                      0, 20, 0, 0),
+                                      0, 15, 0, 0),
                                   child: Text(
                                     'Select The Service Type',
                                     textAlign: TextAlign.center,
@@ -403,7 +432,7 @@ class _MapViewState extends State<MapView> {
                                   width: double.infinity,
                                   decoration: const BoxDecoration(),
                                   child: SizedBox(
-                                    height: 60,
+                                    height: 50,
                                     width: 170,
                                     child: DropdownButtonFormField(
                                       icon: const Icon(
@@ -433,6 +462,7 @@ class _MapViewState extends State<MapView> {
                                                 BorderRadius.circular(5),
                                           ),
                                           filled: true,
+                                          isDense: true,
                                           hintStyle: TextStyle(
                                               fontSize: 18,
                                               color: Colors.grey[600]),
