@@ -1,7 +1,7 @@
 // ignore_for_file: deprecated_member_use
 
 import 'package:flutter/material.dart';
-
+import 'package:parkandpee/add_service_photo.dart';
 import 'Model/progress_step_widget.dart';
 
 class AddServiceDetailsPee extends StatefulWidget {
@@ -645,6 +645,12 @@ class _MapViewState extends State<AddServiceDetailsPee> {
                                                     context,
                                                     Colors.green[400],
                                                     1));
+                                            Navigator.push(
+                                              context,
+                                              MaterialPageRoute(
+                                                  builder: (context) =>
+                                                      const AddServicePhoto()),
+                                            );
                                           }
                                         } else {
                                           _scaffoldKey.currentState

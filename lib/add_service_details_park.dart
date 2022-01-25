@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:parkandpee/add_service_photo.dart';
 
 import 'Model/progress_step_widget.dart';
 
@@ -638,6 +639,12 @@ class _MapViewState extends State<AddServiceDetails> {
                                                     context,
                                                     Colors.green[400],
                                                     1));
+                                            Navigator.push(
+                                              context,
+                                              MaterialPageRoute(
+                                                  builder: (context) =>
+                                                      const AddServicePhoto()),
+                                            );
                                           } else {
                                             _scaffoldKey.currentState
                                                 ?.showSnackBar(showSnackBar(

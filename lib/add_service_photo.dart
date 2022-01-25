@@ -1,10 +1,9 @@
 // ignore_for_file: deprecated_member_use
 
 import 'package:file_picker/file_picker.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
 import 'package:parkandpee/Model/service.dart';
+import 'package:parkandpee/add_service_success.dart';
 
 import 'Model/progress_step_widget.dart';
 
@@ -427,6 +426,13 @@ class _MapViewState extends State<AddServicePhoto> {
                                                   context,
                                                   Colors.red[400],
                                                   1));
+                                        } else {
+                                          Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                                builder: (context) =>
+                                                    const AddServiceSuccess()),
+                                          );
                                         }
                                       },
                                       style: ElevatedButton.styleFrom(

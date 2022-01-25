@@ -1,10 +1,11 @@
 // ignore_for_file: deprecated_member_use
-
 import 'package:flutter/foundation.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:parkandpee/Model/ScrollBehavior.dart';
+import 'package:parkandpee/aboutus.dart';
 import 'package:parkandpee/add_service_details_park.dart';
 import 'package:parkandpee/add_service_details_pee.dart';
 
@@ -13,8 +14,11 @@ import 'Model/progress_step_widget.dart';
 
 class MapView extends StatefulWidget {
   const MapView({Key? key}) : super(key: key);
-  double deviceHeight(BuildContext context) =>
-      MediaQuery.of(context).size.height;
+  double deviceHeight(BuildContext context) {
+    final double height = MediaQuery.of(context).size.height;
+    return height;
+  }
+
   double deviceWidth(BuildContext context) => MediaQuery.of(context).size.width;
   @override
   _MapViewState createState() => _MapViewState();
@@ -30,7 +34,7 @@ class _MapViewState extends State<MapView> {
 
   LatLng _currentLatLng = const LatLng(27.62, 85.32);
   late CameraPosition _newCameraPosition =
-      CameraPosition(target: _currentLatLng, zoom: 17);
+      CameraPosition(target: _currentLatLng, zoom: 15);
   bool _toggleHybrid = false;
 
   @override
@@ -42,7 +46,7 @@ class _MapViewState extends State<MapView> {
     locateMe();
   }
 
-  Future<LatLng> locateMe() async {
+  Future locateMe() async {
     final Position position = await Geolocator.getCurrentPosition();
     _currentLatLng = LatLng(position.latitude, position.longitude);
     return _currentLatLng;
@@ -94,162 +98,187 @@ class _MapViewState extends State<MapView> {
       body: SafeArea(
         child: Container(
           width: MediaQuery.of(context).size.width,
-          height: MediaQuery.of(context).size.height * 1,
+          height: MediaQuery.of(context).size.height,
           decoration: const BoxDecoration(
             color: Color(0xFFEEEEEE),
           ),
-          child: SingleChildScrollView(
-            child: Column(
-              mainAxisSize: MainAxisSize.max,
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                Stack(children: [
-                  Container(
-                    width: MediaQuery.of(context).size.width,
-                    height: MediaQuery.of(context).size.height * 0.55,
-                    child: SizedBox(
-                      height: MediaQuery.of(context).size.height,
-                      width: MediaQuery.of(context).size.width,
-                      child: GoogleMap(
-                        gestureRecognizers: <
-                            Factory<OneSequenceGestureRecognizer>>{
-                          Factory<OneSequenceGestureRecognizer>(
-                            () => EagerGestureRecognizer(),
+          child: ScrollConfiguration(
+            behavior: MyBehavior(),
+            child: SingleChildScrollView(
+              child: Column(
+                mainAxisSize: MainAxisSize.max,
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  Column(children: [
+                    Stack(children: [
+                      Container(
+                        width: double.infinity,
+                        height: deviceHeight(context) > 1080 ? 800 : 520,
+                        child: ClipRRect(
+                          borderRadius: const BorderRadius.only(
+                            bottomRight: Radius.circular(20),
+                            bottomLeft: Radius.circular(20),
                           ),
-                        },
-                        onTap: _getData,
-                        onLongPress: _getData,
-                        markers: _markers,
-                        onMapCreated: (controller) => {
-                          _mapController = controller,
-                          _onMapCreated(),
-                        },
-                        initialCameraPosition: _newCameraPosition,
-                        myLocationEnabled: true,
-                        mapType:
-                            _toggleHybrid ? MapType.hybrid : MapType.normal,
-                      ),
-                    ),
-                    decoration: const BoxDecoration(
-                      color: Color(0xFFEEEEEE),
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsetsDirectional.all(11),
-                    child: Container(
-                      width: MediaQuery.of(context).size.width,
-                      height: MediaQuery.of(context).size.height * 0.2,
-                      alignment: Alignment.centerRight,
-                      child: SizedBox(
-                        width: 38,
-                        height: 38,
-                        child: FloatingActionButton(
-                          shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(2)),
-                          backgroundColor: const Color(0xCCEF5350),
-                          child: const Icon(
-                            Icons.location_searching,
-                            size: 20,
-                          ),
-                          onPressed: () => _mapController.animateCamera(
-                            CameraUpdate.newCameraPosition(_newCameraPosition),
+                          child: GoogleMap(
+                            gestureRecognizers: <
+                                Factory<OneSequenceGestureRecognizer>>{
+                              Factory<OneSequenceGestureRecognizer>(
+                                () => EagerGestureRecognizer(),
+                              ),
+                            },
+                            onTap: _getData,
+                            onLongPress: _getData,
+                            markers: _markers,
+                            onMapCreated: (controller) => {
+                              _mapController = controller,
+                              _onMapCreated(),
+                            },
+                            zoomControlsEnabled: false,
+                            initialCameraPosition: _newCameraPosition,
+                            myLocationEnabled: true,
+                            mapType:
+                                _toggleHybrid ? MapType.hybrid : MapType.normal,
                           ),
                         ),
-                      ),
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsetsDirectional.all(11),
-                    child: Container(
-                      width: MediaQuery.of(context).size.width,
-                      height: MediaQuery.of(context).size.height * 0.35,
-                      alignment: Alignment.centerRight,
-                      child: SizedBox(
-                        width: 38,
-                        height: 38,
-                        child: FloatingActionButton(
-                            shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(2)),
-                            backgroundColor: _toggleHybrid
-                                ? const Color(0xCC66BB6A)
-                                : const Color(0xCCFFA726),
-                            child: Icon(
-                              _toggleHybrid ? Icons.map : Icons.satellite,
-                              size: 20,
-                            ),
-                            onPressed: () {
-                              setState(() {
-                                _toggleHybrid = !_toggleHybrid;
-                                _toggleHybrid
-                                    ? _scaffoldKey.currentState?.showSnackBar(
-                                        showSnackBar("Satellite Mode Enabled",
-                                            context, Colors.green[400], 1))
-                                    : _scaffoldKey.currentState?.showSnackBar(
-                                        showSnackBar("Satellite Mode Disabled",
-                                            context, Colors.orange[400], 1));
-                              });
-                            }),
-                      ),
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsetsDirectional.fromSTEB(0, 300, 0, 0),
-                    child: SingleChildScrollView(
-                      child: Container(
-                        width: MediaQuery.of(context).size.width,
-                        height: MediaQuery.of(context).size.height * 0.555,
                         decoration: const BoxDecoration(
-                          color: Color(0xFFEEEEEE),
+                          color: Colors.transparent,
                           boxShadow: [
                             BoxShadow(
-                              blurRadius: 30,
+                              blurRadius: 10,
                               color: Color(0xB3000000),
                               spreadRadius: 0,
                             )
                           ],
-                          borderRadius: BorderRadius.only(
-                            bottomLeft: Radius.circular(0),
-                            bottomRight: Radius.circular(0),
-                            topLeft: Radius.circular(40),
-                            topRight: Radius.circular(40),
-                          ),
                         ),
-                        child: Padding(
-                          padding: const EdgeInsetsDirectional.fromSTEB(
-                              30, 30, 30, 30),
-                          child: Column(
-                            mainAxisSize: MainAxisSize.max,
-                            crossAxisAlignment: CrossAxisAlignment.start,
+                      ),
+                      Container(
+                        padding: const EdgeInsets.only(
+                          right: 11,
+                          top: 80,
+                        ),
+                        width: MediaQuery.of(context).size.width,
+                        alignment: Alignment.topRight,
+                        child: Column(
+                            mainAxisSize: MainAxisSize.min,
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            crossAxisAlignment: CrossAxisAlignment.end,
                             children: [
-                              Container(
-                                width: MediaQuery.of(context).size.width,
-                                constraints: BoxConstraints(
-                                  maxWidth: MediaQuery.of(context).size.width,
-                                ),
-                                decoration: const BoxDecoration(
-                                  color: Color(0xFFEEEEEE),
-                                ),
-                                child: const Text(
-                                  'ADD A SERVICE',
-                                  textAlign: TextAlign.center,
-                                  style: TextStyle(
-                                    fontWeight: FontWeight.w500,
-                                    fontSize: 24,
+                              SizedBox(
+                                width: 38,
+                                height: 38,
+                                child: FloatingActionButton(
+                                  heroTag: "btn1",
+                                  shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(2)),
+                                  backgroundColor: const Color(0xCCEF5350),
+                                  child: const Icon(
+                                    Icons.location_searching,
+                                    size: 20,
+                                  ),
+                                  onPressed: () => _mapController.animateCamera(
+                                    CameraUpdate.newCameraPosition(
+                                        _newCameraPosition),
                                   ),
                                 ),
                               ),
-                              StepProgressView(
-                                icons: stepIcons,
-                                curStep: _curStep,
-                                width: MediaQuery.of(context).size.width,
-                                color: const Color(0xff58B6EC),
+                              const SizedBox(
+                                height: 30,
                               ),
-                              const Padding(
-                                padding:
-                                    EdgeInsetsDirectional.fromSTEB(0, 15, 0, 0),
-                                child: Center(
+                              SizedBox(
+                                width: 38,
+                                height: 38,
+                                child: FloatingActionButton(
+                                    heroTag: "btn2",
+                                    shape: RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.circular(2)),
+                                    backgroundColor: _toggleHybrid
+                                        ? const Color(0xCC66BB6A)
+                                        : const Color(0xCCFFA726),
+                                    child: Icon(
+                                      _toggleHybrid
+                                          ? Icons.map
+                                          : Icons.satellite,
+                                      size: 20,
+                                    ),
+                                    onPressed: () {
+                                      setState(() {
+                                        _toggleHybrid = !_toggleHybrid;
+                                        _toggleHybrid
+                                            ? _scaffoldKey.currentState
+                                                ?.showSnackBar(showSnackBar(
+                                                    "Satellite Mode Enabled",
+                                                    context,
+                                                    Colors.green[400],
+                                                    1))
+                                            : _scaffoldKey.currentState
+                                                ?.showSnackBar(showSnackBar(
+                                                    "Satellite Mode Disabled",
+                                                    context,
+                                                    Colors.orange[400],
+                                                    1));
+                                      });
+                                    }),
+                              ),
+                            ]),
+                      )
+                    ]),
+                    Padding(
+                      padding: const EdgeInsetsDirectional.all(20),
+                      child: SingleChildScrollView(
+                        child: Container(
+                          width: MediaQuery.of(context).size.width,
+                          height: 600,
+                          decoration: const BoxDecoration(
+                            color: Color(0xFFEEEEEE),
+                            boxShadow: [
+                              BoxShadow(
+                                blurRadius: 0,
+                                color: Color(0xB3000000),
+                                spreadRadius: 0,
+                              )
+                            ],
+                            borderRadius: BorderRadius.only(
+                              bottomLeft: Radius.circular(0),
+                              bottomRight: Radius.circular(0),
+                              topLeft: Radius.circular(40),
+                              topRight: Radius.circular(40),
+                            ),
+                          ),
+                          child: Padding(
+                            padding: const EdgeInsetsDirectional.fromSTEB(
+                                30, 30, 30, 30),
+                            child: Column(
+                              mainAxisSize: MainAxisSize.max,
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Container(
+                                  width: MediaQuery.of(context).size.width,
+                                  constraints: BoxConstraints(
+                                    maxWidth: MediaQuery.of(context).size.width,
+                                  ),
+                                  decoration: const BoxDecoration(
+                                    color: Color(0xFFEEEEEE),
+                                  ),
+                                  child: const Text(
+                                    'ADD A SERVICE',
+                                    textAlign: TextAlign.center,
+                                    style: TextStyle(
+                                      fontWeight: FontWeight.w500,
+                                      fontSize: 24,
+                                    ),
+                                  ),
+                                ),
+                                StepProgressView(
+                                  icons: stepIcons,
+                                  curStep: _curStep,
+                                  width: MediaQuery.of(context).size.width,
+                                  color: const Color(0xff58B6EC),
+                                ),
+                                const Padding(
+                                  padding: EdgeInsetsDirectional.fromSTEB(
+                                      0, 60, 0, 0),
                                   child: Text(
-                                    'Select Location & Type',
+                                    'Select The Service Location',
                                     textAlign: TextAlign.center,
                                     style: TextStyle(
                                       fontWeight: FontWeight.w400,
@@ -257,130 +286,29 @@ class _MapViewState extends State<MapView> {
                                     ),
                                   ),
                                 ),
-                              ),
-                              const Padding(
-                                padding:
-                                    EdgeInsetsDirectional.fromSTEB(0, 10, 0, 0),
-                              ),
-                              Row(
-                                mainAxisSize: MainAxisSize.max,
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                crossAxisAlignment: CrossAxisAlignment.center,
-                                children: [
-                                  Expanded(
-                                    child: TextFormField(
-                                      controller: textController1,
-                                      obscureText: false,
-                                      decoration: InputDecoration(
-                                        isDense: true,
-                                        hintText: 'Your Service Location Here',
-                                        hintStyle: TextStyle(
-                                          fontWeight: FontWeight.w400,
-                                          fontFamily: 'fonts/Poppins-light.ttf',
-                                          fontSize: 15,
-                                          color: Colors.grey[600],
-                                        ),
-                                        enabledBorder: OutlineInputBorder(
-                                          borderSide: const BorderSide(
-                                            color: Color(0xFFA0A0A0),
-                                            width: 1,
-                                          ),
-                                          borderRadius:
-                                              BorderRadius.circular(5),
-                                        ),
-                                        focusedBorder: OutlineInputBorder(
-                                          borderSide: const BorderSide(
-                                            color: Color(0xFFA0A0A0),
-                                            width: 1,
-                                          ),
-                                          borderRadius:
-                                              BorderRadius.circular(5),
-                                        ),
-                                        filled: false,
-                                        fillColor: const Color(0xFFEFEFEF),
-                                        prefixIcon: const Icon(
-                                          Icons.location_on,
-                                        ),
-                                        suffixIcon: textController1
-                                                .text.isNotEmpty
-                                            ? InkWell(
-                                                onTap: () => setState(
-                                                  () => textController1.clear(),
-                                                ),
-                                                child: const Icon(
-                                                  Icons.clear,
-                                                  color: Colors.grey,
-                                                  size: 20,
-                                                ),
-                                              )
-                                            : null,
-                                      ),
-                                      style: const TextStyle(
-                                        fontWeight: FontWeight.w400,
-                                        fontFamily: 'fonts/Poppins-light.ttf',
-                                        fontSize: 15,
-                                      ),
-                                      textAlign: TextAlign.start,
-                                    ),
-                                  ),
-                                  Padding(
-                                    padding:
-                                        const EdgeInsetsDirectional.fromSTEB(
-                                            10, 0, 0, 0),
-                                    child: SizedBox(
-                                      width: 60,
-                                      height: 50,
-                                      child: ElevatedButton(
-                                        child: const Text("GO"),
-                                        onPressed: () {
-                                          print('Button pressed ...');
-                                        },
-                                        style: ElevatedButton.styleFrom(
-                                          primary: const Color(0xFF58EC7B),
-                                          textStyle: const TextStyle(
-                                            fontFamily: 'Poppins',
-                                            fontWeight: FontWeight.bold,
-                                            color: Colors.white,
-                                            fontSize: 18,
-                                          ),
-                                          side: const BorderSide(
-                                            color: Colors.transparent,
-                                            width: 1,
-                                          ),
-                                          shape: const RoundedRectangleBorder(
-                                            borderRadius: BorderRadius.all(
-                                              Radius.circular(5),
-                                            ),
-                                          ),
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                              Padding(
-                                padding: const EdgeInsetsDirectional.fromSTEB(
-                                    0, 5, 0, 0),
-                                child: Container(
-                                  width: double.infinity,
-                                  decoration: const BoxDecoration(),
-                                  child: Padding(
-                                    padding:
-                                        const EdgeInsetsDirectional.fromSTEB(
-                                            0, 10, 0, 0),
-                                    child: SizedBox(
-                                      height: 50,
-                                      width: 170,
-                                      child: DropdownButtonFormField(
-                                        icon: const Icon(
-                                          Icons.keyboard_arrow_down,
-                                        ),
-                                        iconSize: 25,
-                                        iconEnabledColor: Colors.grey,
-
-                                        decoration: InputDecoration(
-                                            prefixIcon: const Icon(
-                                              Icons.settings,
+                                Container(
+                                  height: 60,
+                                  margin: const EdgeInsets.only(top: 20),
+                                  child: Row(
+                                    mainAxisSize: MainAxisSize.max,
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceEvenly,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.stretch,
+                                    children: [
+                                      Expanded(
+                                        child: TextFormField(
+                                          controller: textController1,
+                                          obscureText: false,
+                                          decoration: InputDecoration(
+                                            hintText:
+                                                'Your Service Location Here',
+                                            hintStyle: TextStyle(
+                                              fontWeight: FontWeight.w400,
+                                              fontFamily:
+                                                  'fonts/Poppins-light.ttf',
+                                              fontSize: 18,
+                                              color: Colors.grey[600],
                                             ),
                                             enabledBorder: OutlineInputBorder(
                                               borderSide: const BorderSide(
@@ -392,97 +320,56 @@ class _MapViewState extends State<MapView> {
                                             ),
                                             focusedBorder: OutlineInputBorder(
                                               borderSide: const BorderSide(
-                                                color: Colors.grey,
+                                                color: Color(0xFFA0A0A0),
                                                 width: 1,
                                               ),
                                               borderRadius:
                                                   BorderRadius.circular(5),
                                             ),
-                                            filled: true,
-                                            isDense: true,
-                                            hintStyle: TextStyle(
-                                                fontSize: 14,
-                                                color: Colors.grey[600]),
-                                            hintText: "Type",
-                                            fillColor: const Color(0xFFEFEFEF)),
-                                        value: dropDownValue,
-                                        // ignore: non_constant_identifier_names
-                                        onChanged: (String? Value) {
-                                          setState(() {
-                                            dropDownValue = Value;
-                                          });
-                                        },
-                                        // ignore: non_constant_identifier_names
-                                        items: itemList
-                                            .map(
-                                              (items) => DropdownMenuItem(
-                                                value: items,
-                                                child: Container(
-                                                  alignment: Alignment.center,
-                                                  child: Text(
-                                                    items,
-                                                    style: const TextStyle(
-                                                        fontSize: 15),
-                                                  ),
-                                                ),
-                                              ),
-                                            )
-                                            .toList(),
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                              ),
-                              Container(
-                                width: MediaQuery.of(context).size.width,
-                                decoration: const BoxDecoration(
-                                  color: Color(0xFFEEEEEE),
-                                ),
-                                child: Column(
-                                  mainAxisSize: MainAxisSize.max,
-                                  children: [
-                                    const Padding(
-                                      padding: EdgeInsetsDirectional.fromSTEB(
-                                          0, 10, 0, 0),
-                                      child: Text(
-                                        'Tip: You can drag the map to make the location more precise',
-                                        textAlign: TextAlign.center,
-                                        style: TextStyle(
-                                          fontFamily: 'Poppins',
-                                          fontWeight: FontWeight.w400,
-                                          fontSize: 11,
+                                            filled: false,
+                                            fillColor: const Color(0xFFEFEFEF),
+                                            prefixIcon: const Icon(
+                                              Icons.location_on,
+                                            ),
+                                            suffixIcon:
+                                                textController1.text.isNotEmpty
+                                                    ? InkWell(
+                                                        onTap: () => setState(
+                                                          () => textController1
+                                                              .clear(),
+                                                        ),
+                                                        child: const Icon(
+                                                          Icons.clear,
+                                                          color: Colors.grey,
+                                                          size: 25,
+                                                        ),
+                                                      )
+                                                    : null,
+                                          ),
+                                          style: const TextStyle(
+                                            fontWeight: FontWeight.w400,
+                                            fontFamily:
+                                                'fonts/Poppins-light.ttf',
+                                            fontSize: 18,
+                                          ),
+                                          textAlign: TextAlign.start,
                                         ),
                                       ),
-                                    ),
-                                    Padding(
-                                      padding:
-                                          const EdgeInsetsDirectional.fromSTEB(
-                                              0, 20, 0, 0),
-                                      child: SizedBox(
-                                        width:
-                                            MediaQuery.of(context).size.width,
-                                        height: 50,
+                                      Container(
+                                        margin: const EdgeInsets.only(left: 20),
+                                        width: 60,
                                         child: ElevatedButton(
-                                          child: const Text("NEXT"),
+                                          child: const Text("GO"),
                                           onPressed: () {
-                                            Navigator.push(
-                                              context,
-                                              MaterialPageRoute(
-                                                  builder: (context) =>
-                                                      dropDownValue == "Parking"
-                                                          ? const AddServiceDetails()
-                                                          : const AddServiceDetailsPee()),
-                                            );
                                             print('Button pressed ...');
                                           },
                                           style: ElevatedButton.styleFrom(
-                                            primary: const Color(0xFF58B6EC),
+                                            primary: const Color(0xFF58EC7B),
                                             textStyle: const TextStyle(
                                               fontFamily: 'Poppins',
+                                              fontWeight: FontWeight.bold,
                                               color: Colors.white,
-                                              fontWeight: FontWeight.w500,
-                                              letterSpacing: 10,
-                                              fontSize: 20,
+                                              fontSize: 18,
                                             ),
                                             side: const BorderSide(
                                               color: Colors.transparent,
@@ -496,18 +383,165 @@ class _MapViewState extends State<MapView> {
                                           ),
                                         ),
                                       ),
-                                    ),
-                                  ],
+                                    ],
+                                  ),
                                 ),
-                              ),
-                            ],
+                                const Padding(
+                                  padding: EdgeInsetsDirectional.fromSTEB(
+                                      0, 20, 0, 0),
+                                  child: Text(
+                                    'Select The Service Type',
+                                    textAlign: TextAlign.center,
+                                    style: TextStyle(
+                                      fontWeight: FontWeight.w400,
+                                      fontSize: 20,
+                                    ),
+                                  ),
+                                ),
+                                Container(
+                                  margin: const EdgeInsets.only(top: 20),
+                                  width: double.infinity,
+                                  decoration: const BoxDecoration(),
+                                  child: SizedBox(
+                                    height: 60,
+                                    width: 170,
+                                    child: DropdownButtonFormField(
+                                      icon: const Icon(
+                                        Icons.keyboard_arrow_down,
+                                      ),
+                                      iconSize: 25,
+                                      iconEnabledColor: Colors.grey,
+
+                                      decoration: InputDecoration(
+                                          prefixIcon: const Icon(
+                                            Icons.settings,
+                                          ),
+                                          enabledBorder: OutlineInputBorder(
+                                            borderSide: const BorderSide(
+                                              color: Color(0xFFA0A0A0),
+                                              width: 1,
+                                            ),
+                                            borderRadius:
+                                                BorderRadius.circular(5),
+                                          ),
+                                          focusedBorder: OutlineInputBorder(
+                                            borderSide: const BorderSide(
+                                              color: Colors.grey,
+                                              width: 1,
+                                            ),
+                                            borderRadius:
+                                                BorderRadius.circular(5),
+                                          ),
+                                          filled: true,
+                                          hintStyle: TextStyle(
+                                              fontSize: 18,
+                                              color: Colors.grey[600]),
+                                          hintText: "Type",
+                                          fillColor: const Color(0xFFEFEFEF)),
+                                      value: dropDownValue,
+                                      // ignore: non_constant_identifier_names
+                                      onChanged: (String? Value) {
+                                        setState(() {
+                                          dropDownValue = Value;
+                                        });
+                                      },
+                                      // ignore: non_constant_identifier_names
+                                      items: itemList
+                                          .map(
+                                            (items) => DropdownMenuItem(
+                                              value: items,
+                                              child: Container(
+                                                alignment: Alignment.center,
+                                                child: Text(
+                                                  items,
+                                                  style: const TextStyle(
+                                                      fontSize: 15),
+                                                ),
+                                              ),
+                                            ),
+                                          )
+                                          .toList(),
+                                    ),
+                                  ),
+                                ),
+                                Container(
+                                  margin: const EdgeInsets.only(top: 20),
+                                  width: MediaQuery.of(context).size.width,
+                                  decoration: const BoxDecoration(
+                                    color: Color(0xFFEEEEEE),
+                                  ),
+                                  child: Column(
+                                    mainAxisSize: MainAxisSize.max,
+                                    children: [
+                                      const Padding(
+                                        padding: EdgeInsetsDirectional.fromSTEB(
+                                            0, 10, 0, 0),
+                                        child: Text(
+                                          'Tip: You can drag the map to make the location more precise',
+                                          textAlign: TextAlign.center,
+                                          style: TextStyle(
+                                            fontFamily: 'Poppins',
+                                            fontWeight: FontWeight.w400,
+                                            fontSize: 15,
+                                          ),
+                                        ),
+                                      ),
+                                      Padding(
+                                        padding: const EdgeInsetsDirectional
+                                            .fromSTEB(0, 20, 0, 0),
+                                        child: SizedBox(
+                                          width:
+                                              MediaQuery.of(context).size.width,
+                                          height: 60,
+                                          child: ElevatedButton(
+                                            child: const Text("NEXT"),
+                                            onPressed: () {
+                                              Navigator.push(
+                                                context,
+                                                MaterialPageRoute(
+                                                    builder: (context) =>
+                                                        dropDownValue ==
+                                                                "Parking"
+                                                            ? const AddServiceDetails()
+                                                            : const AddServiceDetailsPee()),
+                                              );
+                                              print('Button pressed ...');
+                                            },
+                                            style: ElevatedButton.styleFrom(
+                                              primary: const Color(0xFF58B6EC),
+                                              textStyle: const TextStyle(
+                                                fontFamily: 'Poppins',
+                                                color: Colors.white,
+                                                fontWeight: FontWeight.w500,
+                                                letterSpacing: 10,
+                                                fontSize: 20,
+                                              ),
+                                              side: const BorderSide(
+                                                color: Colors.transparent,
+                                                width: 1,
+                                              ),
+                                              shape:
+                                                  const RoundedRectangleBorder(
+                                                borderRadius: BorderRadius.all(
+                                                  Radius.circular(5),
+                                                ),
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ],
+                            ),
                           ),
                         ),
                       ),
                     ),
-                  ),
-                ]),
-              ],
+                  ]),
+                ],
+              ),
             ),
           ),
         ),
@@ -517,7 +551,7 @@ class _MapViewState extends State<MapView> {
 
   void _getData(LatLng pos) async {
     setState(() {
-      _newCameraPosition = CameraPosition(target: pos, zoom: 15);
+      _newCameraPosition = CameraPosition(target: pos, zoom: 17);
       _markers.add(
         Marker(icon: mapMarker, markerId: const MarkerId("one"), position: pos),
       );
