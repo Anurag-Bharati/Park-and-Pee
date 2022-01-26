@@ -8,7 +8,8 @@ import 'package:parkandpee/add_service_success.dart';
 import 'Model/progress_step_widget.dart';
 
 class AddServicePhoto extends StatefulWidget {
-  const AddServicePhoto({Key? key}) : super(key: key);
+  final Service service;
+  const AddServicePhoto({Key? key, required this.service}) : super(key: key);
   double deviceHeight(BuildContext context) =>
       MediaQuery.of(context).size.height;
   double deviceWidth(BuildContext context) => MediaQuery.of(context).size.width;
@@ -18,11 +19,9 @@ class AddServicePhoto extends StatefulWidget {
 
 class _MapViewState extends State<AddServicePhoto> {
   final _scaffoldKey = GlobalKey<ScaffoldState>();
-  late final Service service;
 
   @override
   void initState() {
-    service = Service("parking", null, null);
     super.initState();
   }
 
@@ -84,7 +83,7 @@ class _MapViewState extends State<AddServicePhoto> {
                   width: MediaQuery.of(context).size.width,
                   height: MediaQuery.of(context).size.height * 0.28,
                   child: Image.asset(
-                    service.service == "parking"
+                    widget.service.service == "Parking"
                         ? 'assets/cover_park.jpg'
                         : 'assets/cover_pee.jpg',
                     width: MediaQuery.of(context).size.width * 1,
@@ -427,11 +426,14 @@ class _MapViewState extends State<AddServicePhoto> {
                                                   Colors.red[400],
                                                   1));
                                         } else {
+                                          //TODO
                                           Navigator.push(
                                             context,
                                             MaterialPageRoute(
                                                 builder: (context) =>
-                                                    const AddServiceSuccess()),
+                                                    AddServiceSuccess(
+                                                      service: widget.service,
+                                                    )),
                                           );
                                         }
                                       },

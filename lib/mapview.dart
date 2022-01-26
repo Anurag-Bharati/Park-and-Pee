@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:parkandpee/Model/ScrollBehavior.dart';
+import 'package:parkandpee/Model/service.dart';
 import 'package:parkandpee/aboutus.dart';
 import 'package:parkandpee/add_service_details_park.dart';
 import 'package:parkandpee/add_service_details_pee.dart';
@@ -27,25 +28,18 @@ class MapView extends StatefulWidget {
 
 class _MapViewState extends State<MapView> {
   final _scaffoldKey = GlobalKey<ScaffoldState>();
+  late Service _service;
 
   late TextEditingController textController1;
 
   late GoogleMapController _mapController;
 
   LatLng _currentLatLng = const LatLng(27.62, 85.32);
+  late LatLng? _selectedLocation;
+
   late CameraPosition _newCameraPosition =
       CameraPosition(target: _currentLatLng, zoom: 15);
   bool _toggleHybrid = false;
-
-  Set<Circle> circles = {
-    const Circle(
-        circleId: CircleId("myCircle"),
-        center: LatLng(27.62, 85.32),
-        radius: 250,
-        fillColor: Colors.white30,
-        strokeWidth: 2,
-        strokeColor: Colors.white54)
-  };
 
   Set<Polygon> polygonSet = {
     const Polygon(
@@ -58,7 +52,7 @@ class _MapViewState extends State<MapView> {
         strokeColor: Colors.transparent)
   };
 
-  double rotate = 350.0;
+  double rotate = 0.0;
   @override
   void initState() {
     super.initState();
@@ -595,16 +589,44 @@ class _MapViewState extends State<MapView> {
                                           child: ElevatedButton(
                                             child: const Text("NEXT"),
                                             onPressed: () {
-                                              Navigator.push(
-                                                context,
-                                                MaterialPageRoute(
-                                                    builder: (context) =>
-                                                        dropDownValue ==
-                                                                "Parking"
-                                                            ? const AddServiceDetails()
-                                                            : const AddServiceDetailsPee()),
-                                              );
-                                              print('Button pressed ...');
+                                              if (_selectedLocation == null) {
+                                                _scaffoldKey.currentState
+                                                    ?.showSnackBar(showSnackBar(
+                                                        "Please add the service point by long pressing the exact place on the map",
+                                                        context,
+                                                        Colors.red[400],
+                                                        3));
+                                              } else if (dropDownValue ==
+                                                  null) {
+                                                _scaffoldKey.currentState
+                                                    ?.showSnackBar(showSnackBar(
+                                                        "Please select a service to proceed",
+                                                        context,
+                                                        Colors.red[400],
+                                                        1));
+                                              } else {
+                                                _service = Service(
+                                                    _selectedLocation!.latitude,
+                                                    _selectedLocation!
+                                                        .longitude,
+                                                    dropDownValue!);
+
+                                                Navigator.push(
+                                                  context,
+                                                  MaterialPageRoute(
+                                                      builder: (context) =>
+                                                          dropDownValue ==
+                                                                  "Parking"
+                                                              ? AddServiceDetails(
+                                                                  service:
+                                                                      _service,
+                                                                )
+                                                              : AddServiceDetailsPee(
+                                                                  service:
+                                                                      _service,
+                                                                )),
+                                                );
+                                              }
                                             },
                                             style: ElevatedButton.styleFrom(
                                               primary: const Color(0xFF58B6EC),
@@ -655,7 +677,7 @@ class _MapViewState extends State<MapView> {
             (0.00001 / 1.11) * 150) {
       setState(() {
         textController1.text = "${pos.latitude},${pos.longitude}";
-
+        _selectedLocation = pos;
         _newCameraPosition = CameraPosition(
             target: pos, zoom: 18, bearing: rotateCam(10), tilt: 30);
         _markers.clear();
@@ -670,9 +692,10 @@ class _MapViewState extends State<MapView> {
             "Point selected at ${pos.latitude}° N, ${pos.longitude}° E",
             context,
             Colors.green[400],
-            1));
+            2));
       });
     } else {
+      _selectedLocation = null;
       setState(() {
         textController1.clear();
         _markers.clear();
@@ -691,17 +714,6 @@ class _MapViewState extends State<MapView> {
       _markers.add(
         Marker(icon: mapMarker, markerId: const MarkerId("one"), position: pos),
       );
-      circles.clear();
-      // circles = {
-      //   Circle(
-      //       circleId: const CircleId("myCircle"),
-      //       center: pos,
-      //       radius: 200,
-      //       fillColor: Colors.white30,
-      //       strokeWidth: 5,
-      //       zIndex: 0,
-      //       strokeColor: Colors.white30),
-      // };
       polygonSet.clear();
       polygonSet = {
         Polygon(

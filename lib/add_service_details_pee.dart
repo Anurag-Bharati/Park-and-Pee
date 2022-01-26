@@ -1,11 +1,14 @@
 // ignore_for_file: deprecated_member_use
 
 import 'package:flutter/material.dart';
+import 'package:parkandpee/Model/service.dart';
 import 'package:parkandpee/add_service_photo.dart';
 import 'Model/progress_step_widget.dart';
 
 class AddServiceDetailsPee extends StatefulWidget {
-  const AddServiceDetailsPee({Key? key}) : super(key: key);
+  final Service service;
+  const AddServiceDetailsPee({Key? key, required this.service})
+      : super(key: key);
   double deviceHeight(BuildContext context) =>
       MediaQuery.of(context).size.height;
   double deviceWidth(BuildContext context) => MediaQuery.of(context).size.width;
@@ -649,7 +652,9 @@ class _MapViewState extends State<AddServiceDetailsPee> {
                                               context,
                                               MaterialPageRoute(
                                                   builder: (context) =>
-                                                      const AddServicePhoto()),
+                                                      AddServicePhoto(
+                                                        service: widget.service,
+                                                      )),
                                             );
                                           }
                                         } else {
