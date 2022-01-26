@@ -8,6 +8,7 @@ import 'package:parkandpee/Model/ScrollBehavior.dart';
 import 'package:parkandpee/aboutus.dart';
 import 'package:parkandpee/add_service_details_park.dart';
 import 'package:parkandpee/add_service_details_pee.dart';
+import 'package:parkandpee/service_location_learn_more.dart';
 
 import 'Model/map_util.dart';
 import 'Model/progress_step_widget.dart';
@@ -36,19 +37,69 @@ class _MapViewState extends State<MapView> {
       CameraPosition(target: _currentLatLng, zoom: 15);
   bool _toggleHybrid = false;
 
+  Set<Circle> circles = {
+    const Circle(
+        circleId: CircleId("myCircle"),
+        center: LatLng(27.62, 85.32),
+        radius: 250,
+        fillColor: Colors.white30,
+        strokeWidth: 2,
+        strokeColor: Colors.white54)
+  };
+
+  Set<Polygon> polygonSet = {
+    const Polygon(
+        polygonId: PolygonId('1'),
+        points: [
+          LatLng(27.63, 85.32),
+          LatLng(27.63, 85.32),
+        ],
+        fillColor: Colors.transparent,
+        strokeColor: Colors.transparent)
+  };
+
+  double rotate = 350.0;
   @override
   void initState() {
     super.initState();
-    textController1 = TextEditingController();
-
     setCustomMarker();
-    locateMe();
+    getCurrentLocation();
+
+    textController1 = TextEditingController();
   }
 
-  Future locateMe() async {
-    final Position position = await Geolocator.getCurrentPosition();
-    _currentLatLng = LatLng(position.latitude, position.longitude);
-    return _currentLatLng;
+  void getCurrentLocation() async {
+    await Geolocator.isLocationServiceEnabled();
+    await Geolocator.requestPermission();
+    await Geolocator.getCurrentPosition(desiredAccuracy: LocationAccuracy.high)
+        .then((value) {
+      _currentLatLng = LatLng(value.latitude, value.longitude);
+      _mapController.animateCamera(CameraUpdate.newCameraPosition(
+        CameraPosition(
+          bearing: 0,
+          target: _currentLatLng,
+          zoom: 17.0,
+        ),
+      ));
+      _getData(_currentLatLng);
+    });
+  }
+
+  double rotateCam(double deg) {
+    rotate += deg;
+    if (rotate > 360) {
+      rotate = 10;
+    }
+    return rotate;
+  }
+
+  void _resetCam() {
+    setState(() {
+      _newCameraPosition =
+          CameraPosition(target: _currentLatLng, zoom: 17, bearing: 0, tilt: 0);
+      _mapController
+          .animateCamera(CameraUpdate.newCameraPosition(_newCameraPosition));
+    });
   }
 
   SnackBar showSnackBar(String message, context, Color? color, int duration) {
@@ -63,7 +114,6 @@ class _MapViewState extends State<MapView> {
         ));
     return snackbar;
   }
-  // Option 2
 
   // For Custom Initial Location and its Icon
   final Set<Marker> _markers = {};
@@ -78,8 +128,18 @@ class _MapViewState extends State<MapView> {
 
   @override
   void dispose() {
+    textController1.dispose();
     _mapController.dispose();
     super.dispose();
+  }
+
+  double? size() {
+    print("${MediaQuery.of(context).size}}");
+    if (deviceHeight(context) > 1000 && deviceWidth(context) > 500) {
+      return 800;
+    } else {
+      return 520;
+    }
   }
 
   @override
@@ -112,7 +172,7 @@ class _MapViewState extends State<MapView> {
                     Stack(children: [
                       Container(
                         width: double.infinity,
-                        height: deviceHeight(context) > 1080 ? 800 : 520,
+                        height: size(),
                         child: ClipRRect(
                           borderRadius: const BorderRadius.only(
                             bottomRight: Radius.circular(20),
@@ -125,16 +185,17 @@ class _MapViewState extends State<MapView> {
                                 () => EagerGestureRecognizer(),
                               ),
                             },
-                            onTap: _getData,
-                            onLongPress: _getData,
+                            onLongPress: _setData,
+                            polygons: polygonSet,
                             markers: _markers,
                             onMapCreated: (controller) => {
                               _mapController = controller,
                               _onMapCreated(),
                             },
+                            myLocationEnabled: true,
+                            myLocationButtonEnabled: true,
                             zoomControlsEnabled: false,
                             initialCameraPosition: _newCameraPosition,
-                            myLocationEnabled: true,
                             mapType:
                                 _toggleHybrid ? MapType.hybrid : MapType.normal,
                           ),
@@ -152,8 +213,8 @@ class _MapViewState extends State<MapView> {
                       ),
                       Container(
                         padding: const EdgeInsets.only(
-                          right: 11,
-                          top: 80,
+                          right: 12,
+                          top: 60,
                         ),
                         width: MediaQuery.of(context).size.width,
                         alignment: Alignment.topRight,
@@ -181,7 +242,7 @@ class _MapViewState extends State<MapView> {
                                 ),
                               ),
                               const SizedBox(
-                                height: 30,
+                                height: 10,
                               ),
                               SizedBox(
                                 width: 38,
@@ -278,10 +339,10 @@ class _MapViewState extends State<MapView> {
                                       0, 60, 0, 0),
                                   child: Text(
                                     'Select The Service Location',
-                                    textAlign: TextAlign.center,
                                     style: TextStyle(
+                                      fontFamily: 'fonts/Poppins-light.ttf',
                                       fontWeight: FontWeight.w400,
-                                      fontSize: 20,
+                                      fontSize: 20.6,
                                     ),
                                   ),
                                 ),
@@ -359,7 +420,7 @@ class _MapViewState extends State<MapView> {
                                         ),
                                       ),
                                       Container(
-                                        margin: const EdgeInsets.only(left: 20),
+                                        margin: const EdgeInsets.only(left: 10),
                                         width: 60,
                                         child: ElevatedButton(
                                           child: const Text("GO"),
@@ -409,7 +470,14 @@ class _MapViewState extends State<MapView> {
                                             fontWeight: FontWeight.w400),
                                       ),
                                       // ignore: todo
-                                      onPressed: null, //TODO
+                                      onPressed: () {
+                                        Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                              builder: (context) =>
+                                                  const MapViewLearnMore()),
+                                        );
+                                      },
                                       style: TextButton.styleFrom(
                                           padding: const EdgeInsets.all(5)),
                                     ),
@@ -422,6 +490,7 @@ class _MapViewState extends State<MapView> {
                                     'Select The Service Type',
                                     textAlign: TextAlign.center,
                                     style: TextStyle(
+                                      fontFamily: 'fonts/Poppins-light.ttf',
                                       fontWeight: FontWeight.w400,
                                       fontSize: 20,
                                     ),
@@ -579,12 +648,79 @@ class _MapViewState extends State<MapView> {
     );
   }
 
-  void _getData(LatLng pos) async {
+  void _setData(LatLng pos) {
+    if (((pos.latitude - _currentLatLng.latitude).abs() <=
+            (0.00001 / 1.11) * 150) &&
+        (pos.longitude - _currentLatLng.longitude).abs() <=
+            (0.00001 / 1.11) * 150) {
+      setState(() {
+        textController1.text = "${pos.latitude},${pos.longitude}";
+
+        _newCameraPosition = CameraPosition(
+            target: pos, zoom: 18, bearing: rotateCam(10), tilt: 30);
+        _markers.clear();
+        _markers.add(
+          Marker(
+              icon: mapMarker, markerId: const MarkerId("one"), position: pos),
+        );
+        _mapController
+            .animateCamera(CameraUpdate.newCameraPosition(_newCameraPosition));
+
+        _scaffoldKey.currentState?.showSnackBar(showSnackBar(
+            "Point selected at ${pos.latitude}° N, ${pos.longitude}° E",
+            context,
+            Colors.green[400],
+            1));
+      });
+    } else {
+      setState(() {
+        textController1.clear();
+        _markers.clear();
+        _resetCam();
+        _scaffoldKey.currentState?.showSnackBar(showSnackBar(
+            "Cannot add point inside the restricted area",
+            context,
+            Colors.red[400],
+            1));
+      });
+    }
+  }
+
+  void _getData(LatLng pos) {
     setState(() {
-      _newCameraPosition = CameraPosition(target: pos, zoom: 17);
       _markers.add(
         Marker(icon: mapMarker, markerId: const MarkerId("one"), position: pos),
       );
+      circles.clear();
+      // circles = {
+      //   Circle(
+      //       circleId: const CircleId("myCircle"),
+      //       center: pos,
+      //       radius: 200,
+      //       fillColor: Colors.white30,
+      //       strokeWidth: 5,
+      //       zIndex: 0,
+      //       strokeColor: Colors.white30),
+      // };
+      polygonSet.clear();
+      polygonSet = {
+        Polygon(
+            polygonId: const PolygonId('1'),
+            points: [
+              LatLng(pos.latitude + (0.00001 / 1.11) * 150,
+                  pos.longitude + (0.00001 / 1.11) * 150),
+              LatLng(pos.latitude - (0.00001 / 1.11) * 150,
+                  pos.longitude + (0.00001 / 1.11) * 150),
+              LatLng(pos.latitude - (0.00001 / 1.11) * 150,
+                  pos.longitude - (0.00001 / 1.11) * 150),
+              LatLng(pos.latitude + (0.00001 / 1.11) * 150,
+                  pos.longitude - (0.00001 / 1.11) * 150),
+            ],
+            strokeWidth: 5,
+            fillColor: const Color(0x4466BB6A),
+            strokeColor: Colors.white30)
+      };
+      _newCameraPosition = CameraPosition(target: pos, zoom: 17);
     });
   }
 

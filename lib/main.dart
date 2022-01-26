@@ -27,7 +27,7 @@ void main() {
     // home: const MyLogin(),
     // home: const MyVerification()
     // home: const Myadmin(),
-    home: const MapViewLearnMore(),
+    home: const MapView(),
     routes: {
       'register': (context) => const MyRegister(),
       'login': (context) => const MyLogin(),
