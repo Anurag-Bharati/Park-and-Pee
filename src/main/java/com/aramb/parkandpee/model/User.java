@@ -1,15 +1,19 @@
 package com.aramb.parkandpee.model;
 import lombok.Data;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+
+import javax.persistence.*;
 
 @Entity
 @Data
 public class User {
     @Id
-    @GeneratedValue
-    Integer id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer id;
 
-    public String name, number, password;
+    @Column(nullable = false)
+    public String name;
+    @Column(nullable = false)
+    public String number;
+    @Column(nullable = false)
+    public String password;
 }
