@@ -10,6 +10,7 @@ import 'package:parkandpee/aboutus.dart';
 import 'package:parkandpee/add_service_details_park.dart';
 import 'package:parkandpee/add_service_details_pee.dart';
 import 'package:parkandpee/service_location_learn_more.dart';
+import 'package:parkandpee/user.dart';
 
 import 'Model/map_util.dart';
 import 'Model/progress_step_widget.dart';
@@ -29,6 +30,7 @@ class MapView extends StatefulWidget {
 class _MapViewState extends State<MapView> {
   final _scaffoldKey = GlobalKey<ScaffoldState>();
   late Service _service;
+  final User _user = User("Falano", "98480XXXXX", "12345");
 
   late TextEditingController textController1;
 
@@ -55,6 +57,7 @@ class _MapViewState extends State<MapView> {
   double rotate = 0.0;
   @override
   void initState() {
+    _user.id = 101;
     super.initState();
     setCustomMarker();
     getCurrentLocation();
@@ -128,7 +131,7 @@ class _MapViewState extends State<MapView> {
   }
 
   double? size() {
-    print("${MediaQuery.of(context).size}}");
+    // print("${MediaQuery.of(context).size}}");
     if (deviceHeight(context) > 1000 && deviceWidth(context) > 500) {
       return 800;
     } else {
@@ -620,10 +623,12 @@ class _MapViewState extends State<MapView> {
                                                               ? AddServiceDetails(
                                                                   service:
                                                                       _service,
+                                                                  user: _user,
                                                                 )
                                                               : AddServiceDetailsPee(
                                                                   service:
                                                                       _service,
+                                                                  user: _user,
                                                                 )),
                                                 );
                                               }

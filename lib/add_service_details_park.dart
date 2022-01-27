@@ -4,12 +4,15 @@ import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:parkandpee/Model/service.dart';
 import 'package:parkandpee/add_service_photo.dart';
+import 'package:parkandpee/user.dart';
 
 import 'Model/progress_step_widget.dart';
 
 class AddServiceDetails extends StatefulWidget {
   final Service service;
-  const AddServiceDetails({Key? key, required this.service}) : super(key: key);
+  final User user;
+  const AddServiceDetails({Key? key, required this.service, required this.user})
+      : super(key: key);
 
   double deviceHeight(BuildContext context) =>
       MediaQuery.of(context).size.height;
@@ -641,6 +644,10 @@ class _MapViewState extends State<AddServiceDetails> {
                                                     context,
                                                     Colors.green[400],
                                                     1));
+                                            widget.service.name =
+                                                textController1.text.toString();
+                                            widget.service.locType =
+                                                dropDownValue.toString();
                                             widget.service.setAmenity([
                                               _amenity1,
                                               _amenity2,
@@ -649,16 +656,13 @@ class _MapViewState extends State<AddServiceDetails> {
                                               _amenity5,
                                               _amenity6
                                             ]);
-                                            widget.service
-                                                .setType(dropDownValue!);
-                                            widget.service
-                                                .setName(textController1.text);
                                             Navigator.push(
                                               context,
                                               MaterialPageRoute(
                                                   builder: (context) =>
                                                       AddServicePhoto(
                                                         service: widget.service,
+                                                        user: widget.user,
                                                       )),
                                             );
                                           } else {

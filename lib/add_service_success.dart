@@ -3,12 +3,15 @@ import 'package:flutter/material.dart';
 
 import 'package:lottie/lottie.dart';
 import 'package:parkandpee/Model/service.dart';
+import 'package:parkandpee/user.dart';
 
 import 'Model/progress_step_widget.dart';
 
 class AddServiceSuccess extends StatefulWidget {
   final Service service;
-  const AddServiceSuccess({Key? key, required this.service}) : super(key: key);
+  final User user;
+  const AddServiceSuccess({Key? key, required this.service, required this.user})
+      : super(key: key);
   double deviceHeight(BuildContext context) =>
       MediaQuery.of(context).size.height;
   double deviceWidth(BuildContext context) => MediaQuery.of(context).size.width;
@@ -21,6 +24,7 @@ class _MapViewState extends State<AddServiceSuccess> {
 
   @override
   void initState() {
+    print(widget.service.service);
     super.initState();
   }
 

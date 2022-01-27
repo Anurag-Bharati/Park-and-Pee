@@ -3,11 +3,15 @@
 import 'package:flutter/material.dart';
 import 'package:parkandpee/Model/service.dart';
 import 'package:parkandpee/add_service_photo.dart';
+import 'package:parkandpee/user.dart';
 import 'Model/progress_step_widget.dart';
 
 class AddServiceDetailsPee extends StatefulWidget {
   final Service service;
-  const AddServiceDetailsPee({Key? key, required this.service})
+  final User user;
+
+  const AddServiceDetailsPee(
+      {Key? key, required this.service, required this.user})
       : super(key: key);
   double deviceHeight(BuildContext context) =>
       MediaQuery.of(context).size.height;
@@ -20,7 +24,6 @@ class _MapViewState extends State<AddServiceDetailsPee> {
   final _scaffoldKey = GlobalKey<ScaffoldState>();
 
   late TextEditingController textController1;
-  late TextEditingController textController2;
 
   bool _amenity1 = false;
   bool _amenity2 = false;
@@ -33,7 +36,6 @@ class _MapViewState extends State<AddServiceDetailsPee> {
   void initState() {
     super.initState();
     textController1 = TextEditingController();
-    textController2 = TextEditingController();
   }
 
   // Initials for stepping sequence
@@ -648,12 +650,27 @@ class _MapViewState extends State<AddServiceDetailsPee> {
                                                     context,
                                                     Colors.green[400],
                                                     1));
+
+                                            widget.service.name =
+                                                textController1.text.toString();
+                                            widget.service.locType =
+                                                dropDownValue.toString();
+                                            widget.service.setAmenity([
+                                              _amenity1,
+                                              _amenity2,
+                                              _amenity3,
+                                              _amenity4,
+                                              _amenity5,
+                                              _amenity6
+                                            ]);
+
                                             Navigator.push(
                                               context,
                                               MaterialPageRoute(
                                                   builder: (context) =>
                                                       AddServicePhoto(
                                                         service: widget.service,
+                                                        user: widget.user,
                                                       )),
                                             );
                                           }
