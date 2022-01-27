@@ -7,11 +7,8 @@ class Service {
   String? name;
   String? locType;
   List<bool> amenity = [false, false, false, false, false, false];
-  Service(
-    this.service,
-    double? longitude,
-    double? latitude,
-  ) {
+
+  Service(double longitude, double latitude, this.service) {
     coordinates.update("longitude", (value) => longitude);
     coordinates.update("latitude", (value) => latitude);
   }

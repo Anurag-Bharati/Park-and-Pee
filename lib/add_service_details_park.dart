@@ -2,15 +2,19 @@
 
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:parkandpee/Model/service.dart';
 import 'package:parkandpee/add_service_photo.dart';
 
 import 'Model/progress_step_widget.dart';
 
 class AddServiceDetails extends StatefulWidget {
-  const AddServiceDetails({Key? key}) : super(key: key);
+  final Service service;
+  const AddServiceDetails({Key? key, required this.service}) : super(key: key);
+
   double deviceHeight(BuildContext context) =>
       MediaQuery.of(context).size.height;
   double deviceWidth(BuildContext context) => MediaQuery.of(context).size.width;
+
   @override
   _MapViewState createState() => _MapViewState();
 }
@@ -19,7 +23,6 @@ class _MapViewState extends State<AddServiceDetails> {
   final _scaffoldKey = GlobalKey<ScaffoldState>();
 
   late TextEditingController textController1;
-  late TextEditingController textController2;
 
   bool _amenity1 = false;
   bool _amenity2 = false;
@@ -32,7 +35,6 @@ class _MapViewState extends State<AddServiceDetails> {
   void initState() {
     super.initState();
     textController1 = TextEditingController();
-    textController2 = TextEditingController();
   }
 
   // Option 2
@@ -639,11 +641,25 @@ class _MapViewState extends State<AddServiceDetails> {
                                                     context,
                                                     Colors.green[400],
                                                     1));
+                                            widget.service.setAmenity([
+                                              _amenity1,
+                                              _amenity2,
+                                              _amenity3,
+                                              _amenity4,
+                                              _amenity5,
+                                              _amenity6
+                                            ]);
+                                            widget.service
+                                                .setType(dropDownValue!);
+                                            widget.service
+                                                .setName(textController1.text);
                                             Navigator.push(
                                               context,
                                               MaterialPageRoute(
                                                   builder: (context) =>
-                                                      const AddServicePhoto()),
+                                                      AddServicePhoto(
+                                                        service: widget.service,
+                                                      )),
                                             );
                                           } else {
                                             _scaffoldKey.currentState

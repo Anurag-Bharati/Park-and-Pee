@@ -7,7 +7,8 @@ import 'package:parkandpee/Model/service.dart';
 import 'Model/progress_step_widget.dart';
 
 class AddServiceSuccess extends StatefulWidget {
-  const AddServiceSuccess({Key? key}) : super(key: key);
+  final Service service;
+  const AddServiceSuccess({Key? key, required this.service}) : super(key: key);
   double deviceHeight(BuildContext context) =>
       MediaQuery.of(context).size.height;
   double deviceWidth(BuildContext context) => MediaQuery.of(context).size.width;
@@ -17,18 +18,14 @@ class AddServiceSuccess extends StatefulWidget {
 
 class _MapViewState extends State<AddServiceSuccess> {
   final _scaffoldKey = GlobalKey<ScaffoldState>();
-  late final Service service;
 
   @override
   void initState() {
-    service = Service("parking", null, null);
     super.initState();
   }
 
   // Initials for stepping sequence
   static const stepIcons = [Icons.location_on, Icons.file_copy, Icons.verified];
-
-  // late FilePickerResult? mainPhoto;
 
   SnackBar showSnackBar(String message, context, Color? color, int duration) {
     final snackbar = SnackBar(
@@ -79,7 +76,7 @@ class _MapViewState extends State<AddServiceSuccess> {
                   width: MediaQuery.of(context).size.width,
                   height: MediaQuery.of(context).size.height * 0.28,
                   child: Image.asset(
-                    service.service == "parking"
+                    widget.service.service == "Parking"
                         ? 'assets/cover_park.jpg'
                         : 'assets/cover_pee.jpg',
                     width: MediaQuery.of(context).size.width * 1,
