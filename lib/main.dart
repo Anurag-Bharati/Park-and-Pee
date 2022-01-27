@@ -12,12 +12,14 @@ import 'package:parkandpee/navbar.dart';
 import 'package:parkandpee/property.dart';
 import 'package:parkandpee/register.dart';
 import 'package:parkandpee/service_location_learn_more.dart';
+import 'package:parkandpee/usermapview.dart';
 import 'package:parkandpee/verification.dart';
 import 'package:parkandpee/forgetpassword.dart';
 import 'package:parkandpee/newpassword.dart';
 import 'package:parkandpee/account_edit.dart';
 import 'account_change_phone_pass.dart';
 import 'admin.dart';
+import 'usermapview.dart';
 
 void main() {
   runApp(MaterialApp(
@@ -27,11 +29,13 @@ void main() {
     // home: const MyLogin(),
     // home: const MyVerification()
     // home: const Myadmin(),
-    home: const MapViewLearnMore(),
+    // home: const MapViewLearnMore(),
+    // home: const UserMapview(),
+    home: const MapView(),
     routes: {
       'register': (context) => const MyRegister(),
       'login': (context) => const MyLogin(),
-      'verification': (context) => const MyVerification(),
+      // 'verification': (context) => const MyVerification(),
       'navbar': (context) => const Mynavbar(),
       'aboutus': (context) => const Aboutus(),
       'forgetpassword': (context) => const MyForgetPassword(),
@@ -39,7 +43,10 @@ void main() {
       'account': (context) => const MyAccountPage(),
       'account_edit': (context) => const MyAccountPageEdit(),
       'admin': (context) => const Myadmin(),
-      'property': (context) => const MyProperyPage()
+      'property': (context) => const MyProperyPage(),
+      'Usermapview': (context) => const UserMapview(),
+      'mapview': (Context) => const MapView()
+
       //  'verification':(context)=> Verification(),
     },
   ));

@@ -44,6 +44,7 @@ dependencies:
     lottie: ^1.2.1
     transparent_image: ^2.0.0
     geolocator: ^8.0.4
+    pinput: ^1.2.2
 
     # Firebase Integration
     # firebase_core: ^1.10.6
