@@ -11,7 +11,7 @@ import java.util.Optional;
 
 @Service
 public class ServiceUserImpl implements ServiceUser {
-    private UserRepo userRepo;
+    private final UserRepo userRepo;
 
     public ServiceUserImpl(UserRepo userRepo) {
         super();
