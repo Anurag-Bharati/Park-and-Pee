@@ -7,6 +7,8 @@ class Service {
   String? name;
   String? locType;
   List<bool> amenity = [false, false, false, false, false, false];
+  String? mainPicPath;
+  String? coverPicPath;
 
   Service(double longitude, double latitude, this.service) {
     coordinates.update("longitude", (value) => longitude);

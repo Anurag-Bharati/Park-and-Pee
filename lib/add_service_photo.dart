@@ -1,15 +1,23 @@
 // ignore_for_file: deprecated_member_use
 
+import 'dart:convert';
+import 'dart:io';
+
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:parkandpee/Model/service.dart';
 import 'package:parkandpee/add_service_success.dart';
-
+import 'package:http/http.dart' as http;
+import 'package:parkandpee/api.dart';
+import 'package:parkandpee/user.dart';
 import 'Model/progress_step_widget.dart';
 
 class AddServicePhoto extends StatefulWidget {
   final Service service;
-  const AddServicePhoto({Key? key, required this.service}) : super(key: key);
+  final User user;
+
+  const AddServicePhoto({Key? key, required this.service, required this.user})
+      : super(key: key);
   double deviceHeight(BuildContext context) =>
       MediaQuery.of(context).size.height;
   double deviceWidth(BuildContext context) => MediaQuery.of(context).size.width;
@@ -19,6 +27,7 @@ class AddServicePhoto extends StatefulWidget {
 
 class _MapViewState extends State<AddServicePhoto> {
   final _scaffoldKey = GlobalKey<ScaffoldState>();
+  Uri url = Uri.parse(API.getUrl("login"));
 
   @override
   void initState() {
@@ -234,6 +243,14 @@ class _MapViewState extends State<AddServicePhoto> {
                                                           2));
                                                   setState(() {
                                                     _mainPhotoAdded = true;
+                                                    _asyncFileUpload(
+                                                        File(mainPhoto.files
+                                                            .elementAt(0)
+                                                            .path
+                                                            .toString()),
+                                                        widget.user.id
+                                                            .toString(),
+                                                        "main");
                                                   });
                                                 }
                                               },
@@ -281,6 +298,7 @@ class _MapViewState extends State<AddServicePhoto> {
                                                     'jpeg'
                                                   ],
                                                 );
+
                                                 if (coverPhoto == null) {
                                                   _scaffoldKey.currentState
                                                       ?.showSnackBar(
@@ -301,6 +319,14 @@ class _MapViewState extends State<AddServicePhoto> {
                                                           2));
                                                   setState(() {
                                                     _coverPhotoAdded = true;
+                                                    _asyncFileUpload(
+                                                        File(coverPhoto.files
+                                                            .elementAt(0)
+                                                            .path
+                                                            .toString()),
+                                                        widget.user.id
+                                                            .toString(),
+                                                        "cover");
                                                   });
                                                 }
                                               }),
@@ -426,13 +452,14 @@ class _MapViewState extends State<AddServicePhoto> {
                                                   Colors.red[400],
                                                   1));
                                         } else {
-                                          //TODO
+                                          _asyncUploadToDatabase();
                                           Navigator.push(
                                             context,
                                             MaterialPageRoute(
                                                 builder: (context) =>
                                                     AddServiceSuccess(
                                                       service: widget.service,
+                                                      user: widget.user,
                                                     )),
                                           );
                                         }
@@ -477,5 +504,36 @@ class _MapViewState extends State<AddServicePhoto> {
         ),
       ),
     );
+  }
+
+  _asyncUploadToDatabase() {
+    //TODO
+  }
+
+  _asyncFileUpload(File file, String id, String type) async {
+    //create multipart request for POST or PATCH method
+    var request = http.MultipartRequest(
+        "POST", Uri.parse("http://192.168.1.3:8080/api/uploadFile"));
+    //add text fields
+    request.fields["id"] = id;
+    request.fields["type"] = type;
+    //create multipart using filepath, string or bytes
+    var pic = await http.MultipartFile.fromPath("file", file.path);
+    //add multipart to request
+    request.files.add(pic);
+    var response = await request.send();
+
+    //Get the response from the server
+    var responseData = await response.stream.toBytes();
+    var responseString = String.fromCharCodes(responseData);
+    var jsonObject = jsonDecode(responseString);
+    if (type == "main") {
+      widget.service.mainPicPath = jsonObject["fileDownloadUri"];
+    } else {
+      widget.service.coverPicPath = jsonObject["fileDownloadUri"];
+    }
+    print(widget.service.mainPicPath.toString() +
+        " " +
+        widget.service.coverPicPath.toString());
   }
 }
