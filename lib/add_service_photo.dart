@@ -92,7 +92,7 @@ class _MapViewState extends State<AddServicePhoto> {
                   width: MediaQuery.of(context).size.width,
                   height: MediaQuery.of(context).size.height * 0.28,
                   child: Image.asset(
-                    widget.service.service == "Parking"
+                    widget.service.serviceType == "Parking"
                         ? 'assets/cover_park.jpg'
                         : 'assets/cover_pee.jpg',
                     width: MediaQuery.of(context).size.width * 1,
@@ -453,7 +453,7 @@ class _MapViewState extends State<AddServicePhoto> {
                                                   1));
                                         } else {
                                           _asyncUploadToDatabase();
-                                          Navigator.push(
+                                          Navigator.pushAndRemoveUntil<void>(
                                             context,
                                             MaterialPageRoute(
                                                 builder: (context) =>
@@ -461,6 +461,7 @@ class _MapViewState extends State<AddServicePhoto> {
                                                       service: widget.service,
                                                       user: widget.user,
                                                     )),
+                                            ModalRoute.withName("/"),
                                           );
                                         }
                                       },

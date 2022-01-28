@@ -24,7 +24,7 @@ class _MapViewState extends State<AddServiceSuccess> {
 
   @override
   void initState() {
-    print(widget.service.service);
+    print(widget.service.serviceType);
     super.initState();
   }
 
@@ -80,7 +80,7 @@ class _MapViewState extends State<AddServiceSuccess> {
                   width: MediaQuery.of(context).size.width,
                   height: MediaQuery.of(context).size.height * 0.28,
                   child: Image.asset(
-                    widget.service.service == "Parking"
+                    widget.service.serviceType == "Parking"
                         ? 'assets/cover_park.jpg'
                         : 'assets/cover_pee.jpg',
                     width: MediaQuery.of(context).size.width * 1,
