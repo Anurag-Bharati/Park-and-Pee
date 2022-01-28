@@ -1,32 +1,42 @@
 package com.aramb.parkandpee.services.impl;
 
-import com.aramb.parkandpee.model.Service;
+import com.aramb.parkandpee.model.ServiceModel;
+import com.aramb.parkandpee.repo.ServiceRepo;
 import com.aramb.parkandpee.services.ServiceService;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@Service
 public class ServiceServiceImpl implements ServiceService {
 
+    private final ServiceRepo serviceRepo;
+
+    public ServiceServiceImpl(ServiceRepo serviceRepo) {
+        super();
+        this.serviceRepo = serviceRepo;
+    }
     @Override
-    public List<Service> getAllService() {
+    public List<ServiceModel> getAllService() {
+        return serviceRepo.findAll();
+    }
+
+    @Override
+
+    public List<ServiceModel> getAllServiceByType(String type) {
+
         return null;
     }
 
     @Override
-    public List<Service> getAllServiceByType(String type) {
+    public ServiceModel getServiceById(int id) {
         return null;
     }
 
-    @Override
-    public Service getServiceById(int id) {
-        return null;
-    }
 
-    @Override
-    public void saveService(Service service) {
-
-    }
 
     @Override
     public void deleteService(int id) {
@@ -34,12 +44,20 @@ public class ServiceServiceImpl implements ServiceService {
     }
 
     @Override
-    public Service updateService(Service service, int id) {
+    public ServiceModel updateService(ServiceModel service, int id) {
         return null;
     }
 
     @Override
-    public Page<Service> findPaginated(int pageNo, int pageSize) {
-        return null;
+    public Page<ServiceModel> findPaginated(int pageNo, int pageSize) {
+        Pageable pageable = PageRequest.of(pageNo, pageSize);
+        return this.serviceRepo.findAll(pageable);
     }
+
+    @Override
+    public List<ServiceModel> getAllClosest(double lat, double lng) {
+        return serviceRepo.getAllClosest(lat,lng);
+    }
+
+
 }

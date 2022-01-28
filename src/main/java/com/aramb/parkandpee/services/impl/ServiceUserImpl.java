@@ -36,13 +36,21 @@ public class ServiceUserImpl implements ServiceUser {
     }
 
     @Override
-    public User updateUser(User user, int id) {
+    public User updateUser(User user,int id) {
         User isThere = userRepo.findById(id).orElseThrow(() -> new ResourceNotFoundException("User", "Id",id));
-        isThere.setName(user.getName());
-        isThere.setNumber(user.getNumber());
-        isThere.setPassword(user.getPassword());
-
-        userRepo.save(user);
+        if(user.name!=null && user.name.length()>2) {
+            isThere.setName(user.getName());
+        }
+        if (user.number!=null) {
+            isThere.setNumber(user.getNumber());
+        }
+        if(user.password!=null){
+            isThere.setPassword(user.getPassword());
+        }
+        if(user.getServices()!=null){
+            isThere.getServices().addAll(user.getServices());
+        }
+        userRepo.save(isThere);
         return isThere;
     }
 

@@ -2,18 +2,15 @@ package com.aramb.parkandpee.model;
 
 import lombok.Data;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity
 @Data
-public class Service {
+public class ServiceModel {
 
     @Id
-    @GeneratedValue(generator = "service")
-    Integer id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    Integer service_id;
 
     @Column(nullable = false)
     public String name;
@@ -25,15 +22,18 @@ public class Service {
     public String service_type;
 
     @Column(nullable = false)
-    public String coordinates;
+    public double latitude;
+
+    @Column(nullable = false)
+    public double longitude;
 
     @Column(nullable = false)
     public String amenities;
 
     @Column(nullable = false)
-    public String mainPicPath;
+    public String main_pic_path;
 
     @Column(nullable = false)
-    public String coverPicPath;
+    public String cover_pic_path;
 
 }

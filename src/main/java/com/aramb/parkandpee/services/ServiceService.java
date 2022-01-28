@@ -1,17 +1,17 @@
 package com.aramb.parkandpee.services;
 
-import com.aramb.parkandpee.model.Service;
+import com.aramb.parkandpee.model.ServiceModel;
 import org.springframework.data.domain.Page;
 
 import java.util.List;
 
 public interface ServiceService {
-    List<Service> getAllService();
-    List<Service> getAllServiceByType(String type);
-    Service getServiceById(int id);
-    void saveService(Service service);
+    List<ServiceModel> getAllService();
+    List<ServiceModel> getAllServiceByType(String type);
+    ServiceModel getServiceById(int id);
     void deleteService(int id);
-    Service updateService(Service service, int id);
-    Page<Service> findPaginated(int pageNo, int pageSize);
+    ServiceModel updateService(ServiceModel service, int id);
+    Page<ServiceModel> findPaginated(int pageNo, int pageSize);
+    List<ServiceModel> getAllClosest(double lat, double lng);
 
 }
