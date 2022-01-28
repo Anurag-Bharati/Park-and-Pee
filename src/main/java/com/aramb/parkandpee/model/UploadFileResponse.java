@@ -9,6 +9,4 @@ public class UploadFileResponse {
     private final String fileType;
     private final long size;
 
-
-
 }

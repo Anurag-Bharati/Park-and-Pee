@@ -34,4 +34,23 @@ public class ServiceUserImpl implements ServiceUser {
         if (user.isPresent()) return user.get();
         else throw new ResourceNotFoundException("User", "ID", id);
     }
+
+    @Override
+    public User updateUser(User user, int id) {
+        User isThere = userRepo.findById(id).orElseThrow(() -> new ResourceNotFoundException("User", "Id",id));
+        isThere.setName(user.getName());
+        isThere.setNumber(user.getNumber());
+        isThere.setPassword(user.getPassword());
+
+        userRepo.save(user);
+        return isThere;
+    }
+
+    @Override
+    public void deleteUser(int id) {
+        if(userRepo.existsById(id)) {
+            userRepo.deleteById(id);
+        }
+        else throw new ResourceNotFoundException("User", "Id", id);
+    }
 }
