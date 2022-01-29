@@ -4,7 +4,6 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:parkandpee/Model/ScrollBehavior.dart';
 import 'package:parkandpee/Model/service.dart';
 import 'package:parkandpee/aboutus.dart';
 import 'package:parkandpee/add_service_details_park.dart';
@@ -14,15 +13,18 @@ import 'package:parkandpee/user.dart';
 
 import 'Model/map_util.dart';
 import 'Model/progress_step_widget.dart';
+import 'Model/scroll_behavior.dart';
 
 class MapView extends StatefulWidget {
   const MapView({Key? key}) : super(key: key);
+
   double deviceHeight(BuildContext context) {
     final double height = MediaQuery.of(context).size.height;
     return height;
   }
 
   double deviceWidth(BuildContext context) => MediaQuery.of(context).size.width;
+
   @override
   _MapViewState createState() => _MapViewState();
 }
@@ -30,7 +32,8 @@ class MapView extends StatefulWidget {
 class _MapViewState extends State<MapView> {
   final _scaffoldKey = GlobalKey<ScaffoldState>();
   late Service _service;
-  final User _user = User("Falano", "98480XXXXX", "12345");
+  // DUMMY_VALUE
+  final User _user = User("Anurag", "98480XXXXX", "12345");
 
   late TextEditingController textController1;
 
@@ -57,8 +60,9 @@ class _MapViewState extends State<MapView> {
   double rotate = 0.0;
   @override
   void initState() {
-    _user.id = 101;
     super.initState();
+    // DUMMY_VALUE
+    _user.id = 1;
     setCustomMarker();
     getCurrentLocation();
 
@@ -592,6 +596,9 @@ class _MapViewState extends State<MapView> {
                                           child: ElevatedButton(
                                             child: const Text("NEXT"),
                                             onPressed: () {
+                                              // ignore: todo
+                                              //FIX_THIS Handle Error here : LateInitializationError: Field '_selectedLocation@110010513' has not been initialized.
+
                                               if (_selectedLocation == null) {
                                                 _scaffoldKey.currentState
                                                     ?.showSnackBar(showSnackBar(

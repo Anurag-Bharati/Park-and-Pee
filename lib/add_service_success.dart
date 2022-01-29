@@ -185,6 +185,9 @@ class _MapViewState extends State<AddServiceSuccess> {
                                     child: ElevatedButton(
                                       child: const Text("OKEY"),
                                       onPressed: () {
+                                        print(widget
+                                            .user.services[0].coverPicPath);
+
                                         _scaffoldKey.currentState
                                             ?.removeCurrentSnackBar();
                                       },

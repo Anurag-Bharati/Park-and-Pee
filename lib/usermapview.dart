@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:parkandpee/Aboutus.dart';
-import 'package:parkandpee/Model/ScrollBehavior.dart';
+import 'package:parkandpee/Model/scroll_behavior.dart';
 
 import 'Model/map_util.dart';
 import 'Model/progress_step_widget.dart';

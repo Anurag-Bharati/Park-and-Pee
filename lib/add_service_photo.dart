@@ -6,6 +6,7 @@ import 'dart:io';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:parkandpee/Model/service.dart';
+import 'package:parkandpee/Model/service_main.dart';
 import 'package:parkandpee/add_service_success.dart';
 import 'package:http/http.dart' as http;
 import 'package:parkandpee/api.dart';
@@ -452,6 +453,7 @@ class _MapViewState extends State<AddServicePhoto> {
                                                   Colors.red[400],
                                                   1));
                                         } else {
+                                          // ignore: unrelated_type_equality_checks
                                           _asyncUploadToDatabase();
                                           Navigator.pushAndRemoveUntil<void>(
                                             context,
@@ -507,8 +509,62 @@ class _MapViewState extends State<AddServicePhoto> {
     );
   }
 
-  _asyncUploadToDatabase() {
-    //TODO
+  _asyncUploadToDatabase() async {
+    final ServiceMain service = ServiceMain(
+        id: null,
+        name: widget.service.name,
+        locationType: _locationType(widget.service.locType),
+        serviceType: widget.service.serviceType == "Parking"
+            ? ServiceType.PARK
+            : ServiceType.PEE,
+        latitude: widget.service.coordinates["latitude"],
+        longitude: widget.service.coordinates["longitude"],
+        amenities: ServiceMain.encodeListToString(widget.service.amenity),
+        mainPicPath: widget.service.mainPicPath,
+        coverPicPath: widget.service.coverPicPath);
+
+    Uri addServiceUri = Uri.parse(
+        "http://192.168.1.3:8080/api/user/" + widget.user.id.toString());
+
+    var response = await http.put(
+      addServiceUri,
+      headers: {'Content-Type': 'application/json'},
+      body: json.encode({
+        "services": [
+          {
+            "name": service.name,
+            "location_type": widget.service.locType,
+            "service_type": widget.service.serviceType,
+            "latitude": service.latitude!.toDouble(),
+            "longitude": service.longitude!.toDouble(),
+            "amenities": service.amenities,
+            "main_pic_path": service.mainPicPath,
+            "cover_pic_path": service.coverPicPath
+          }
+        ]
+      }),
+    );
+    if (response.body.isNotEmpty) {
+      widget.user.services.add(service);
+    } else {
+      _scaffoldKey.currentState?.showSnackBar(showSnackBar(
+          "Sorry! Something went wrong. Please Try again.",
+          context,
+          Colors.red[400],
+          1));
+    }
+  }
+
+  LocationType _locationType(String? locationType) {
+    if (locationType == "Hotel") {
+      return LocationType.HOTEL;
+    } else if (locationType == "Restaurant") {
+      return LocationType.RESTAURANT;
+    } else if (locationType == "Home") {
+      return LocationType.HOME;
+    } else {
+      return LocationType.OTHER;
+    }
   }
 
   _asyncFileUpload(File file, String id, String type) async {

@@ -1,13 +1,15 @@
 // ignore_for_file: file_names
 
+import 'Model/service_main.dart';
+
 class User {
   int? id;
   String name;
   String phone;
   String password;
   String? confirmPass;
+  List<ServiceMain> services = [];
 
-  bool isServiceOwner = false;
   String? idPath;
   String? address;
   String? businessPhone;

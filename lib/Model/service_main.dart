@@ -2,26 +2,27 @@
 
 import 'dart:convert';
 
-List<Service> serviceFromJson(String str) =>
-    List<Service>.from(json.decode(str).map((x) => Service.fromJson(x)));
+List<ServiceMain> serviceFromJson(String str) => List<ServiceMain>.from(
+    json.decode(str).map((x) => ServiceMain.fromJson(x)));
 
-String serviceToJson(List<Service> data) =>
+String serviceToJson(List<ServiceMain> data) =>
     json.encode(List<dynamic>.from(data.map((x) => x.toJson())));
 
-class Service {
-  Service({
+class ServiceMain {
+  ServiceMain({
     required this.id,
     required this.name,
     required this.locationType,
     required this.serviceType,
-    required this.coordinates,
+    required this.latitude,
+    required this.longitude,
     required this.amenities,
     required this.mainPicPath,
     required this.coverPicPath,
   });
 
   /// This function decodes boolean value stored in string to a list of booleans
-  List<bool>? decodeStringToList(String amenity) {
+  static List<bool>? decodeStringToList(String amenity) {
     final List<bool> amenities = [false, false, false, false, false, false];
     for (int i = 0; i < amenity.length; i++) {
       if (amenity[i] == 'T') {
@@ -32,7 +33,7 @@ class Service {
   }
 
   /// This function encodes boolean value stored in list to a string
-  String? encodeListToString(List<bool> list) {
+  static String? encodeListToString(List<bool> list) {
     String amenities = "";
     for (int i = 0; i < list.length; i++) {
       amenities += list[i] ? 'T' : 'F';
@@ -40,43 +41,46 @@ class Service {
     return amenities;
   }
 
-  final int id;
-  final String name;
+  final int? id;
+  final String? name;
   final LocationType? locationType;
   final ServiceType? serviceType;
-  final String coordinates;
-  final String amenities;
+  final double? latitude;
+  final double? longitude;
+  final String? amenities;
   final String? mainPicPath;
   final String? coverPicPath;
 
-  factory Service.fromJson(Map<String, dynamic> json) => Service(
-        id: json["id"],
+  factory ServiceMain.fromJson(Map<String, dynamic> json) => ServiceMain(
+        id: json["service_id"],
         name: json["name"],
         locationType: locationTypeValues.map[json["location_type"]],
         serviceType: serviceTypeValues.map[json["service_type"]],
-        coordinates: json["coordinates"],
+        latitude: json["latitude"].toDouble(),
+        longitude: json["longitude"].toDouble(),
         amenities: json["amenities"],
-        mainPicPath: json["mainPicPath"],
-        coverPicPath: json["coverPicPath"],
+        mainPicPath: json["main_pic_path"],
+        coverPicPath: json["cover_pic_path"],
       );
 
   Map<String, dynamic> toJson() => {
-        "id": id,
+        "service_id": id,
         "name": name,
         "location_type": locationTypeValues.reverse![locationType],
         "service_type": serviceTypeValues.reverse![serviceType],
-        "coordinates": coordinates,
+        "latitude": latitude,
+        "longitude": longitude,
         "amenities": amenities,
-        "mainPicPath": mainPicPath,
-        "coverPicPath": coverPicPath,
+        "main_pic_path": mainPicPath,
+        "cover_pic_path": coverPicPath,
       };
 }
 
-enum LocationType { RESTURANT, HOTEL, HOME, OTHER }
+enum LocationType { RESTAURANT, HOTEL, HOME, OTHER }
 
 final locationTypeValues = EnumValues({
   "Hotel": LocationType.HOTEL,
-  "Resturant": LocationType.RESTURANT,
+  "Restaurant": LocationType.RESTAURANT,
   "Home": LocationType.HOME,
   "Other": LocationType.OTHER
 });
