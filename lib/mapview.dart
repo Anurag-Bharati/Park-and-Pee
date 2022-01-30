@@ -220,67 +220,66 @@ class _MapViewState extends State<MapView> {
                         width: MediaQuery.of(context).size.width,
                         alignment: Alignment.topRight,
                         child: Column(
-                            mainAxisSize: MainAxisSize.min,
-                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                            crossAxisAlignment: CrossAxisAlignment.end,
-                            children: [
-                              SizedBox(
-                                width: 38,
-                                height: 38,
-                                child: FloatingActionButton(
-                                  heroTag: "btn1",
-                                  shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(2)),
-                                  backgroundColor: const Color(0xCCEF5350),
-                                  child: const Icon(
-                                    Icons.location_searching,
-                                    size: 20,
-                                  ),
-                                  onPressed: () => _mapController.animateCamera(
-                                    CameraUpdate.newCameraPosition(
-                                        _newCameraPosition),
-                                  ),
+                          mainAxisSize: MainAxisSize.min,
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          crossAxisAlignment: CrossAxisAlignment.end,
+                          children: [
+                            SizedBox(
+                              width: 38,
+                              height: 38,
+                              child: FloatingActionButton(
+                                heroTag: "btn1",
+                                shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(2)),
+                                backgroundColor: const Color(0xCCEF5350),
+                                child: const Icon(
+                                  Icons.location_searching,
+                                  size: 20,
+                                ),
+                                onPressed: () => _mapController.animateCamera(
+                                  CameraUpdate.newCameraPosition(
+                                      _newCameraPosition),
                                 ),
                               ),
-                              const SizedBox(
-                                height: 10,
-                              ),
-                              SizedBox(
-                                width: 38,
-                                height: 38,
-                                child: FloatingActionButton(
-                                    heroTag: "btn2",
-                                    shape: RoundedRectangleBorder(
-                                        borderRadius: BorderRadius.circular(2)),
-                                    backgroundColor: _toggleHybrid
-                                        ? const Color(0xCC66BB6A)
-                                        : const Color(0xCCFFA726),
-                                    child: Icon(
+                            ),
+                            const SizedBox(
+                              height: 10,
+                            ),
+                            SizedBox(
+                              width: 38,
+                              height: 38,
+                              child: FloatingActionButton(
+                                  heroTag: "btn2",
+                                  shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(2)),
+                                  backgroundColor: _toggleHybrid
+                                      ? const Color(0xCC66BB6A)
+                                      : const Color(0xCCFFA726),
+                                  child: Icon(
+                                    _toggleHybrid ? Icons.map : Icons.satellite,
+                                    size: 20,
+                                  ),
+                                  onPressed: () {
+                                    setState(() {
+                                      _toggleHybrid = !_toggleHybrid;
                                       _toggleHybrid
-                                          ? Icons.map
-                                          : Icons.satellite,
-                                      size: 20,
-                                    ),
-                                    onPressed: () {
-                                      setState(() {
-                                        _toggleHybrid = !_toggleHybrid;
-                                        _toggleHybrid
-                                            ? _scaffoldKey.currentState
-                                                ?.showSnackBar(showSnackBar(
-                                                    "Satellite Mode Enabled",
-                                                    context,
-                                                    Colors.green[400],
-                                                    1))
-                                            : _scaffoldKey.currentState
-                                                ?.showSnackBar(showSnackBar(
-                                                    "Satellite Mode Disabled",
-                                                    context,
-                                                    Colors.orange[400],
-                                                    1));
-                                      });
-                                    }),
-                              ),
-                            ]),
+                                          ? _scaffoldKey.currentState
+                                              ?.showSnackBar(showSnackBar(
+                                                  "Satellite Mode Enabled",
+                                                  context,
+                                                  Colors.green[400],
+                                                  1))
+                                          : _scaffoldKey.currentState
+                                              ?.showSnackBar(showSnackBar(
+                                                  "Satellite Mode Disabled",
+                                                  context,
+                                                  Colors.orange[400],
+                                                  1));
+                                    });
+                                  }),
+                            ),
+                          ],
+                        ),
                       )
                     ]),
                     Padding(
@@ -624,19 +623,20 @@ class _MapViewState extends State<MapView> {
                                                 Navigator.push(
                                                   context,
                                                   MaterialPageRoute(
-                                                      builder: (context) =>
-                                                          dropDownValue ==
-                                                                  "Parking"
-                                                              ? AddServiceDetails(
-                                                                  service:
-                                                                      _service,
-                                                                  user: _user,
-                                                                )
-                                                              : AddServiceDetailsPee(
-                                                                  service:
-                                                                      _service,
-                                                                  user: _user,
-                                                                )),
+                                                    builder: (context) =>
+                                                        dropDownValue ==
+                                                                "Parking"
+                                                            ? AddServiceDetails(
+                                                                service:
+                                                                    _service,
+                                                                user: _user,
+                                                              )
+                                                            : AddServiceDetailsPee(
+                                                                service:
+                                                                    _service,
+                                                                user: _user,
+                                                              ),
+                                                  ),
                                                 );
                                               }
                                             },

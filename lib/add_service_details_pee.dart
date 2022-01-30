@@ -272,75 +272,72 @@ class _MapViewState extends State<AddServiceDetailsPee> {
                                       width: 150,
                                       decoration: const BoxDecoration(),
                                       child: Padding(
-                                          padding: const EdgeInsetsDirectional
-                                              .fromSTEB(10, 10, 0, 0),
-                                          child: SizedBox(
-                                              height: 50,
-                                              width: 170,
-                                              child: DropdownButtonFormField(
-                                                icon: const Icon(
-                                                  Icons.keyboard_arrow_down,
-                                                ),
-                                                iconSize: 25,
-                                                iconEnabledColor: Colors.green,
+                                        padding: const EdgeInsetsDirectional
+                                            .fromSTEB(10, 10, 0, 0),
+                                        child: SizedBox(
+                                          height: 50,
+                                          width: 170,
+                                          child: DropdownButtonFormField(
+                                            icon: const Icon(
+                                              Icons.keyboard_arrow_down,
+                                            ),
+                                            iconSize: 25,
+                                            iconEnabledColor: Colors.green,
 
-                                                decoration: InputDecoration(
-                                                    enabledBorder:
-                                                        OutlineInputBorder(
-                                                      borderSide:
-                                                          const BorderSide(
-                                                        color:
-                                                            Color(0xFFA0A0A0),
-                                                        width: 1,
+                                            decoration: InputDecoration(
+                                                enabledBorder:
+                                                    OutlineInputBorder(
+                                                  borderSide: const BorderSide(
+                                                    color: Color(0xFFA0A0A0),
+                                                    width: 1,
+                                                  ),
+                                                  borderRadius:
+                                                      BorderRadius.circular(5),
+                                                ),
+                                                focusedBorder:
+                                                    OutlineInputBorder(
+                                                  borderSide: const BorderSide(
+                                                    color: Colors.green,
+                                                    width: 1,
+                                                  ),
+                                                  borderRadius:
+                                                      BorderRadius.circular(5),
+                                                ),
+                                                filled: true,
+                                                isDense: true,
+                                                hintStyle: const TextStyle(
+                                                    fontSize: 14,
+                                                    color: Color(0xFFA0A0A0)),
+                                                hintText: "Type",
+                                                fillColor:
+                                                    const Color(0xFFEFEFEF)),
+                                            value: dropDownValue,
+                                            // ignore: non_constant_identifier_names
+                                            onChanged: (String? Value) {
+                                              setState(() {
+                                                dropDownValue = Value;
+                                              });
+                                            },
+                                            // ignore: non_constant_identifier_names
+                                            items: itemList
+                                                .map(
+                                                  (items) => DropdownMenuItem(
+                                                    value: items,
+                                                    child: Container(
+                                                      alignment:
+                                                          Alignment.center,
+                                                      child: Text(
+                                                        items,
+                                                        style: const TextStyle(
+                                                            fontSize: 15),
                                                       ),
-                                                      borderRadius:
-                                                          BorderRadius.circular(
-                                                              5),
                                                     ),
-                                                    focusedBorder:
-                                                        OutlineInputBorder(
-                                                      borderSide:
-                                                          const BorderSide(
-                                                        color: Colors.green,
-                                                        width: 1,
-                                                      ),
-                                                      borderRadius:
-                                                          BorderRadius.circular(
-                                                              5),
-                                                    ),
-                                                    filled: true,
-                                                    isDense: true,
-                                                    hintStyle: const TextStyle(
-                                                        fontSize: 14,
-                                                        color:
-                                                            Color(0xFFA0A0A0)),
-                                                    hintText: "Type",
-                                                    fillColor: const Color(
-                                                        0xFFEFEFEF)),
-                                                value: dropDownValue,
-                                                // ignore: non_constant_identifier_names
-                                                onChanged: (String? Value) {
-                                                  setState(() {
-                                                    dropDownValue = Value;
-                                                  });
-                                                },
-                                                // ignore: non_constant_identifier_names
-                                                items: itemList
-                                                    .map((items) =>
-                                                        DropdownMenuItem(
-                                                            value: items,
-                                                            child: Container(
-                                                                alignment:
-                                                                    Alignment
-                                                                        .center,
-                                                                child: Text(
-                                                                  items,
-                                                                  style: const TextStyle(
-                                                                      fontSize:
-                                                                          15),
-                                                                ))))
-                                                    .toList(),
-                                              ))),
+                                                  ),
+                                                )
+                                                .toList(),
+                                          ),
+                                        ),
+                                      ),
                                     ),
                                   ],
                                 ),
@@ -364,110 +361,122 @@ class _MapViewState extends State<AddServiceDetailsPee> {
                               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                               children: [
                                 Container(
-                                    width: 50,
-                                    height: 50,
-                                    decoration: BoxDecoration(
-                                      color: _amenity1
-                                          ? Colors.green[400]
-                                          : Colors.grey[400],
-                                      borderRadius: BorderRadius.circular(15),
-                                    ),
-                                    child: IconButton(
-                                      icon: const Icon(Icons.male),
-                                      // 2
-                                      color: _amenity1
-                                          ? Colors.white
-                                          : Colors.white,
-                                      // 3
-                                      onPressed: () => {
-                                        setState(() {
+                                  width: 50,
+                                  height: 50,
+                                  decoration: BoxDecoration(
+                                    color: _amenity1
+                                        ? Colors.green[400]
+                                        : Colors.grey[400],
+                                    borderRadius: BorderRadius.circular(15),
+                                  ),
+                                  child: IconButton(
+                                    icon: const Icon(Icons.male),
+                                    // 2
+                                    color:
+                                        _amenity1 ? Colors.white : Colors.white,
+                                    // 3
+                                    onPressed: () => {
+                                      setState(
+                                        () {
                                           _amenity1 = !_amenity1;
                                           _scaffoldKey.currentState
                                               ?.hideCurrentSnackBar();
 
                                           _scaffoldKey.currentState
-                                              ?.showSnackBar(showSnackBar(
-                                                  _amenity1 == true
-                                                      ? "Amenity - Male washroom has been enabled"
-                                                      : "Amenity - Male washroom has been disabled",
-                                                  context,
-                                                  _amenity1 == true
-                                                      ? Colors.green[400]
-                                                      : Colors.orange[400],
-                                                  1));
-                                        })
-                                      },
-                                    )),
+                                              ?.showSnackBar(
+                                            showSnackBar(
+                                                _amenity1 == true
+                                                    ? "Amenity - Male washroom has been enabled"
+                                                    : "Amenity - Male washroom has been disabled",
+                                                context,
+                                                _amenity1 == true
+                                                    ? Colors.green[400]
+                                                    : Colors.orange[400],
+                                                1),
+                                          );
+                                        },
+                                      ),
+                                    },
+                                  ),
+                                ),
                                 Container(
-                                    width: 50,
-                                    height: 50,
-                                    decoration: BoxDecoration(
-                                      color: _amenity2
-                                          ? Colors.green[400]
-                                          : Colors.grey[400],
-                                      borderRadius: BorderRadius.circular(15),
-                                    ),
-                                    child: IconButton(
-                                      icon: const Icon(Icons.female),
-                                      // 2
-                                      color: _amenity2
-                                          ? Colors.white
-                                          : Colors.white,
-                                      // 3
-                                      onPressed: () => {
-                                        setState(() {
+                                  width: 50,
+                                  height: 50,
+                                  decoration: BoxDecoration(
+                                    color: _amenity2
+                                        ? Colors.green[400]
+                                        : Colors.grey[400],
+                                    borderRadius: BorderRadius.circular(15),
+                                  ),
+                                  child: IconButton(
+                                    icon: const Icon(Icons.female),
+                                    // 2
+                                    color:
+                                        _amenity2 ? Colors.white : Colors.white,
+                                    // 3
+                                    onPressed: () => {
+                                      setState(
+                                        () {
                                           _amenity2 = !_amenity2;
                                           _scaffoldKey.currentState
                                               ?.hideCurrentSnackBar();
 
                                           _scaffoldKey.currentState
-                                              ?.showSnackBar(showSnackBar(
-                                                  _amenity2 == true
-                                                      ? "Amenity - Female washroom has been enabled"
-                                                      : "Amenity - Female washroom has been disabled",
-                                                  context,
-                                                  _amenity2 == true
-                                                      ? Colors.green[400]
-                                                      : Colors.orange[400],
-                                                  1));
-                                        })
-                                      },
-                                    )),
+                                              ?.showSnackBar(
+                                            showSnackBar(
+                                                _amenity2 == true
+                                                    ? "Amenity - Female washroom has been enabled"
+                                                    : "Amenity - Female washroom has been disabled",
+                                                context,
+                                                _amenity2 == true
+                                                    ? Colors.green[400]
+                                                    : Colors.orange[400],
+                                                1),
+                                          );
+                                        },
+                                      ),
+                                    },
+                                  ),
+                                ),
                                 Container(
-                                    width: 50,
-                                    height: 50,
-                                    decoration: BoxDecoration(
-                                      color: _amenity3
-                                          ? Colors.green[400]
-                                          : Colors.grey[400],
-                                      borderRadius: BorderRadius.circular(15),
-                                    ),
-                                    child: IconButton(
-                                      icon: const Icon(Icons.child_care),
-                                      // 2
-                                      color: _amenity3
-                                          ? Colors.white
-                                          : Colors.white,
-                                      // 3
-                                      onPressed: () => {
-                                        setState(() {
+                                  width: 50,
+                                  height: 50,
+                                  decoration: BoxDecoration(
+                                    color: _amenity3
+                                        ? Colors.green[400]
+                                        : Colors.grey[400],
+                                    borderRadius: BorderRadius.circular(15),
+                                  ),
+                                  child: IconButton(
+                                    icon: const Icon(Icons.child_care),
+                                    // 2
+                                    color:
+                                        _amenity3 ? Colors.white : Colors.white,
+                                    // 3
+                                    onPressed: () => {
+                                      setState(
+                                        () {
                                           _amenity3 = !_amenity3;
                                           _scaffoldKey.currentState
                                               ?.hideCurrentSnackBar();
 
                                           _scaffoldKey.currentState
-                                              ?.showSnackBar(showSnackBar(
-                                                  _amenity3 == true
-                                                      ? "Amenity - Baby service has been enabled"
-                                                      : "Amenity - Baby service has been disabled",
-                                                  context,
-                                                  _amenity3 == true
-                                                      ? Colors.green[400]
-                                                      : Colors.orange[400],
-                                                  1));
-                                        })
-                                      },
-                                    )),
+                                              ?.showSnackBar(
+                                            showSnackBar(
+                                                _amenity3 == true
+                                                    ? "Amenity - Baby service has been enabled"
+                                                    : "Amenity - Baby service has been disabled",
+                                                context,
+                                                _amenity3 == true
+                                                    ? Colors.green[400]
+                                                    : Colors.orange[400],
+                                                1),
+                                          );
+                                        },
+                                      ),
+                                    },
+                                  ),
+                                ),
                                 Container(
                                   width: 50,
                                   height: 50,
@@ -478,104 +487,113 @@ class _MapViewState extends State<AddServiceDetailsPee> {
                                     borderRadius: BorderRadius.circular(15),
                                   ),
                                   child: IconButton(
-                                      icon: const Icon(Icons.shower),
-                                      // 2
-                                      color: _amenity4
-                                          ? Colors.white
-                                          : Colors.white,
-                                      // 3
-                                      onPressed: () => {
-                                            setState(
-                                              () {
-                                                _amenity4 = !_amenity4;
-                                                _scaffoldKey.currentState
-                                                    ?.hideCurrentSnackBar();
+                                    icon: const Icon(Icons.shower),
+                                    // 2
+                                    color:
+                                        _amenity4 ? Colors.white : Colors.white,
+                                    // 3
+                                    onPressed: () => {
+                                      setState(
+                                        () {
+                                          _amenity4 = !_amenity4;
+                                          _scaffoldKey.currentState
+                                              ?.hideCurrentSnackBar();
 
-                                                _scaffoldKey.currentState
-                                                    ?.showSnackBar(showSnackBar(
-                                                        _amenity4 == true
-                                                            ? "Amenity - Shower has been enabled"
-                                                            : "Amenity - Shower has been disabled",
-                                                        context,
-                                                        _amenity4 == true
-                                                            ? Colors.green[400]
-                                                            : Colors
-                                                                .orange[400],
-                                                        1));
-                                              },
-                                            ),
-                                          }),
+                                          _scaffoldKey.currentState
+                                              ?.showSnackBar(
+                                            showSnackBar(
+                                                _amenity4 == true
+                                                    ? "Amenity - Shower has been enabled"
+                                                    : "Amenity - Shower has been disabled",
+                                                context,
+                                                _amenity4 == true
+                                                    ? Colors.green[400]
+                                                    : Colors.orange[400],
+                                                1),
+                                          );
+                                        },
+                                      ),
+                                    },
+                                  ),
                                 ),
                                 Container(
-                                    width: 50,
-                                    height: 50,
-                                    decoration: BoxDecoration(
-                                      color: _amenity5
-                                          ? Colors.green[400]
-                                          : Colors.grey[400],
-                                      borderRadius: BorderRadius.circular(15),
-                                    ),
-                                    child: IconButton(
-                                      icon: const Icon(Icons.wash),
-                                      // 2
-                                      color: _amenity5
-                                          ? Colors.white
-                                          : Colors.white,
-                                      // 3
-                                      onPressed: () => {
-                                        setState(() {
+                                  width: 50,
+                                  height: 50,
+                                  decoration: BoxDecoration(
+                                    color: _amenity5
+                                        ? Colors.green[400]
+                                        : Colors.grey[400],
+                                    borderRadius: BorderRadius.circular(15),
+                                  ),
+                                  child: IconButton(
+                                    icon: const Icon(Icons.wash),
+                                    // 2
+                                    color:
+                                        _amenity5 ? Colors.white : Colors.white,
+                                    // 3
+                                    onPressed: () => {
+                                      setState(
+                                        () {
                                           _amenity5 = !_amenity5;
                                           _scaffoldKey.currentState
                                               ?.hideCurrentSnackBar();
 
                                           _scaffoldKey.currentState
-                                              ?.showSnackBar(showSnackBar(
-                                                  _amenity5 == true
-                                                      ? "Amenity - Handwash has been enabled"
-                                                      : "Amenity - Handwash has been disabled",
-                                                  context,
-                                                  _amenity5 == true
-                                                      ? Colors.green[400]
-                                                      : Colors.orange[400],
-                                                  1));
-                                        })
-                                      },
-                                    )),
+                                              ?.showSnackBar(
+                                            showSnackBar(
+                                                _amenity5 == true
+                                                    ? "Amenity - Handwash has been enabled"
+                                                    : "Amenity - Handwash has been disabled",
+                                                context,
+                                                _amenity5 == true
+                                                    ? Colors.green[400]
+                                                    : Colors.orange[400],
+                                                1),
+                                          );
+                                        },
+                                      )
+                                    },
+                                  ),
+                                ),
                                 Container(
-                                    width: 50,
-                                    height: 50,
-                                    decoration: BoxDecoration(
-                                      color: _amenity6
-                                          ? Colors.green[400]
-                                          : Colors.grey[400],
-                                      borderRadius: BorderRadius.circular(15),
-                                    ),
-                                    child: IconButton(
-                                      icon: const Icon(Icons.cleaning_services),
-                                      // 2
-                                      color: _amenity6
-                                          ? Colors.white
-                                          : Colors.white,
-                                      // 3
-                                      onPressed: () => {
-                                        setState(() {
+                                  width: 50,
+                                  height: 50,
+                                  decoration: BoxDecoration(
+                                    color: _amenity6
+                                        ? Colors.green[400]
+                                        : Colors.grey[400],
+                                    borderRadius: BorderRadius.circular(15),
+                                  ),
+                                  child: IconButton(
+                                    icon: const Icon(Icons.cleaning_services),
+                                    // 2
+                                    color:
+                                        _amenity6 ? Colors.white : Colors.white,
+                                    // 3
+                                    onPressed: () => {
+                                      setState(
+                                        () {
                                           _amenity6 = !_amenity6;
                                           _scaffoldKey.currentState
                                               ?.hideCurrentSnackBar();
 
                                           _scaffoldKey.currentState
-                                              ?.showSnackBar(showSnackBar(
-                                                  _amenity6 == true
-                                                      ? "Amenity - Grooming has been enabled"
-                                                      : "Amenity - Grooming has been disabled",
-                                                  context,
-                                                  _amenity6 == true
-                                                      ? Colors.green[400]
-                                                      : Colors.orange[400],
-                                                  1));
-                                        })
-                                      },
-                                    )),
+                                              ?.showSnackBar(
+                                            showSnackBar(
+                                                _amenity6 == true
+                                                    ? "Amenity - Grooming has been enabled"
+                                                    : "Amenity - Grooming has been disabled",
+                                                context,
+                                                _amenity6 == true
+                                                    ? Colors.green[400]
+                                                    : Colors.orange[400],
+                                                1),
+                                          );
+                                        },
+                                      )
+                                    },
+                                  ),
+                                ),
                               ],
                             ),
                           ),
@@ -667,20 +685,23 @@ class _MapViewState extends State<AddServiceDetailsPee> {
                                             Navigator.push(
                                               context,
                                               MaterialPageRoute(
-                                                  builder: (context) =>
-                                                      AddServicePhoto(
-                                                        service: widget.service,
-                                                        user: widget.user,
-                                                      )),
+                                                builder: (context) =>
+                                                    AddServicePhoto(
+                                                  service: widget.service,
+                                                  user: widget.user,
+                                                ),
+                                              ),
                                             );
                                           }
                                         } else {
                                           _scaffoldKey.currentState
-                                              ?.showSnackBar(showSnackBar(
-                                                  "Sorry! Something went wrong",
-                                                  context,
-                                                  Colors.red[400],
-                                                  1));
+                                              ?.showSnackBar(
+                                            showSnackBar(
+                                                "Sorry! Something went wrong",
+                                                context,
+                                                Colors.red[400],
+                                                1),
+                                          );
                                         }
                                       },
                                       style: ElevatedButton.styleFrom(

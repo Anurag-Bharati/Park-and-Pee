@@ -281,75 +281,72 @@ class _MapViewState extends State<AddServiceDetails> {
                                       width: 150,
                                       decoration: const BoxDecoration(),
                                       child: Padding(
-                                          padding: const EdgeInsetsDirectional
-                                              .fromSTEB(10, 10, 0, 0),
-                                          child: SizedBox(
-                                              height: 50,
-                                              width: 170,
-                                              child: DropdownButtonFormField(
-                                                icon: const Icon(
-                                                  Icons.keyboard_arrow_down,
-                                                ),
-                                                iconSize: 25,
-                                                iconEnabledColor: Colors.green,
+                                        padding: const EdgeInsetsDirectional
+                                            .fromSTEB(10, 10, 0, 0),
+                                        child: SizedBox(
+                                          height: 50,
+                                          width: 170,
+                                          child: DropdownButtonFormField(
+                                            icon: const Icon(
+                                              Icons.keyboard_arrow_down,
+                                            ),
+                                            iconSize: 25,
+                                            iconEnabledColor: Colors.green,
 
-                                                decoration: InputDecoration(
-                                                    enabledBorder:
-                                                        OutlineInputBorder(
-                                                      borderSide:
-                                                          const BorderSide(
-                                                        color:
-                                                            Color(0xFFA0A0A0),
-                                                        width: 1,
+                                            decoration: InputDecoration(
+                                                enabledBorder:
+                                                    OutlineInputBorder(
+                                                  borderSide: const BorderSide(
+                                                    color: Color(0xFFA0A0A0),
+                                                    width: 1,
+                                                  ),
+                                                  borderRadius:
+                                                      BorderRadius.circular(5),
+                                                ),
+                                                focusedBorder:
+                                                    OutlineInputBorder(
+                                                  borderSide: const BorderSide(
+                                                    color: Colors.green,
+                                                    width: 1,
+                                                  ),
+                                                  borderRadius:
+                                                      BorderRadius.circular(5),
+                                                ),
+                                                filled: true,
+                                                isDense: true,
+                                                hintStyle: const TextStyle(
+                                                    fontSize: 14,
+                                                    color: Color(0xFFA0A0A0)),
+                                                hintText: "Type",
+                                                fillColor:
+                                                    const Color(0xFFEFEFEF)),
+                                            value: dropDownValue,
+                                            // ignore: non_constant_identifier_names
+                                            onChanged: (String? Value) {
+                                              setState(() {
+                                                dropDownValue = Value;
+                                              });
+                                            },
+                                            // ignore: non_constant_identifier_names
+                                            items: itemList
+                                                .map(
+                                                  (items) => DropdownMenuItem(
+                                                    value: items,
+                                                    child: Container(
+                                                      alignment:
+                                                          Alignment.center,
+                                                      child: Text(
+                                                        items,
+                                                        style: const TextStyle(
+                                                            fontSize: 15),
                                                       ),
-                                                      borderRadius:
-                                                          BorderRadius.circular(
-                                                              5),
                                                     ),
-                                                    focusedBorder:
-                                                        OutlineInputBorder(
-                                                      borderSide:
-                                                          const BorderSide(
-                                                        color: Colors.green,
-                                                        width: 1,
-                                                      ),
-                                                      borderRadius:
-                                                          BorderRadius.circular(
-                                                              5),
-                                                    ),
-                                                    filled: true,
-                                                    isDense: true,
-                                                    hintStyle: const TextStyle(
-                                                        fontSize: 14,
-                                                        color:
-                                                            Color(0xFFA0A0A0)),
-                                                    hintText: "Type",
-                                                    fillColor: const Color(
-                                                        0xFFEFEFEF)),
-                                                value: dropDownValue,
-                                                // ignore: non_constant_identifier_names
-                                                onChanged: (String? Value) {
-                                                  setState(() {
-                                                    dropDownValue = Value;
-                                                  });
-                                                },
-                                                // ignore: non_constant_identifier_names
-                                                items: itemList
-                                                    .map((items) =>
-                                                        DropdownMenuItem(
-                                                            value: items,
-                                                            child: Container(
-                                                                alignment:
-                                                                    Alignment
-                                                                        .center,
-                                                                child: Text(
-                                                                  items,
-                                                                  style: const TextStyle(
-                                                                      fontSize:
-                                                                          15),
-                                                                ))))
-                                                    .toList(),
-                                              ))),
+                                                  ),
+                                                )
+                                                .toList(),
+                                          ),
+                                        ),
+                                      ),
                                     ),
                                   ],
                                 ),

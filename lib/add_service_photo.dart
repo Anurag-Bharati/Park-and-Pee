@@ -198,64 +198,63 @@ class _MapViewState extends State<AddServicePhoto> {
                                         padding: const EdgeInsetsDirectional
                                             .fromSTEB(0, 10, 10, 5),
                                         child: Container(
-                                            decoration: BoxDecoration(
-                                              color: _mainPhotoAdded
-                                                  ? Colors.green[200]
-                                                  : Colors.grey[350],
-                                              borderRadius:
-                                                  BorderRadius.circular(15),
-                                            ),
-                                            height: 100,
-                                            width: 150,
-                                            child: IconButton(
-                                              color: Colors.white,
-                                              iconSize: 35,
-                                              icon: const Icon(
-                                                  Icons.insert_photo),
-                                              onPressed: () async {
-                                                final mainPhoto =
-                                                    await FilePicker.platform
-                                                        .pickFiles(
-                                                  allowMultiple: false,
-                                                  type: FileType.custom,
-                                                  allowedExtensions: [
-                                                    'png',
-                                                    'jpg',
-                                                    'jpeg'
-                                                  ],
-                                                );
-                                                if (mainPhoto == null) {
-                                                  _scaffoldKey.currentState
-                                                      ?.showSnackBar(
-                                                          showSnackBar(
-                                                              "No file selected",
-                                                              context,
-                                                              Colors.red[400],
-                                                              1));
-                                                  setState(() {
-                                                    _mainPhotoAdded = false;
-                                                  });
-                                                } else {
-                                                  _scaffoldKey.currentState
-                                                      ?.showSnackBar(showSnackBar(
-                                                          "Picture: \"${mainPhoto.names[0].toString()}\" is selected",
-                                                          context,
-                                                          Colors.green[400],
-                                                          2));
-                                                  setState(() {
-                                                    _mainPhotoAdded = true;
-                                                    _asyncFileUpload(
-                                                        File(mainPhoto.files
-                                                            .elementAt(0)
-                                                            .path
-                                                            .toString()),
-                                                        widget.user.id
-                                                            .toString(),
-                                                        "main");
-                                                  });
-                                                }
-                                              },
-                                            )),
+                                          decoration: BoxDecoration(
+                                            color: _mainPhotoAdded
+                                                ? Colors.green[200]
+                                                : Colors.grey[350],
+                                            borderRadius:
+                                                BorderRadius.circular(15),
+                                          ),
+                                          height: 100,
+                                          width: 150,
+                                          child: IconButton(
+                                            color: Colors.white,
+                                            iconSize: 35,
+                                            icon:
+                                                const Icon(Icons.insert_photo),
+                                            onPressed: () async {
+                                              final mainPhoto = await FilePicker
+                                                  .platform
+                                                  .pickFiles(
+                                                allowMultiple: false,
+                                                type: FileType.custom,
+                                                allowedExtensions: [
+                                                  'png',
+                                                  'jpg',
+                                                  'jpeg'
+                                                ],
+                                              );
+                                              if (mainPhoto == null) {
+                                                _scaffoldKey.currentState
+                                                    ?.showSnackBar(showSnackBar(
+                                                        "No file selected",
+                                                        context,
+                                                        Colors.red[400],
+                                                        1));
+                                                setState(() {
+                                                  _mainPhotoAdded = false;
+                                                });
+                                              } else {
+                                                _scaffoldKey.currentState
+                                                    ?.showSnackBar(showSnackBar(
+                                                        "Picture: \"${mainPhoto.names[0].toString()}\" is selected",
+                                                        context,
+                                                        Colors.green[400],
+                                                        2));
+                                                setState(() {
+                                                  _mainPhotoAdded = true;
+                                                  _asyncFileUpload(
+                                                      File(mainPhoto.files
+                                                          .elementAt(0)
+                                                          .path
+                                                          .toString()),
+                                                      widget.user.id.toString(),
+                                                      "main");
+                                                });
+                                              }
+                                            },
+                                          ),
+                                        ),
                                       ),
                                       Text(
                                         'Main Picture',
@@ -350,61 +349,62 @@ class _MapViewState extends State<AddServicePhoto> {
                             ),
                           ),
                           Padding(
-                              padding: const EdgeInsetsDirectional.fromSTEB(
-                                  0, 10, 0, 0),
-                              child: Row(
-                                mainAxisSize: MainAxisSize.max,
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Container(
-                                    width: 30,
-                                    height: 30,
-                                    decoration: BoxDecoration(
-                                      color: _acceptTandC
-                                          ? Colors.green[400]
-                                          : Colors.grey[400],
-                                      borderRadius: BorderRadius.circular(10),
-                                    ),
-                                    child: IconButton(
-                                        icon: _acceptTandC
-                                            ? const Icon(Icons.verified)
-                                            : const Icon(null),
-                                        iconSize: 15,
-                                        // 2
-                                        color: Colors.white,
-                                        // 3
-                                        onPressed: () => {
-                                              setState(() {
-                                                _acceptTandC = !_acceptTandC;
-                                              })
-                                            }),
+                            padding: const EdgeInsetsDirectional.fromSTEB(
+                                0, 10, 0, 0),
+                            child: Row(
+                              mainAxisSize: MainAxisSize.max,
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Container(
+                                  width: 30,
+                                  height: 30,
+                                  decoration: BoxDecoration(
+                                    color: _acceptTandC
+                                        ? Colors.green[400]
+                                        : Colors.grey[400],
+                                    borderRadius: BorderRadius.circular(10),
                                   ),
-                                  const SizedBox(
-                                    width: 10,
-                                  ),
-                                  const Text(
-                                    'I accept the',
+                                  child: IconButton(
+                                      icon: _acceptTandC
+                                          ? const Icon(Icons.verified)
+                                          : const Icon(null),
+                                      iconSize: 15,
+                                      // 2
+                                      color: Colors.white,
+                                      // 3
+                                      onPressed: () => {
+                                            setState(() {
+                                              _acceptTandC = !_acceptTandC;
+                                            })
+                                          }),
+                                ),
+                                const SizedBox(
+                                  width: 10,
+                                ),
+                                const Text(
+                                  'I accept the',
+                                  style: TextStyle(
+                                      fontSize: 18,
+                                      fontWeight: FontWeight.w300),
+                                ),
+                                TextButton(
+                                  child: Text(
+                                    "terms and conditions",
+                                    textAlign: TextAlign.start,
                                     style: TextStyle(
+                                        fontFamily: 'Poppins',
+                                        color: Colors.red[400],
                                         fontSize: 18,
                                         fontWeight: FontWeight.w300),
                                   ),
-                                  TextButton(
-                                    child: Text(
-                                      "terms and conditions",
-                                      textAlign: TextAlign.start,
-                                      style: TextStyle(
-                                          fontFamily: 'Poppins',
-                                          color: Colors.red[400],
-                                          fontSize: 18,
-                                          fontWeight: FontWeight.w300),
-                                    ),
-                                    // ignore: todo
-                                    onPressed: null, //TODO
-                                    style: TextButton.styleFrom(
-                                        padding: const EdgeInsets.all(5)),
-                                  ),
-                                ],
-                              )),
+                                  // ignore: todo
+                                  onPressed: null, //TODO
+                                  style: TextButton.styleFrom(
+                                      padding: const EdgeInsets.all(5)),
+                                ),
+                              ],
+                            ),
+                          ),
                           Container(
                             width: MediaQuery.of(context).size.width,
                             decoration: const BoxDecoration(
@@ -458,11 +458,12 @@ class _MapViewState extends State<AddServicePhoto> {
                                           Navigator.pushAndRemoveUntil<void>(
                                             context,
                                             MaterialPageRoute(
-                                                builder: (context) =>
-                                                    AddServiceSuccess(
-                                                      service: widget.service,
-                                                      user: widget.user,
-                                                    )),
+                                              builder: (context) =>
+                                                  AddServiceSuccess(
+                                                service: widget.service,
+                                                user: widget.user,
+                                              ),
+                                            ),
                                             ModalRoute.withName("/"),
                                           );
                                         }

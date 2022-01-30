@@ -24,7 +24,6 @@ class _MapViewState extends State<AddServiceSuccess> {
 
   @override
   void initState() {
-    print(widget.service.serviceType);
     super.initState();
   }
 
@@ -185,8 +184,7 @@ class _MapViewState extends State<AddServiceSuccess> {
                                     child: ElevatedButton(
                                       child: const Text("OKEY"),
                                       onPressed: () {
-                                        print(widget
-                                            .user.services[0].coverPicPath);
+                                        // TODO
 
                                         _scaffoldKey.currentState
                                             ?.removeCurrentSnackBar();
