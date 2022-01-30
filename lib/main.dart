@@ -3,6 +3,7 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:parkandpee/aboutus.dart';
 import 'package:parkandpee/account.dart';
 import 'package:parkandpee/login.dart';
@@ -30,6 +31,8 @@ void main() async {
     badge: true,
     sound: true,
   );
+  SystemChrome.setPreferredOrientations(
+      [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]);
   runApp(const MyApp());
 }
 
@@ -43,6 +46,7 @@ class MyApp extends StatelessWidget {
       // title: 'Park And Pee',
       debugShowCheckedModeBanner: false,
       home: const MyLogin(),
+      // home: const LoginScreen(),
       routes: {
         'register': (context) => const MyRegister(),
         'login': (context) => const MyLogin(),
