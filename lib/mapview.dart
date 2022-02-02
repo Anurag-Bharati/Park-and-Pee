@@ -35,7 +35,8 @@ class _MapViewState extends State<MapView> {
   // DUMMY_VALUE
   final User _user = User("Anurag", "98480XXXXX", "12345");
 
-  late TextEditingController textController1;
+  String _text = "NOT SELECTED";
+  bool _textSelected = false;
 
   late GoogleMapController _mapController;
 
@@ -65,8 +66,6 @@ class _MapViewState extends State<MapView> {
     _user.id = 1;
     setCustomMarker();
     getCurrentLocation();
-
-    textController1 = TextEditingController();
   }
 
   void getCurrentLocation() async {
@@ -129,7 +128,6 @@ class _MapViewState extends State<MapView> {
 
   @override
   void dispose() {
-    textController1.dispose();
     _mapController.dispose();
     super.dispose();
   }
@@ -180,6 +178,7 @@ class _MapViewState extends State<MapView> {
                             bottomLeft: Radius.circular(20),
                           ),
                           child: GoogleMap(
+                            key: const Key("_googlemap"),
                             gestureRecognizers: <
                                 Factory<OneSequenceGestureRecognizer>>{
                               Factory<OneSequenceGestureRecognizer>(
@@ -334,154 +333,37 @@ class _MapViewState extends State<MapView> {
                                   width: MediaQuery.of(context).size.width,
                                   color: const Color(0xff58B6EC),
                                 ),
-                                const Padding(
-                                  padding: EdgeInsetsDirectional.fromSTEB(
+                                Padding(
+                                  padding: const EdgeInsetsDirectional.fromSTEB(
                                       0, 60, 0, 0),
-                                  child: Text(
-                                    'Select The Service Location',
-                                    style: TextStyle(
-                                      fontFamily: 'fonts/Poppins-light.ttf',
-                                      fontWeight: FontWeight.w400,
-                                      fontSize: 20.6,
+                                  child: Container(
+                                    alignment: Alignment.center,
+                                    child: const Text(
+                                      'The point has been set to',
+                                      style: TextStyle(
+                                        fontFamily: 'fonts/Poppins-light.ttf',
+                                        fontWeight: FontWeight.w400,
+                                        fontSize: 24,
+                                      ),
+                                      textAlign: TextAlign.center,
                                     ),
                                   ),
                                 ),
                                 Container(
-                                  height: 50,
-                                  margin: const EdgeInsets.only(top: 20),
-                                  child: Row(
-                                    mainAxisSize: MainAxisSize.max,
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceEvenly,
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.stretch,
-                                    children: [
-                                      Expanded(
-                                        child: TextFormField(
-                                          keyboardType: TextInputType.number,
-                                          controller: textController1,
-                                          textCapitalization:
-                                              TextCapitalization.words,
-                                          obscureText: false,
-                                          decoration: InputDecoration(
-                                            hintText:
-                                                'Latitude and Longitude Value',
-                                            hintStyle: TextStyle(
-                                              fontWeight: FontWeight.w400,
-                                              fontFamily:
-                                                  'fonts/Poppins-light.ttf',
-                                              fontSize: 18,
-                                              color: Colors.grey[600],
-                                            ),
-                                            enabledBorder: OutlineInputBorder(
-                                              borderSide: const BorderSide(
-                                                color: Color(0xFFA0A0A0),
-                                                width: 1,
-                                              ),
-                                              borderRadius:
-                                                  BorderRadius.circular(5),
-                                            ),
-                                            focusedBorder: OutlineInputBorder(
-                                              borderSide: const BorderSide(
-                                                color: Color(0xFFA0A0A0),
-                                                width: 1,
-                                              ),
-                                              borderRadius:
-                                                  BorderRadius.circular(5),
-                                            ),
-                                            filled: false,
-                                            isDense: true,
-                                            fillColor: const Color(0xFFEFEFEF),
-                                            prefixIcon: const Icon(
-                                              Icons.location_on,
-                                            ),
-                                            suffixIcon:
-                                                textController1.text.isNotEmpty
-                                                    ? InkWell(
-                                                        onTap: () => setState(
-                                                          () => textController1
-                                                              .clear(),
-                                                        ),
-                                                        child: const Icon(
-                                                          Icons.clear,
-                                                          color: Colors.grey,
-                                                          size: 25,
-                                                        ),
-                                                      )
-                                                    : null,
-                                          ),
-                                          style: const TextStyle(
-                                            fontWeight: FontWeight.w400,
-                                            fontFamily:
-                                                'fonts/Poppins-light.ttf',
-                                            fontSize: 18,
-                                          ),
-                                          textAlign: TextAlign.start,
-                                        ),
-                                      ),
-                                      Container(
-                                        margin: const EdgeInsets.only(left: 10),
-                                        width: 60,
-                                        child: ElevatedButton(
-                                          child: const Text("GO"),
-                                          onPressed: () {
-                                            print('Button pressed ...');
-                                          },
-                                          style: ElevatedButton.styleFrom(
-                                            primary: const Color(0xFF58EC7B),
-                                            textStyle: const TextStyle(
-                                              fontFamily: 'Poppins',
-                                              fontWeight: FontWeight.bold,
-                                              color: Colors.white,
-                                              fontSize: 18,
-                                            ),
-                                            side: const BorderSide(
-                                              color: Colors.transparent,
-                                              width: 1,
-                                            ),
-                                            shape: const RoundedRectangleBorder(
-                                              borderRadius: BorderRadius.all(
-                                                Radius.circular(5),
-                                              ),
-                                            ),
-                                          ),
-                                        ),
-                                      ),
-                                    ],
+                                  margin: const EdgeInsets.only(bottom: 20),
+                                  alignment: Alignment.center,
+                                  child: Text(
+                                    _text,
+                                    style: TextStyle(
+                                      color: _textSelected
+                                          ? Colors.green[400]
+                                          : Colors.red[400],
+                                      fontWeight: FontWeight.w500,
+                                      fontFamily: 'fonts/Poppins-light.ttf',
+                                      fontSize: 18,
+                                    ),
+                                    textAlign: TextAlign.center,
                                   ),
-                                ),
-                                Row(
-                                  mainAxisAlignment: MainAxisAlignment.start,
-                                  children: [
-                                    const Text(
-                                      'How does it work? ',
-                                      style: TextStyle(
-                                          fontSize: 15,
-                                          fontWeight: FontWeight.w400),
-                                    ),
-                                    TextButton(
-                                      child: Text(
-                                        "Click here to learn more",
-                                        textAlign: TextAlign.start,
-                                        style: TextStyle(
-                                            fontFamily: 'Poppins',
-                                            color: Colors.red[400],
-                                            fontSize: 15,
-                                            fontWeight: FontWeight.w400),
-                                      ),
-                                      // ignore: todo
-                                      onPressed: () {
-                                        Navigator.push(
-                                          context,
-                                          MaterialPageRoute(
-                                              builder: (context) =>
-                                                  const MapViewLearnMore()),
-                                        );
-                                      },
-                                      style: TextButton.styleFrom(
-                                          padding: const EdgeInsets.all(5)),
-                                    ),
-                                  ],
                                 ),
                                 const Padding(
                                   padding: EdgeInsetsDirectional.fromSTEB(
@@ -504,6 +386,7 @@ class _MapViewState extends State<MapView> {
                                     height: 50,
                                     width: 170,
                                     child: DropdownButtonFormField(
+                                      key: const Key("_dropDown"),
                                       icon: const Icon(
                                         Icons.keyboard_arrow_down,
                                       ),
@@ -572,6 +455,41 @@ class _MapViewState extends State<MapView> {
                                   child: Column(
                                     mainAxisSize: MainAxisSize.max,
                                     children: [
+                                      Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.start,
+                                        children: [
+                                          const Text(
+                                            'How does it work? ',
+                                            style: TextStyle(
+                                                fontSize: 15,
+                                                fontWeight: FontWeight.w400),
+                                          ),
+                                          TextButton(
+                                            child: Text(
+                                              "Click here to learn more",
+                                              textAlign: TextAlign.start,
+                                              style: TextStyle(
+                                                  fontFamily: 'Poppins',
+                                                  color: Colors.red[400],
+                                                  fontSize: 15,
+                                                  fontWeight: FontWeight.w400),
+                                            ),
+                                            // ignore: todo
+                                            onPressed: () {
+                                              Navigator.push(
+                                                context,
+                                                MaterialPageRoute(
+                                                    builder: (context) =>
+                                                        const MapViewLearnMore()),
+                                              );
+                                            },
+                                            style: TextButton.styleFrom(
+                                                padding:
+                                                    const EdgeInsets.all(5)),
+                                          ),
+                                        ],
+                                      ),
                                       const Padding(
                                         padding: EdgeInsetsDirectional.fromSTEB(
                                             0, 10, 0, 0),
@@ -593,6 +511,7 @@ class _MapViewState extends State<MapView> {
                                               MediaQuery.of(context).size.width,
                                           height: 60,
                                           child: ElevatedButton(
+                                            key: const Key("_elevatedBtn"),
                                             child: const Text("NEXT"),
                                             onPressed: () {
                                               // ignore: todo
@@ -688,7 +607,10 @@ class _MapViewState extends State<MapView> {
         (pos.longitude - _currentLatLng.longitude).abs() <=
             (0.00001 / 1.11) * 150) {
       setState(() {
-        textController1.text = "${pos.latitude},${pos.longitude}";
+        _textSelected = true;
+        _text =
+            "${double.parse((pos.latitude).toStringAsFixed(5))}...° N, ${double.parse((pos.longitude).toStringAsFixed(5))}...° E";
+
         _selectedLocation = pos;
         _newCameraPosition = CameraPosition(
             target: pos, zoom: 18, bearing: rotateCam(10), tilt: 30);
@@ -709,7 +631,8 @@ class _MapViewState extends State<MapView> {
     } else {
       _selectedLocation = null;
       setState(() {
-        textController1.clear();
+        _text = "NOT SELECTED";
+        _textSelected = false;
         _markers.clear();
         _resetCam();
         _scaffoldKey.currentState?.showSnackBar(showSnackBar(

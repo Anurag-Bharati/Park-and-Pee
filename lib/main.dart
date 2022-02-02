@@ -42,7 +42,7 @@ void main() {
       'account_edit': (context) => const MyAccountPageEdit(),
       'admin': (context) => const Myadmin(),
       'property': (context) => const MyProperyPage(),
-      'Usermapview': (context) => const UserMapview(),
+      // 'Usermapview': (context) => const UserMapview(),
       'mapview': (Context) => const MapView()
 
       //  'verification':(context)=> Verification(),

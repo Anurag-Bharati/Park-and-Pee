@@ -1,25 +1,23 @@
-import 'package:flutter_driver/flutter_driver.dart';
-import 'package:test/test.dart';
+import 'package:flutter/widgets.dart';
+import 'package:flutter_test/flutter_test.dart';
+import 'package:integration_test/integration_test.dart';
+import "../../../lib/main.dart" as app;
 
-void main(List<String> args) {
-  FlutterDriver? driver;
-  dynamic button;
-
-  group("Integration Testing | <name of file> ", () {
-    button = find.byType('FloatingActionButton');
-    setUpAll(() async {
-      driver = await FlutterDriver.connect();
+void main() {
+  group("Add Service - Map View Test", () {
+    IntegrationTestWidgetsFlutterBinding.ensureInitialized();
+    testWidgets("MapView Test", (tester) async {
+      app.main();
+      await tester.pumpAndSettle();
+      await tester.pump(const Duration(seconds: 5));
+      final map = find.byKey(const Key("_googleMap"));
+      final dropDown = find.byKey(const Key("_dropDown"));
+      await tester.longPress(map);
+      await tester.pumpAndSettle();
+      await tester.tap(dropDown);
+      await tester.pumpAndSettle();
+      await tester.tap(find.text("Parking"));
+      await tester.tap(find.byKey(const Key("_elevatedBtn")));
     });
-
-    tearDownAll(() async {
-      if (driver != null) {
-        driver!.close();
-      }
-    });
-  });
-  test("Given When Then", () async {
-    await driver!.tap(button);
-    final text = find.text("");
-    expect(await driver!.getText(text), "Text");
   });
 }
