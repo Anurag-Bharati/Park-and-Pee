@@ -1,28 +1,28 @@
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter/material.dart';
-import 'package:parkandpee/account.dart';
-import 'package:parkandpee/home_page.dart';
-import 'package:parkandpee/property.dart';
-import 'package:parkandpee/statement.dart';
+import 'package:parkandpee/service_owner/so_account.dart';
+import 'package:parkandpee/service_owner/so_dashboard.dart';
+import 'package:parkandpee/service_owner/so_property.dart';
+import 'package:parkandpee/service_owner/so_setting.dart';
+import 'package:parkandpee/service_owner/so_statement.dart';
 
-import 'setting.dart';
 
-class Mynavbar extends StatefulWidget {
-  const Mynavbar({Key? key}) : super(key: key);
+class MySoNavbar extends StatefulWidget {
+  const MySoNavbar({Key? key}) : super(key: key);
 
   @override
-  _Mynavbarstate createState() => _Mynavbarstate();
+  _MySoNavbarstate createState() => _MySoNavbarstate();
 }
 
-class _Mynavbarstate extends State<Mynavbar> {
+class _MySoNavbarstate extends State<MySoNavbar> {
   // final navigationKey = GlobalKey<CurvedNavigationBarState>();
   int selectedIndex = 0;
   final screen = [
-    const MyHomePage(),
-    const MyStatementPage(),
-    const MyAccountPage(),
-    const MyPropertyPage(),
-    const MySettingPage()
+    const MySoDashboard(),
+    const MySoStatement(),
+    const MySoAccountPage(),
+    const MySoProperty(),
+    const MySoSetting(),
   ];
 
   @override
@@ -30,7 +30,7 @@ class _Mynavbarstate extends State<Mynavbar> {
     return Container(
         decoration: const BoxDecoration(
           image: DecorationImage(
-              image: AssetImage('assets/homebackground.png'),
+              image: AssetImage('assets/backwhite.png'),
               fit: BoxFit.cover),
         ),
         child: SafeArea(
