@@ -53,70 +53,68 @@ class _MyNewPasswordstate extends State<MyNewPassword> {
                 ),
                 Container(
                   // padding: const EdgeInsets.all(28),
-                  padding: const EdgeInsets.only(top:30,left:28,right:28,bottom: 30),
+                  padding: const EdgeInsets.only(
+                      top: 30, left: 28, right: 28, bottom: 30),
                   // margin: const EdgeInsets.only(top:50),
                   decoration: BoxDecoration(
-                    color: Colors.grey[100],
-                    borderRadius: BorderRadius.circular(25),
-                    border: Border.all(color: Colors.black12)
-                  ),
+                      color: Colors.grey[100],
+                      borderRadius: BorderRadius.circular(25),
+                      border: Border.all(color: Colors.black12)),
                   child: Column(
                     children: [
                       SizedBox(
-                            width: 320,
-                            height: 50,
-                            child: TextField(
-                              style: const TextStyle(color: Colors.black),
-                              decoration: InputDecoration(
-                                  fillColor: Colors.white,
-                                  filled: true,
-                                  hintText: "New Password",
-                                  border: OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(25),
-                                  )),
-                            ),
-                          ),
-                      const SizedBox(
-                        height: 30,
-                      ),    
-                      SizedBox(
-                            width: 320,
-                            height: 50,
-                            child: TextField(
-                              style: const TextStyle(color: Colors.black),
-                              decoration: InputDecoration(
-                                  fillColor: Colors.white,
-                                  filled: true,
-                                  hintText: "Confirm Password",
-                                  border: OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(25),
-                                  )),
-                            ),
-                          ),    
+                        width: 320,
+                        height: 50,
+                        child: TextField(
+                          style: const TextStyle(color: Colors.black),
+                          decoration: InputDecoration(
+                              fillColor: Colors.white,
+                              filled: true,
+                              hintText: "New Password",
+                              border: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(25),
+                              )),
+                        ),
+                      ),
                       const SizedBox(
                         height: 30,
                       ),
                       SizedBox(
-                      //  padding: EdgeInsets.only(left:50),
-                      height: 40,
-                      width: 150,
-                      child: ElevatedButton(
+                        width: 320,
+                        height: 50,
+                        child: TextField(
+                          style: const TextStyle(color: Colors.black),
+                          decoration: InputDecoration(
+                              fillColor: Colors.white,
+                              filled: true,
+                              hintText: "Confirm Password",
+                              border: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(25),
+                              )),
+                        ),
+                      ),
+                      const SizedBox(
+                        height: 30,
+                      ),
+                      SizedBox(
+                        //  padding: EdgeInsets.only(left:50),
+                        height: 40,
+                        width: 150,
+                        child: ElevatedButton(
                           child: const Text('Continue',
                               style: TextStyle(
                                   fontSize: 20,
-                                  fontFamily:
-                                      "fonts/Poppins-Bold.ttf")),
+                                  fontFamily: "fonts/Poppins-Bold.ttf")),
                           onPressed: () {
                             Navigator.pushNamed(context, 'navbar');
                           },
                           style: ElevatedButton.styleFrom(
                             primary: Colors.deepPurpleAccent[400],
                             shape: RoundedRectangleBorder(
-                                borderRadius:
-                                    BorderRadius.circular(25)),
-                          )
-                          )
+                                borderRadius: BorderRadius.circular(25)),
                           ),
+                        ),
+                      ),
                     ],
                   ),
                 ),
@@ -126,5 +124,5 @@ class _MyNewPasswordstate extends State<MyNewPassword> {
         ),
       ),
     );
-  } 
+  }
 }

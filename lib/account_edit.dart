@@ -123,9 +123,7 @@ class _MyAccountPageEditstate extends State<MyAccountPageEdit> {
                                 topLeft: Radius.circular(40),
                                 topRight: const Radius.circular(40),
                               ),
-
                               shape: BoxShape.rectangle,
-
                             ),
                             alignment: const AlignmentDirectional(0, 0),
                             child: Padding(
@@ -247,7 +245,6 @@ class _MyAccountPageEditstate extends State<MyAccountPageEdit> {
                                         return null;
                                       },
                                     ),
-
                                     Container(
                                       width: MediaQuery.of(context).size.width,
                                       height: 5,
@@ -521,7 +518,6 @@ class _MyAccountPageEditstate extends State<MyAccountPageEdit> {
                                                       width: 1,
                                                     ),
                                                     shape: const RoundedRectangleBorder(
-
                                                         borderRadius:
                                                             BorderRadius.all(
                                                                 Radius.circular(
@@ -555,13 +551,11 @@ class _MyAccountPageEditstate extends State<MyAccountPageEdit> {
                                                       Radius.circular(5),
                                                     ),
                                                   ),
-
                                                 ),
                                               ),
                                             ),
                                           ],
                                         ),
-
                                       ),
                                     ),
                                   ],

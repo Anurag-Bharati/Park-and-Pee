@@ -97,7 +97,6 @@ class _MyAccountPagestate extends State<MyAccountPage> {
                         bottomLeft: Radius.circular(0),
                         bottomRight: Radius.circular(0),
                         topLeft: Radius.circular(40),
-
                         topRight: const Radius.circular(40),
                       ),
                       shape: BoxShape.rectangle,
@@ -168,7 +167,6 @@ class _MyAccountPagestate extends State<MyAccountPage> {
                                   },
                                 ),
                               ),
-
                             ),
                             const Text(
                               'MOHAN BASNET',
@@ -178,7 +176,6 @@ class _MyAccountPagestate extends State<MyAccountPage> {
                                 fontWeight: FontWeight.w400,
                               ),
                             ),
-
                             const Text(
                               'USER ID : 00001',
                               style: const TextStyle(
@@ -186,7 +183,6 @@ class _MyAccountPagestate extends State<MyAccountPage> {
                                 fontFamily: 'fonts/Poppins-light.ttf',
                                 fontSize: 18,
                               ),
-
                             ),
                             const SizedBox(height: 10),
                             const Text(
@@ -334,9 +330,7 @@ class _MyAccountPagestate extends State<MyAccountPage> {
                                 ),
                               ),
                             ),
-
                           ],
-
                         ),
                       ),
                     ),

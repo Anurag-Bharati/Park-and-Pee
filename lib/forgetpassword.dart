@@ -37,8 +37,6 @@ class _MyForgetPasswordstate extends State<MyForgetPassword> {
                     ),
                   ),
                 ),
-
-              
                 const SizedBox(
                   height: 80,
                 ),
@@ -67,53 +65,49 @@ class _MyForgetPasswordstate extends State<MyForgetPassword> {
                 ),
                 Container(
                   // padding: const EdgeInsets.all(28),
-                  padding: const EdgeInsets.only(top:50,left:28,right:28,bottom: 50),
+                  padding: const EdgeInsets.only(
+                      top: 50, left: 28, right: 28, bottom: 50),
                   // margin: const EdgeInsets.only(top:50),
                   decoration: BoxDecoration(
-                    color: Colors.grey[100],
-                    borderRadius: BorderRadius.circular(25),
-                    border: Border.all(color: Colors.black12)
-                  ),
+                      color: Colors.grey[100],
+                      borderRadius: BorderRadius.circular(25),
+                      border: Border.all(color: Colors.black12)),
                   child: Column(
                     children: [
                       SizedBox(
-                            width: 320,
-                            height: 50,
-                            child: TextField(
-                              style: const TextStyle(color: Colors.black),
-                              decoration: InputDecoration(
-                                  fillColor: Colors.white,
-                                  filled: true,
-                                  hintText: "Contact Number",
-                                  border: OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(25),
-                                  )),
-                            ),
-                          ),
+                        width: 320,
+                        height: 50,
+                        child: TextField(
+                          style: const TextStyle(color: Colors.black),
+                          decoration: InputDecoration(
+                              fillColor: Colors.white,
+                              filled: true,
+                              hintText: "Contact Number",
+                              border: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(25),
+                              )),
+                        ),
+                      ),
                       const SizedBox(
                         height: 30,
                       ),
                       SizedBox(
-                      //  padding: EdgeInsets.only(left:50),
-                      height: 40,
-                      width: 150,
-                      child: ElevatedButton(
-                          child: const Text('Send',
-                              style: TextStyle(
-                                  fontSize: 20,
-                                  fontFamily:
-                                      "fonts/Poppins-Bold.ttf")),
-                          onPressed: () {
-                            Navigator.pushNamed(context, 'verification');
-                          },
-                          style: ElevatedButton.styleFrom(
-                            primary: Colors.deepPurpleAccent[400],
-                            shape: RoundedRectangleBorder(
-                                borderRadius:
-                                    BorderRadius.circular(25)),
-                          )
-                          )
-                          ),
+                          //  padding: EdgeInsets.only(left:50),
+                          height: 40,
+                          width: 150,
+                          child: ElevatedButton(
+                              child: const Text('Send',
+                                  style: TextStyle(
+                                      fontSize: 20,
+                                      fontFamily: "fonts/Poppins-Bold.ttf")),
+                              onPressed: () {
+                                Navigator.pushNamed(context, 'verification');
+                              },
+                              style: ElevatedButton.styleFrom(
+                                primary: Colors.deepPurpleAccent[400],
+                                shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(25)),
+                              ))),
                     ],
                   ),
                 ),
@@ -124,6 +118,4 @@ class _MyForgetPasswordstate extends State<MyForgetPassword> {
       ),
     );
   }
-
- 
 }

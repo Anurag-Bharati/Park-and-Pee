@@ -155,10 +155,7 @@ class _MyVerificationstate extends State<MyVerification> {
                                       fontSize: 20,
                                       fontFamily: "fonts/Poppins-Bold.ttf")),
                               onPressed: () {
-
                                 Navigator.pushNamed(context, 'newpassword');
-
-
                               },
                               style: ElevatedButton.styleFrom(
                                 primary: Colors.deepPurpleAccent[400],

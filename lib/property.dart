@@ -132,498 +132,466 @@ class _MyPropertyPagestate extends State<MyPropertyPage> {
                     padding: const EdgeInsets.symmetric(
                         vertical: 120, horizontal: 10),
                     child: Form(
-                        key: _formKey,
-                        child: Column(children: [
-                          const Text(
-                            "Are You the Property Owner ? \n Register Now",
-                            textAlign: TextAlign.center,
-                            style: TextStyle(
-                                fontSize: 22,
-                                fontWeight: FontWeight.bold,
-                                color: Colors.black54),
-                          ),
-                          const SizedBox(
-                            height: 20,
-                          ),
-                          Container(
-                              padding: const EdgeInsets.symmetric(
-                                  vertical: 0, horizontal: 24),
-                              decoration: BoxDecoration(
-                                  color: Colors.transparent,
-                                  borderRadius: BorderRadius.circular(25),
-                                  border:
-                                      Border.all(color: Colors.transparent)),
-                              child: Column(children: [
+                      key: _formKey,
+                      child: Column(children: [
+                        const Text(
+                          "Are You the Property Owner ? \n Register Now",
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                              fontSize: 22,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.black54),
+                        ),
+                        const SizedBox(
+                          height: 20,
+                        ),
+                        Container(
+                          padding: const EdgeInsets.symmetric(
+                              vertical: 0, horizontal: 24),
+                          decoration: BoxDecoration(
+                              color: Colors.transparent,
+                              borderRadius: BorderRadius.circular(25),
+                              border: Border.all(color: Colors.transparent)),
+                          child: Column(children: [
 //@@@@@@@@@@@@@@@@@@@@@@ Legal Name Text Form Field @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
-                                SizedBox(
-                                  height: 50,
-                                  child: TextFormField(
-                                    autovalidateMode:
-                                        AutovalidateMode.onUserInteraction,
-                                    style: const TextStyle(color: Colors.black),
-                                    controller:
-                                        TextEditingController(text: user.name),
-                                    onChanged: (val) {
-                                      user.name = val;
-                                    },
-                                    validator: (value) {
-                                      if (value!.isEmpty) {
-                                        return 'Please Enter your Name';
-                                      }
-                                      return null;
-                                    },
-                                    decoration: InputDecoration(
-                                        contentPadding:
-                                            const EdgeInsets.fromLTRB(
-                                                10, 0, 0, 0),
-                                        fillColor: Colors.white,
-                                        filled: true,
-                                        errorStyle: const TextStyle(
-                                          height: 0.008,
-                                          color: Colors.redAccent,
-                                        ),
-                                        errorBorder: OutlineInputBorder(
-                                          borderRadius:
-                                              BorderRadius.circular(25),
-                                          borderSide: const BorderSide(
-                                              color: Colors.redAccent,
-                                              width: 1),
-                                        ),
-                                        focusedErrorBorder: OutlineInputBorder(
-                                          borderRadius:
-                                              BorderRadius.circular(25),
-                                          borderSide: const BorderSide(
-                                              color: Colors.blue, width: 2),
-                                        ),
-                                        hintText: "Enter Your Legal Name",
-                                        hintStyle:
-                                            const TextStyle(fontSize: 14),
-                                        enabledBorder: OutlineInputBorder(
-                                          borderSide: const BorderSide(
-                                              width: 2, color: Colors.black26),
-                                          borderRadius:
-                                              BorderRadius.circular(25),
-                                        ),
-                                        border: OutlineInputBorder(
-                                          borderRadius:
-                                              BorderRadius.circular(25),
-                                        )),
-                                  ),
-                                ),
-                                const SizedBox(
-                                  height: 15,
-                                ),
+                            SizedBox(
+                              height: 50,
+                              child: TextFormField(
+                                autovalidateMode:
+                                    AutovalidateMode.onUserInteraction,
+                                style: const TextStyle(color: Colors.black),
+                                controller:
+                                    TextEditingController(text: user.name),
+                                onChanged: (val) {
+                                  user.name = val;
+                                },
+                                validator: (value) {
+                                  if (value!.isEmpty) {
+                                    return 'Please Enter your Name';
+                                  }
+                                  return null;
+                                },
+                                decoration: InputDecoration(
+                                    contentPadding:
+                                        const EdgeInsets.fromLTRB(10, 0, 0, 0),
+                                    fillColor: Colors.white,
+                                    filled: true,
+                                    errorStyle: const TextStyle(
+                                      height: 0.008,
+                                      color: Colors.redAccent,
+                                    ),
+                                    errorBorder: OutlineInputBorder(
+                                      borderRadius: BorderRadius.circular(25),
+                                      borderSide: const BorderSide(
+                                          color: Colors.redAccent, width: 1),
+                                    ),
+                                    focusedErrorBorder: OutlineInputBorder(
+                                      borderRadius: BorderRadius.circular(25),
+                                      borderSide: const BorderSide(
+                                          color: Colors.blue, width: 2),
+                                    ),
+                                    hintText: "Enter Your Legal Name",
+                                    hintStyle: const TextStyle(fontSize: 14),
+                                    enabledBorder: OutlineInputBorder(
+                                      borderSide: const BorderSide(
+                                          width: 2, color: Colors.black26),
+                                      borderRadius: BorderRadius.circular(25),
+                                    ),
+                                    border: OutlineInputBorder(
+                                      borderRadius: BorderRadius.circular(25),
+                                    )),
+                              ),
+                            ),
+                            const SizedBox(
+                              height: 15,
+                            ),
 //@@@@@@@@@@@@@@@@@@@@@@ Close Legal Name Text Form Field @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 
 //@@@@@@@@@@@@@@@@@@@@@@ Address Text Form Field and DropDown @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 
-                                Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
-                                    children: [
-                                      SizedBox(
-                                        height: 50,
-                                        width: 170,
-                                        child: TextFormField(
-                                          autovalidateMode: AutovalidateMode
-                                              .onUserInteraction,
-                                          style: const TextStyle(),
-                                          controller: TextEditingController(
-                                              text: user.password),
-                                          onChanged: (val) {
-                                            user.password = val;
-                                          },
-                                          validator: (value) {
-                                            if (value!.isEmpty) {
-                                              return 'Please Enter your Address';
-                                            }
-                                            return null;
-                                          },
-                                          decoration: InputDecoration(
-                                              contentPadding:
-                                                  const EdgeInsets.fromLTRB(
-                                                      10, 0, 0, 0),
-                                              fillColor: Colors.white,
-                                              filled: true,
-                                              errorStyle: const TextStyle(
-                                                height: 0.008,
+                            Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  SizedBox(
+                                    height: 50,
+                                    width: 170,
+                                    child: TextFormField(
+                                      autovalidateMode:
+                                          AutovalidateMode.onUserInteraction,
+                                      style: const TextStyle(),
+                                      controller: TextEditingController(
+                                          text: user.password),
+                                      onChanged: (val) {
+                                        user.password = val;
+                                      },
+                                      validator: (value) {
+                                        if (value!.isEmpty) {
+                                          return 'Please Enter your Address';
+                                        }
+                                        return null;
+                                      },
+                                      decoration: InputDecoration(
+                                          contentPadding:
+                                              const EdgeInsets.fromLTRB(
+                                                  10, 0, 0, 0),
+                                          fillColor: Colors.white,
+                                          filled: true,
+                                          errorStyle: const TextStyle(
+                                            height: 0.008,
+                                            color: Colors.redAccent,
+                                          ),
+                                          errorBorder: OutlineInputBorder(
+                                            borderRadius:
+                                                BorderRadius.circular(25),
+                                            borderSide: const BorderSide(
                                                 color: Colors.redAccent,
-                                              ),
-                                              errorBorder: OutlineInputBorder(
-                                                borderRadius:
-                                                    BorderRadius.circular(25),
-                                                borderSide: const BorderSide(
-                                                    color: Colors.redAccent,
-                                                    width: 1),
-                                              ),
-                                              focusedErrorBorder:
-                                                  OutlineInputBorder(
-                                                borderRadius:
-                                                    BorderRadius.circular(25),
-                                                borderSide: const BorderSide(
-                                                    color: Colors.blue,
-                                                    width: 2),
-                                              ),
-                                              hintText: "Current Address",
-                                              hintStyle:
-                                                  const TextStyle(fontSize: 14),
-                                              enabledBorder: OutlineInputBorder(
-                                                borderSide: const BorderSide(
-                                                    width: 2,
-                                                    color: Colors.black26),
-                                                borderRadius:
-                                                    BorderRadius.circular(25),
-                                              ),
-                                              border: OutlineInputBorder(
-                                                borderRadius:
-                                                    BorderRadius.circular(25),
-                                              )),
-                                        ),
-                                      ),
-
-// ~~~~~~~~~~~~~~~~~~~DropDown Butoon~~~~~~~~~~~~~~~~~~
-                                      SizedBox(
-                                          height: 60,
-                                          width: MediaQuery.of(context)
-                                                  .size
-                                                  .width *
-                                              0.4,
-                                          child: DropdownButtonFormField(
-                                            icon: const Icon(
-                                              Icons.keyboard_arrow_down,
-                                            ),
-                                            iconSize: 25,
-                                            iconEnabledColor: Colors.green,
-                                            decoration: InputDecoration(
-                                                enabledBorder:
-                                                    OutlineInputBorder(
-                                                  borderSide: const BorderSide(
-                                                      width: 2,
-                                                      color: Colors.black26),
-                                                  borderRadius:
-                                                      BorderRadius.circular(
-                                                          25.0),
-                                                ),
-                                                border:
-                                                    const OutlineInputBorder(
-                                                  borderRadius:
-                                                      BorderRadius.all(
-                                                    Radius.circular(25.0),
-                                                  ),
-                                                ),
-                                                filled: true,
-                                                hintStyle: TextStyle(
-                                                    color: Colors.grey[800]),
-                                                hintText: "Select Services",
-                                                fillColor: Colors.white),
-                                            value: dropDownValue,
-                                            // ignore: non_constant_identifier_names
-                                            onChanged: (String? Value) {
-                                              setState(() {
-                                                dropDownValue = Value;
-                                              });
-                                            },
-                                            // ignore: non_constant_identifier_names
-                                            items: ItemList.map((Items) =>
-                                                    DropdownMenuItem(
-                                                        value: Items,
-                                                        child: Container(
-                                                            alignment: Alignment
-                                                                .center,
-                                                            child:
-                                                                Text(Items))))
-                                                .toList(),
-                                          ))
-                                    ]),
-                                const SizedBox(
-                                  height: 15,
-                                ),
-
-// @@@@@@@@@@@@@@@@@@@@@@@@ Birthdate @@@@@@@@@@@@@@@@@@@@@@@@@@
-                                Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
-                                    children: [
-                                      SizedBox(
-                                        height: 50,
-                                        width: 170,
-                                        child: TextFormField(
-                                          autovalidateMode: AutovalidateMode
-                                              .onUserInteraction,
-                                          style: const TextStyle(
-                                              color: Colors.black),
-                                          controller: TextEditingController(
-                                              text: user.name),
-                                          onChanged: (val) {
-                                            user.name = val;
-                                          },
-                                          validator: (value) {
-                                            if (value!.isEmpty) {
-                                              return 'Please Enter Contact No.';
-                                            }
-                                            return null;
-                                          },
-                                          decoration: InputDecoration(
-                                              contentPadding:
-                                                  const EdgeInsets.fromLTRB(
-                                                      10, 0, 0, 0),
-                                              fillColor: Colors.white,
-                                              filled: true,
-                                              errorStyle: const TextStyle(
-                                                height: 0.008,
-                                                color: Colors.redAccent,
-                                              ),
-                                              errorBorder: OutlineInputBorder(
-                                                borderRadius:
-                                                    BorderRadius.circular(25),
-                                                borderSide: const BorderSide(
-                                                    color: Colors.redAccent,
-                                                    width: 1),
-                                              ),
-                                              focusedErrorBorder:
-                                                  OutlineInputBorder(
-                                                borderRadius:
-                                                    BorderRadius.circular(25),
-                                                borderSide: const BorderSide(
-                                                    color: Colors.blue,
-                                                    width: 2),
-                                              ),
-                                              hintText: "Business Contact No.",
-                                              hintStyle:
-                                                  const TextStyle(fontSize: 14),
-                                              enabledBorder: OutlineInputBorder(
-                                                borderSide: const BorderSide(
-                                                    width: 2,
-                                                    color: Colors.black26),
-                                                borderRadius:
-                                                    BorderRadius.circular(25),
-                                              ),
-                                              border: OutlineInputBorder(
-                                                borderRadius:
-                                                    BorderRadius.circular(25),
-                                              )),
-                                        ),
-                                      ),
-                                      SizedBox(
-                                          height: 50,
-                                          width: MediaQuery.of(context)
-                                                  .size
-                                                  .width *
-                                              0.4,
-                                          child: ElevatedButton.icon(
-                                            onPressed: () async {
-                                              DateTime? newDate =
-                                                  await showDatePicker(
-                                                      context: context,
-                                                      initialDate: date,
-                                                      firstDate: DateTime(1900),
-                                                      lastDate: DateTime(2100));
-                                              //If cancel then  null
-                                              if (newDate == null) return;
-
-                                              //if "OK" then DateTime
-                                              setState(() => date = newDate);
-                                            },
-                                            style: ElevatedButton.styleFrom(
-                                              shape:
-                                                  const RoundedRectangleBorder(
-                                                      borderRadius:
-                                                          BorderRadius.all(
-                                                Radius.circular(25),
-                                              )),
-                                              primary: Colors.orange[500],
-                                              textStyle:
-                                                  const TextStyle(fontSize: 12),
-                                            ),
-                                            icon: const Icon(
-                                              MdiIcons.calendarToday,
-                                              size: 25,
-                                            ),
-                                            label: Text(
-                                              '${date.year}/${date.month}/${date.day}',
-                                              style: const TextStyle(
-                                                  fontSize: 15,
-                                                  fontWeight: FontWeight.w300),
-                                            ),
+                                                width: 1),
+                                          ),
+                                          focusedErrorBorder:
+                                              OutlineInputBorder(
+                                            borderRadius:
+                                                BorderRadius.circular(25),
+                                            borderSide: const BorderSide(
+                                                color: Colors.blue, width: 2),
+                                          ),
+                                          hintText: "Current Address",
+                                          hintStyle:
+                                              const TextStyle(fontSize: 14),
+                                          enabledBorder: OutlineInputBorder(
+                                            borderSide: const BorderSide(
+                                                width: 2,
+                                                color: Colors.black26),
+                                            borderRadius:
+                                                BorderRadius.circular(25),
+                                          ),
+                                          border: OutlineInputBorder(
+                                            borderRadius:
+                                                BorderRadius.circular(25),
                                           )),
-                                      const SizedBox(
-                                        height: 15,
-                                      ),
-                                    ]),
-
-// @@@@@@@@@@@@@@@@@@@@@@@@ close Birthdate @@@@@@@@@@@@@@@@@@@@@@@@@@
-
-                                const SizedBox(
-                                  height: 15,
-                                ),
-//@@@@@@@@@@@@@@@@@@@@@@ Citizen Ship And DropDown Butoon @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
-                                Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
-                                    children: [
-                                      SizedBox(
-                                          height: 50,
-                                          width: 170,
-                                          child: ElevatedButton.icon(
-                                            onPressed: () {
-                                              selectFile();
-                                            },
-                                            style: ElevatedButton.styleFrom(
-                                              shape: RoundedRectangleBorder(
-                                                  borderRadius:
-                                                      BorderRadius.circular(
-                                                          25)),
-                                              primary: Colors.orange[500],
-                                              onPrimary: Colors.white,
-                                              textStyle:
-                                                  const TextStyle(fontSize: 12),
-                                            ),
-                                            icon: const Icon(
-                                              MdiIcons.fileDocumentEditOutline,
-                                            ),
-                                            label: const Text(
-                                                "Upload Citizenship"),
-                                          )),
-                                      SizedBox(
-                                          height: 60,
-                                          width: MediaQuery.of(context)
-                                                  .size
-                                                  .width *
-                                              0.4,
-                                          child: DropdownButtonFormField(
-                                            icon: const Icon(
-                                              Icons.keyboard_arrow_down,
-                                            ),
-                                            iconSize: 25,
-                                            iconEnabledColor: Colors.green,
-                                            decoration: InputDecoration(
-                                                enabledBorder:
-                                                    OutlineInputBorder(
-                                                  borderSide: const BorderSide(
-                                                      width: 2,
-                                                      color: Colors.black26),
-                                                  borderRadius:
-                                                      BorderRadius.circular(25),
-                                                ),
-                                                border:
-                                                    const OutlineInputBorder(
-                                                  borderRadius:
-                                                      BorderRadius.all(
-                                                    Radius.circular(25.0),
-                                                  ),
-                                                ),
-                                                filled: true,
-                                                hintStyle: TextStyle(
-                                                    color: Colors.grey[800]),
-                                                hintText: "Select Gender",
-                                                fillColor: Colors.white),
-                                            value: dropDownGenderValue,
-                                            // ignore: non_constant_identifier_names
-                                            onChanged: (String? Value) {
-                                              setState(() {
-                                                dropDownGenderValue = Value;
-                                              });
-                                            },
-                                            // ignore: non_constant_identifier_names
-                                            items: GenderList.map((GItems) =>
-                                                    DropdownMenuItem(
-                                                        value: GItems,
-                                                        child: Container(
-                                                            alignment: Alignment
-                                                                .center,
-                                                            child:
-                                                                Text(GItems))))
-                                                .toList(),
-                                          ))
-                                    ]),
-
-//@@@@@@@@@@@@@@@@@@@@@@ Citizen Ship And DropDown Butoon @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
-                                const SizedBox(
-                                  height: 10,
-                                ),
-                                Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
-                                    children: [
-                                      SizedBox(
-                                        height: 20,
-                                        width:
-                                            MediaQuery.of(context).size.width *
-                                                0.4,
-                                        child: Text(
-                                          fileName,
-                                          style: const TextStyle(
-                                              color: Colors.grey),
-                                        ),
-                                      ),
-                                      const SizedBox(height: 20),
-                                      task != null
-                                          ? buildUploadStatus(task!)
-                                          : Container(),
-                                    ]),
-
-                                const SizedBox(
-                                  height: 20,
-                                ),
-                                Row(children: <Widget>[
-                                  Checkbox(
-                                    activeColor: Colors.orange,
-                                    shape: const CircleBorder(),
-                                    tristate: false,
-                                    value: value,
-                                    onChanged: (value) {
-                                      setState(() {
-                                        this.value = value!;
-                                      });
-                                    },
+                                    ),
                                   ),
 
+// ~~~~~~~~~~~~~~~~~~~DropDown Butoon~~~~~~~~~~~~~~~~~~
+                                  SizedBox(
+                                      height: 60,
+                                      width: MediaQuery.of(context).size.width *
+                                          0.4,
+                                      child: DropdownButtonFormField(
+                                        icon: const Icon(
+                                          Icons.keyboard_arrow_down,
+                                        ),
+                                        iconSize: 25,
+                                        iconEnabledColor: Colors.green,
+                                        decoration: InputDecoration(
+                                            enabledBorder: OutlineInputBorder(
+                                              borderSide: const BorderSide(
+                                                  width: 2,
+                                                  color: Colors.black26),
+                                              borderRadius:
+                                                  BorderRadius.circular(25.0),
+                                            ),
+                                            border: const OutlineInputBorder(
+                                              borderRadius: BorderRadius.all(
+                                                Radius.circular(25.0),
+                                              ),
+                                            ),
+                                            filled: true,
+                                            hintStyle: TextStyle(
+                                                color: Colors.grey[800]),
+                                            hintText: "Select Services",
+                                            fillColor: Colors.white),
+                                        value: dropDownValue,
+                                        // ignore: non_constant_identifier_names
+                                        onChanged: (String? Value) {
+                                          setState(() {
+                                            dropDownValue = Value;
+                                          });
+                                        },
+                                        // ignore: non_constant_identifier_names
+                                        items: ItemList.map((Items) =>
+                                            DropdownMenuItem(
+                                                value: Items,
+                                                child: Container(
+                                                    alignment: Alignment.center,
+                                                    child:
+                                                        Text(Items)))).toList(),
+                                      ))
+                                ]),
+                            const SizedBox(
+                              height: 15,
+                            ),
+
+// @@@@@@@@@@@@@@@@@@@@@@@@ Birthdate @@@@@@@@@@@@@@@@@@@@@@@@@@
+                            Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  SizedBox(
+                                    height: 50,
+                                    width: 170,
+                                    child: TextFormField(
+                                      autovalidateMode:
+                                          AutovalidateMode.onUserInteraction,
+                                      style:
+                                          const TextStyle(color: Colors.black),
+                                      controller: TextEditingController(
+                                          text: user.name),
+                                      onChanged: (val) {
+                                        user.name = val;
+                                      },
+                                      validator: (value) {
+                                        if (value!.isEmpty) {
+                                          return 'Please Enter Contact No.';
+                                        }
+                                        return null;
+                                      },
+                                      decoration: InputDecoration(
+                                          contentPadding:
+                                              const EdgeInsets.fromLTRB(
+                                                  10, 0, 0, 0),
+                                          fillColor: Colors.white,
+                                          filled: true,
+                                          errorStyle: const TextStyle(
+                                            height: 0.008,
+                                            color: Colors.redAccent,
+                                          ),
+                                          errorBorder: OutlineInputBorder(
+                                            borderRadius:
+                                                BorderRadius.circular(25),
+                                            borderSide: const BorderSide(
+                                                color: Colors.redAccent,
+                                                width: 1),
+                                          ),
+                                          focusedErrorBorder:
+                                              OutlineInputBorder(
+                                            borderRadius:
+                                                BorderRadius.circular(25),
+                                            borderSide: const BorderSide(
+                                                color: Colors.blue, width: 2),
+                                          ),
+                                          hintText: "Business Contact No.",
+                                          hintStyle:
+                                              const TextStyle(fontSize: 14),
+                                          enabledBorder: OutlineInputBorder(
+                                            borderSide: const BorderSide(
+                                                width: 2,
+                                                color: Colors.black26),
+                                            borderRadius:
+                                                BorderRadius.circular(25),
+                                          ),
+                                          border: OutlineInputBorder(
+                                            borderRadius:
+                                                BorderRadius.circular(25),
+                                          )),
+                                    ),
+                                  ),
+                                  SizedBox(
+                                      height: 50,
+                                      width: MediaQuery.of(context).size.width *
+                                          0.4,
+                                      child: ElevatedButton.icon(
+                                        onPressed: () async {
+                                          DateTime? newDate =
+                                              await showDatePicker(
+                                                  context: context,
+                                                  initialDate: date,
+                                                  firstDate: DateTime(1900),
+                                                  lastDate: DateTime(2100));
+                                          //If cancel then  null
+                                          if (newDate == null) return;
+
+                                          //if "OK" then DateTime
+                                          setState(() => date = newDate);
+                                        },
+                                        style: ElevatedButton.styleFrom(
+                                          shape: const RoundedRectangleBorder(
+                                              borderRadius: BorderRadius.all(
+                                            Radius.circular(25),
+                                          )),
+                                          primary: Colors.orange[500],
+                                          textStyle:
+                                              const TextStyle(fontSize: 12),
+                                        ),
+                                        icon: const Icon(
+                                          MdiIcons.calendarToday,
+                                          size: 25,
+                                        ),
+                                        label: Text(
+                                          '${date.year}/${date.month}/${date.day}',
+                                          style: const TextStyle(
+                                              fontSize: 15,
+                                              fontWeight: FontWeight.w300),
+                                        ),
+                                      )),
                                   const SizedBox(
-                                    width: 1,
-                                  ), //SizedBox
-                                  const Text(
-                                    'Agree to our Terms and Condition \n and Privacy Policy',
-                                    style: TextStyle(
-                                        color: Colors.black45,
-                                        fontSize: 15,
-                                        fontFamily:
-                                            "fonts/Poppins-Regular.ttf"),
+                                    height: 15,
                                   ),
                                 ]),
 
-                                const SizedBox(
-                                  height: 30,
-                                ),
-                                SizedBox(
-                                    //  padding: EdgeInsets.only(left:50),
-                                    height: 40,
-                                    width: 150,
-                                    child: ElevatedButton(
-                                        child: const Text('Register',
-                                            style: TextStyle(
-                                                fontSize: 15,
-                                                fontFamily:
-                                                    "fonts/Poppins-Bold.ttf")),
+// @@@@@@@@@@@@@@@@@@@@@@@@ close Birthdate @@@@@@@@@@@@@@@@@@@@@@@@@@
+
+                            const SizedBox(
+                              height: 15,
+                            ),
+//@@@@@@@@@@@@@@@@@@@@@@ Citizen Ship And DropDown Butoon @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+                            Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  SizedBox(
+                                      height: 50,
+                                      width: 170,
+                                      child: ElevatedButton.icon(
                                         onPressed: () {
-                                          uploadFile();
-                                          if (_formKey.currentState!
-                                              .validate()) {
-                                            if (check()) {
-                                              save();
-                                            } else {
-                                              // ignore: avoid_print
-                                              print("Invalid Credentials");
-                                            }
-                                          }
+                                          selectFile();
                                         },
                                         style: ElevatedButton.styleFrom(
-                                          primary: Colors.green,
                                           shape: RoundedRectangleBorder(
                                               borderRadius:
                                                   BorderRadius.circular(25)),
-                                        ))),
-                              ]))
-                        ])),
+                                          primary: Colors.orange[500],
+                                          onPrimary: Colors.white,
+                                          textStyle:
+                                              const TextStyle(fontSize: 12),
+                                        ),
+                                        icon: const Icon(
+                                          MdiIcons.fileDocumentEditOutline,
+                                        ),
+                                        label: const Text("Upload Citizenship"),
+                                      )),
+                                  SizedBox(
+                                      height: 60,
+                                      width: MediaQuery.of(context).size.width *
+                                          0.4,
+                                      child: DropdownButtonFormField(
+                                        icon: const Icon(
+                                          Icons.keyboard_arrow_down,
+                                        ),
+                                        iconSize: 25,
+                                        iconEnabledColor: Colors.green,
+                                        decoration: InputDecoration(
+                                            enabledBorder: OutlineInputBorder(
+                                              borderSide: const BorderSide(
+                                                  width: 2,
+                                                  color: Colors.black26),
+                                              borderRadius:
+                                                  BorderRadius.circular(25),
+                                            ),
+                                            border: const OutlineInputBorder(
+                                              borderRadius: BorderRadius.all(
+                                                Radius.circular(25.0),
+                                              ),
+                                            ),
+                                            filled: true,
+                                            hintStyle: TextStyle(
+                                                color: Colors.grey[800]),
+                                            hintText: "Select Gender",
+                                            fillColor: Colors.white),
+                                        value: dropDownGenderValue,
+                                        // ignore: non_constant_identifier_names
+                                        onChanged: (String? Value) {
+                                          setState(() {
+                                            dropDownGenderValue = Value;
+                                          });
+                                        },
+                                        // ignore: non_constant_identifier_names
+                                        items: GenderList.map((GItems) =>
+                                            DropdownMenuItem(
+                                                value: GItems,
+                                                child: Container(
+                                                    alignment: Alignment.center,
+                                                    child: Text(
+                                                        GItems)))).toList(),
+                                      ))
+                                ]),
+
+//@@@@@@@@@@@@@@@@@@@@@@ Citizen Ship And DropDown Butoon @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+                            const SizedBox(
+                              height: 10,
+                            ),
+                            Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  SizedBox(
+                                    height: 20,
+                                    width:
+                                        MediaQuery.of(context).size.width * 0.4,
+                                    child: Text(
+                                      fileName,
+                                      style:
+                                          const TextStyle(color: Colors.grey),
+                                    ),
+                                  ),
+                                  const SizedBox(height: 20),
+                                  task != null
+                                      ? buildUploadStatus(task!)
+                                      : Container(),
+                                ]),
+
+                            const SizedBox(
+                              height: 20,
+                            ),
+                            Row(children: <Widget>[
+                              Checkbox(
+                                activeColor: Colors.orange,
+                                shape: const CircleBorder(),
+                                tristate: false,
+                                value: value,
+                                onChanged: (value) {
+                                  setState(() {
+                                    this.value = value!;
+                                  });
+                                },
+                              ),
+
+                              const SizedBox(
+                                width: 1,
+                              ), //SizedBox
+                              const Text(
+                                'Agree to our Terms and Condition \n and Privacy Policy',
+                                style: TextStyle(
+                                    color: Colors.black45,
+                                    fontSize: 15,
+                                    fontFamily: "fonts/Poppins-Regular.ttf"),
+                              ),
+                            ]),
+
+                            const SizedBox(
+                              height: 30,
+                            ),
+                            SizedBox(
+                              //  padding: EdgeInsets.only(left:50),
+                              height: 40,
+                              width: 150,
+                              child: ElevatedButton(
+                                child: const Text('Register',
+                                    style: TextStyle(
+                                        fontSize: 15,
+                                        fontFamily: "fonts/Poppins-Bold.ttf")),
+                                onPressed: () {
+                                  uploadFile();
+                                  if (_formKey.currentState!.validate()) {
+                                    if (check()) {
+                                      save();
+                                    } else {
+                                      // ignore: avoid_print
+                                      print("Invalid Credentials");
+                                    }
+                                  }
+                                },
+                                style: ElevatedButton.styleFrom(
+                                  primary: Colors.green,
+                                  shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(25)),
+                                ),
+                              ),
+                            ),
+                          ]),
+                        ),
+                      ]),
+                    ),
                   )
                 ],
               ),

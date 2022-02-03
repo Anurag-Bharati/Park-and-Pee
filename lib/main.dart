@@ -1,4 +1,3 @@
-
 // ignore_for_file: avoid_print
 
 import 'package:firebase_core/firebase_core.dart';
@@ -9,26 +8,13 @@ import 'package:flutter/services.dart';
 import 'package:parkandpee/aboutus.dart';
 import 'package:parkandpee/account.dart';
 
-
 import 'package:parkandpee/account_change_phone_pass.dart';
 
-import 'package:parkandpee/add_service_details_park.dart';
-import 'package:parkandpee/add_service_details_pee.dart';
-import 'package:parkandpee/add_service_photo.dart';
-import 'package:parkandpee/add_service_success.dart';
-
-import 'package:parkandpee/account_verification.dart';
-
-
 import 'package:parkandpee/login.dart';
-import 'package:parkandpee/mapview.dart';
+
 import 'package:parkandpee/navbar.dart';
 import 'package:parkandpee/property.dart';
 import 'package:parkandpee/register.dart';
-
-import 'package:parkandpee/service_location_learn_more.dart';
-import 'package:parkandpee/usermapview.dart';
-
 import 'package:parkandpee/service_owner/so_navbar.dart';
 
 import 'package:parkandpee/verification.dart';
@@ -36,9 +22,6 @@ import 'package:parkandpee/forgetpassword.dart';
 import 'package:parkandpee/newpassword.dart';
 import 'package:parkandpee/account_edit.dart';
 import 'admin.dart';
-import 'usermapview.dart';
-
-
 
 ///Receive message when app is in background solution for on message
 Future<void> backgroundHandler(RemoteMessage message) async {
@@ -63,18 +46,17 @@ void main() async {
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
 
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       // title: 'Park And Pee',
       debugShowCheckedModeBanner: false,
       home: const MyLogin(),
-      // home: const LoginScreen(),
+
       routes: {
         'register': (context) => const MyRegister(),
         'login': (context) => const MyLogin(),
-        'verification': (context) => const MyVerification(),
+        'verification': (context) => const MyVerification(""),
         'navbar': (context) => const Mynavbar(),
         'aboutus': (context) => const Aboutus(),
         'forgetpassword': (context) => const MyForgetPassword(),
@@ -84,10 +66,8 @@ class MyApp extends StatelessWidget {
         'admin': (context) => const Myadmin(),
         'property': (context) => const MyPropertyPage(),
         'account_change_phone_pass': (context) => const MyAccountPageChange(),
-        'so_navbar':(context) => const MySoNavbar()
-        //  'verification':(context)=> Verification(),
+        'so_navbar': (context) => const MySoNavbar()
       },
     );
   }
-
 }

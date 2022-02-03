@@ -40,21 +40,19 @@ dependencies:
     curved_navigation_bar: ^1.0.1 #latest version
     http: ^0.13.4
     google_maps_flutter: ^2.1.1
-    file_picker: ^4.3.2
+
     lottie: ^1.2.1
     transparent_image: ^2.0.0
     geolocator: ^8.0.4
-    pinput: ^1.2.2
 
     #file picker
     file_picker: ^4.3.2
     open_file: ^3.2.1
-    
+
     path_provider: ^2.0.8
     fl_chart: ^0.41.0
     pie_chart: ^5.1.0
     pinput: ^1.2.2
-
 
     #firebase
     firebase_core: ^1.11.0
@@ -64,7 +62,6 @@ dependencies:
     cloud_firestore: ^3.1.6
     firebase_auth: ^3.3.5
     fluttertoast: ^8.0.8
-
 
 dev_dependencies:
     flutter_test:
