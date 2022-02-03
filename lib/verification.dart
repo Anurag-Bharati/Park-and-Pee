@@ -1,16 +1,34 @@
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:parkandpee/navbar.dart';
+import 'package:pinput/pin_put/pin_put.dart';
 
 double deviceHeight(BuildContext context) => MediaQuery.of(context).size.height;
 double deviceWidth(BuildContext context) => MediaQuery.of(context).size.width;
 
 class MyVerification extends StatefulWidget {
-  const MyVerification({Key? key}) : super(key: key);
+  final String phone;
+  // ignore: use_key_in_widget_constructors
+  const MyVerification(this.phone, {Key? key}) : super(key: key);
 
   @override
   _MyVerificationstate createState() => _MyVerificationstate();
 }
 
 class _MyVerificationstate extends State<MyVerification> {
+  final GlobalKey<ScaffoldState> _scaffoldkey = GlobalKey<ScaffoldState>();
+  final TextEditingController _pinPutController = TextEditingController();
+  final FocusNode _pinPutFocusNode = FocusNode();
+  final BoxDecoration pinPutDecoration = BoxDecoration(
+    color: const Color.fromRGBO(43, 46, 66, 1),
+    borderRadius: BorderRadius.circular(10.0),
+    border: Border.all(
+      color: const Color.fromRGBO(126, 203, 224, 1),
+    ),
+  );
+  late String _verificationCode;
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -19,6 +37,7 @@ class _MyVerificationstate extends State<MyVerification> {
             image: AssetImage('assets/LRVBackground.png'), fit: BoxFit.fill),
       ),
       child: Scaffold(
+        key: _scaffoldkey,
         resizeToAvoidBottomInset: false,
         backgroundColor: Colors.transparent,
         body: SafeArea(
@@ -52,10 +71,19 @@ class _MyVerificationstate extends State<MyVerification> {
                   height: 10,
                 ),
                 const Text(
-                  "Enter the OTP code sent to your number ",
+                  "Enter the OTP code has been sent to",
                   style: TextStyle(
-                    color: Colors.black54,
-                    fontSize: 14,
+                    color: Colors.black,
+                    fontSize: 18,
+                    fontWeight: FontWeight.w600,
+                  ),
+                  textAlign: TextAlign.center,
+                ),
+                Text(
+                  widget.phone,
+                  style: const TextStyle(
+                    color: Color(0xFFFFD100),
+                    fontSize: 18,
                     fontWeight: FontWeight.bold,
                   ),
                   textAlign: TextAlign.center,
@@ -74,17 +102,46 @@ class _MyVerificationstate extends State<MyVerification> {
                       border: Border.all(color: Colors.black12)),
                   child: Column(
                     children: [
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          _textFieldOTP(first: true, last: false),
-                          _textFieldOTP(first: false, last: false),
-                          _textFieldOTP(first: false, last: false),
-                          _textFieldOTP(first: false, last: false),
-                          _textFieldOTP(first: false, last: false),
-                          _textFieldOTP(first: false, last: true),
-                        ],
-                      ),
+                      Container(
+                          child: PinPut(
+                        fieldsCount: 6,
+                        textStyle: const TextStyle(
+                          fontSize: 25.0,
+                          color: Colors.white,
+                        ),
+                        eachFieldWidth: 45.0,
+                        eachFieldHeight: 45.0,
+                        focusNode: _pinPutFocusNode,
+                        controller: _pinPutController,
+                        submittedFieldDecoration: pinPutDecoration,
+                        selectedFieldDecoration: pinPutDecoration,
+                        followingFieldDecoration: pinPutDecoration,
+                        pinAnimationType: PinAnimationType.fade,
+                        onSubmit: (pin) async {
+                          print("submitting...");
+                          try {
+                            await FirebaseAuth.instance
+                                .signInWithCredential(
+                                    PhoneAuthProvider.credential(
+                                        verificationId: _verificationCode,
+                                        smsCode: pin))
+                                .then((value) async {
+                              if (value.user != null) {
+                                Navigator.of(context).push(MaterialPageRoute(
+                                    builder: (context) => const Mynavbar()));
+                              }
+                              print("lol");
+                            });
+                          } catch (e) {
+                            print(e);
+
+                            FocusScope.of(context).unfocus();
+                            // ignore: deprecated_member_use
+                            _scaffoldkey.currentState?.showSnackBar(
+                                const SnackBar(content: Text('invalid OTP')));
+                          }
+                        },
+                      )),
                       const SizedBox(
                         height: 30,
                       ),
@@ -98,7 +155,10 @@ class _MyVerificationstate extends State<MyVerification> {
                                       fontSize: 20,
                                       fontFamily: "fonts/Poppins-Bold.ttf")),
                               onPressed: () {
+
                                 Navigator.pushNamed(context, 'newpassword');
+
+
                               },
                               style: ElevatedButton.styleFrom(
                                 primary: Colors.deepPurpleAccent[400],
@@ -144,38 +204,36 @@ class _MyVerificationstate extends State<MyVerification> {
     );
   }
 
-  Widget _textFieldOTP({required bool first, last}) {
-    return SizedBox(
-      height: 42,
-      child: AspectRatio(
-        aspectRatio: 1.0,
-        child: TextField(
-          autofocus: true,
-          onChanged: (value) {
-            if (value.length == 1 && last == false) {
-              FocusScope.of(context).nextFocus();
+  _verifyPhone() async {
+    await FirebaseAuth.instance.verifyPhoneNumber(
+        phoneNumber: '+977${widget.phone}',
+        codeAutoRetrievalTimeout: (String verificationId) {
+          setState(() {
+            _verificationCode = verificationId;
+          });
+        },
+        timeout: const Duration(seconds: 60),
+        codeSent: (String verificationId, int? forceResendingToken) {
+          _verificationCode = verificationId;
+        },
+        verificationCompleted: (PhoneAuthCredential phoneAuthCredential) async {
+          await FirebaseAuth.instance
+              .signInWithCredential(phoneAuthCredential)
+              .then((value) async {
+            if (value.user != null) {
+              print("User Logged in");
             }
-            if (value.isEmpty && first == false) {
-              FocusScope.of(context).previousFocus();
-            }
-          },
-          showCursor: true,
-          readOnly: false,
-          textAlign: TextAlign.center,
-          style: const TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
-          keyboardType: TextInputType.number,
-          maxLength: 1,
-          decoration: InputDecoration(
-            counter: const Offstage(),
-            enabledBorder: OutlineInputBorder(
-                borderSide: const BorderSide(width: 2, color: Colors.black12),
-                borderRadius: BorderRadius.circular(13)),
-            focusedBorder: OutlineInputBorder(
-                borderSide: const BorderSide(width: 2, color: Colors.purple),
-                borderRadius: BorderRadius.circular(10)),
-          ),
-        ),
-      ),
-    );
+          });
+        },
+        verificationFailed: (FirebaseAuthException error) {
+          print(error.stackTrace);
+          print(error.message);
+        });
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    _verifyPhone();
   }
 }

@@ -1,33 +1,102 @@
 {
   "project_info": {
+
     "project_number": "376932927809",
     "project_id": "parkandpee-1d828",
     "storage_bucket": "parkandpee-1d828.appspot.com"
+
+    //"project_number": "507335977359",
+    //"project_id": "velvety-transit-335902",
+    //"storage_bucket": "velvety-transit-335902.appspot.com"
+
   },
   "client": [
     {
       "client_info": {
+
         "mobilesdk_app_id": "1:376932927809:android:1bc273ec5623b74c45b9c0",
         "android_client_info": {
           "package_name": "com.aramb.parkandpee"
+
+        //"mobilesdk_app_id": "1:507335977359:android:e1c63c03c78b7f10d183fa",
+        //"android_client_info": {
+        //  "package_name": "com.aramab.parkandpee"
+
         }
       },
       "oauth_client": [
         {
+
           "client_id": "376932927809-fhdikheq8d73j5tfq1fb5rbm4dqk4hbl.apps.googleusercontent.com",
+
+//          "client_id": "507335977359-901iumpup3dqvfm91hq5g2dt3cu4j6kn.apps.googleusercontent.com",
+//          "client_type": 1,
+//          "android_info": {
+//            "package_name": "com.aramab.parkandpee",
+//            "certificate_hash": "3b7111fe9df154e9f5466f9d574ae88ea49f5f67"
+//          }
+//        },
+//        {
+//          "client_id": "507335977359-cha6fnf3somd152upd75b574s5gqcgj4.apps.googleusercontent.com",
+
           "client_type": 3
         }
       ],
       "api_key": [
+
         {
           "current_key": "AIzaSyDI6d7hNFwjEmkeMq5bmaxVPGv15r34UKM"
+//        {
+//          "current_key": "AIzaSyAplAanlVSCpbVkGGoHMdh-j_zwRJqWMCM"
+//        }
+//      ],
+//      "services": {
+//        "appinvite_service": {
+//          "other_platform_oauth_client": [
+//            {
+//              "client_id": "507335977359-cha6fnf3somd152upd75b574s5gqcgj4.apps.googleusercontent.com",
+//              "client_type": 3
+//            }
+//          ]
+//        }
+//      }
+//    },
+//    {
+//      "client_info": {
+//        "mobilesdk_app_id": "1:507335977359:android:034ea671a48d635fd183fa",
+//        "android_client_info": {
+//          "package_name": "com.aramb.parkandpee"
+//        }
+//      },
+//      "oauth_client": [
+//        {
+//          "client_id": "507335977359-etk7j9b49rn4uv3g84eqnuetlv1kt5hl.apps.googleusercontent.com",
+//          "client_type": 1,
+//          "android_info": {
+//            "package_name": "com.aramb.parkandpee",
+//            "certificate_hash": "3b7111fe9df154e9f5466f9d574ae88ea49f5f67"
+//          }
+//        },
+//        {
+//          "client_id": "507335977359-cha6fnf3somd152upd75b574s5gqcgj4.apps.googleusercontent.com",
+//          "client_type": 3
+//        }
+//      ],
+//      "api_key": [
+//        {
+//          "current_key": "AIzaSyAplAanlVSCpbVkGGoHMdh-j_zwRJqWMCM"
+
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
+
               "client_id": "376932927809-fhdikheq8d73j5tfq1fb5rbm4dqk4hbl.apps.googleusercontent.com",
+
+             // "client_id": "507335977359-cha6fnf3somd152upd75b574s5gqcgj4.apps.googleusercontent.com",
+
               "client_type": 3
             }
           ]

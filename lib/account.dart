@@ -25,7 +25,8 @@ class _MyAccountPagestate extends State<MyAccountPage> {
         preferredSize: Size.zero,
         child: AppBar(
           elevation: 0,
-          backgroundColor: const Color(0xFF937FEE), // Colors.transparent
+          backgroundColor:
+              const Color.fromRGBO(64, 224, 208, 1), // Colors.transparent
         ),
       ),
       body: SafeArea(
@@ -58,7 +59,7 @@ class _MyAccountPagestate extends State<MyAccountPage> {
                     maxWidth: MediaQuery.of(context).size.width,
                   ),
                   decoration: const BoxDecoration(
-                    color: const Color(0xFF937FEE),
+                    color: const Color.fromRGBO(64, 224, 208, 1),
                   ),
                 ),
                 Align(
@@ -95,240 +96,249 @@ class _MyAccountPagestate extends State<MyAccountPage> {
                       borderRadius: BorderRadius.only(
                         bottomLeft: Radius.circular(0),
                         bottomRight: Radius.circular(0),
-                        topLeft: Radius.circular(80),
-                        topRight: const Radius.circular(80),
+                        topLeft: Radius.circular(40),
+
+                        topRight: const Radius.circular(40),
                       ),
                       shape: BoxShape.rectangle,
                     ),
-                    alignment: const AlignmentDirectional(0, 0),
-                    child: Padding(
-                      padding:
-                          const EdgeInsetsDirectional.fromSTEB(30, 100, 30, 30),
-                      child: Column(
-                        mainAxisSize: MainAxisSize.max,
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          const Text(
-                            'MOHAN BASNET',
-                            style: TextStyle(
-                              fontFamily: 'fonts/Poppins-light.ttf',
-                              fontSize: 25,
-                              fontWeight: FontWeight.w400,
-                            ),
-                          ),
-                          const Text(
-                            'USER ID : 00001',
-                            style: const TextStyle(
-                              fontWeight: FontWeight.w300,
-                              fontFamily: 'fonts/Poppins-light.ttf',
-                              fontSize: 18,
-                            ),
-                          ),
-                          const SizedBox(height: 10),
-                          const Text(
-                            'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eligendi non quis.',
-                            textAlign: TextAlign.center,
-                            style: TextStyle(
-                              fontFamily: 'fonts/Poppins-light.ttf',
-                              fontSize: 15,
-                            ),
-                          ),
-                          const SizedBox(height: 10),
-                          const Divider(
-                            height: 25,
-                            thickness: 2,
-                            color: Color(0x7A000000),
-                          ),
-                          const Text(
-                            'MY INFO',
-                            style: TextStyle(
-                              fontFamily: 'fonts/Poppins-light.ttf',
-                              fontSize: 20,
-                              fontWeight: FontWeight.w400,
-                            ),
-                          ),
-                          Row(
-                            mainAxisSize: MainAxisSize.max,
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: [
-                              Column(
-                                mainAxisSize: MainAxisSize.min,
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: const [
-                                  Text(
-                                    'Contact',
-                                    style: TextStyle(
-                                      fontWeight: FontWeight.w300,
-                                      fontFamily: 'fonts/Poppins-light.ttf',
-                                      fontSize: 18,
-                                    ),
-                                  ),
-                                  Text(
-                                    'Location',
-                                    style: TextStyle(
-                                      fontWeight: FontWeight.w300,
-                                      fontFamily: 'fonts/Poppins-light.ttf',
-                                      fontSize: 18,
-                                    ),
-                                  ),
-                                  Text(
-                                    'Gender',
-                                    style: TextStyle(
-                                      fontWeight: FontWeight.w300,
-                                      fontFamily: 'fonts/Poppins-light.ttf',
-                                      fontSize: 18,
-                                    ),
-                                  ),
-                                  Text(
-                                    'Position',
-                                    style: TextStyle(
-                                      fontWeight: FontWeight.w300,
-                                      fontFamily: 'fonts/Poppins-light.ttf',
-                                      fontSize: 18,
-                                    ),
-                                  ),
-                                  Text(
-                                    'Reputation',
-                                    style: TextStyle(
-                                      fontWeight: FontWeight.w300,
-                                      fontFamily: 'fonts/Poppins-light.ttf',
-                                      fontSize: 18,
-                                    ),
-                                  ),
-                                ],
+                    child: Container(
+                      transform: Matrix4.translationValues(0.0, -80.0, 0.0),
+                      child: Padding(
+                        padding:
+                            const EdgeInsetsDirectional.fromSTEB(30, 0, 30, 0),
+                        child: Column(
+                          mainAxisSize: MainAxisSize.max,
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            Container(
+                              transform:
+                                  Matrix4.translationValues(0.0, 10.0, 0.0),
+                              width: 125,
+                              height: 125,
+                              decoration: const BoxDecoration(
+                                color: Colors.white,
+                                shape: BoxShape.circle,
                               ),
-                              Column(
-                                mainAxisSize: MainAxisSize.min,
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: const [
-                                  Text(
-                                    '98480XXXXX',
-                                    style: TextStyle(
-                                      fontWeight: FontWeight.w300,
-                                      fontFamily: 'fonts/Poppins-light.ttf',
-                                      fontSize: 18,
-                                    ),
+                              child: SizedBox(
+                                width: MediaQuery.of(context).size.width * 1,
+                                height: MediaQuery.of(context).size.height * 1,
+                                child: ClipRRect(
+                                  borderRadius: BorderRadius.circular(25),
+                                  child: Image.asset(
+                                    'assets/avatar.png',
+                                    width:
+                                        MediaQuery.of(context).size.width * 1,
+                                    height:
+                                        MediaQuery.of(context).size.width * 1,
+                                    fit: BoxFit.cover,
                                   ),
-                                  Text(
-                                    'Nepal , KTM',
-                                    style: TextStyle(
-                                      fontWeight: FontWeight.w300,
-                                      fontFamily: 'fonts/Poppins-light.ttf',
-                                      fontSize: 18,
-                                    ),
-                                  ),
-                                  Text(
-                                    'MALE',
-                                    style: TextStyle(
-                                      fontWeight: FontWeight.w300,
-                                      fontFamily: 'fonts/Poppins-light.ttf',
-                                      fontSize: 18,
-                                    ),
-                                  ),
-                                  Text(
-                                    'Customer',
-                                    style: TextStyle(
-                                      fontWeight: FontWeight.w300,
-                                      fontFamily: 'fonts/Poppins-light.ttf',
-                                      fontSize: 18,
-                                    ),
-                                  ),
-                                  Text(
-                                    '8.4/10',
-                                    style: TextStyle(
-                                      fontWeight: FontWeight.w300,
-                                      fontFamily: 'fonts/Poppins-light.ttf',
-                                      fontSize: 18,
-                                    ),
-                                  ),
-                                ],
+                                ),
                               ),
-                            ],
-                          ),
-                          const Divider(
-                            height: 25,
-                            thickness: 2,
-                            color: Color(0x7A000000),
-                          ),
-                          TextButton(
-                            onPressed: () {
-                              print('Button pressed ...');
-                              Navigator.pushNamed(
-                                  context, 'account_change_phone_pass');
-                            },
-                            child: const Text(
-                              'Change Number or Password',
+                            ),
+                            Align(
+                              alignment: const AlignmentDirectional(1, 0),
+                              child: Container(
+                                transform:
+                                    Matrix4.translationValues(0.0, -15, 0.0),
+                                width: 50,
+                                height: 50,
+                                decoration: const BoxDecoration(
+                                  color: Colors.white,
+                                  boxShadow: [
+                                    const BoxShadow(
+                                      blurRadius: 5,
+                                      color: const Color(0x63000000),
+                                      spreadRadius: 1,
+                                    )
+                                  ],
+                                  shape: BoxShape.circle,
+                                ),
+                                child: IconButton(
+                                  icon: const Icon(
+                                    Icons.create,
+                                    color: Colors.black,
+                                    size: 26,
+                                  ),
+                                  onPressed: () {
+                                    print('IconButton pressed ...');
+                                    Navigator.pushNamed(
+                                        context, 'account_edit');
+                                  },
+                                ),
+                              ),
+
+                            ),
+                            const Text(
+                              'MOHAN BASNET',
+                              style: TextStyle(
+                                fontFamily: 'fonts/Poppins-light.ttf',
+                                fontSize: 25,
+                                fontWeight: FontWeight.w400,
+                              ),
+                            ),
+
+                            const Text(
+                              'USER ID : 00001',
                               style: const TextStyle(
                                 fontWeight: FontWeight.w300,
-                                height: 1,
                                 fontFamily: 'fonts/Poppins-light.ttf',
-                                color: Colors.red,
                                 fontSize: 18,
                               ),
+
                             ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                ),
-                Align(
-                  child: Padding(
-                    padding:
-                        const EdgeInsetsDirectional.fromSTEB(0, 50, 0, 430),
-                    child: Container(
-                      width: 125,
-                      height: 125,
-                      decoration: const BoxDecoration(
-                        color: Colors.white,
-                        shape: BoxShape.circle,
-                      ),
-                      child: SizedBox(
-                        width: MediaQuery.of(context).size.width * 1,
-                        height: MediaQuery.of(context).size.height * 1,
-                        child: ClipRRect(
-                          borderRadius: BorderRadius.circular(25),
-                          child: Image.asset(
-                            'assets/avatar.png',
-                            width: MediaQuery.of(context).size.width * 1,
-                            height: MediaQuery.of(context).size.width * 1,
-                            fit: BoxFit.cover,
-                          ),
+                            const SizedBox(height: 10),
+                            const Text(
+                              'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eligendi non quis.',
+                              textAlign: TextAlign.center,
+                              style: TextStyle(
+                                fontFamily: 'fonts/Poppins-light.ttf',
+                                fontSize: 15,
+                              ),
+                            ),
+                            const SizedBox(height: 10),
+                            const Divider(
+                              height: 25,
+                              thickness: 2,
+                              color: Color(0x7A000000),
+                            ),
+                            const Text(
+                              'MY INFO',
+                              style: TextStyle(
+                                fontFamily: 'fonts/Poppins-light.ttf',
+                                fontSize: 20,
+                                fontWeight: FontWeight.w400,
+                              ),
+                            ),
+                            Row(
+                              mainAxisSize: MainAxisSize.max,
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: [
+                                Column(
+                                  mainAxisSize: MainAxisSize.min,
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: const [
+                                    Text(
+                                      'Contact',
+                                      style: TextStyle(
+                                        fontWeight: FontWeight.w300,
+                                        fontFamily: 'fonts/Poppins-light.ttf',
+                                        fontSize: 18,
+                                      ),
+                                    ),
+                                    Text(
+                                      'Location',
+                                      style: TextStyle(
+                                        fontWeight: FontWeight.w300,
+                                        fontFamily: 'fonts/Poppins-light.ttf',
+                                        fontSize: 18,
+                                      ),
+                                    ),
+                                    Text(
+                                      'Gender',
+                                      style: TextStyle(
+                                        fontWeight: FontWeight.w300,
+                                        fontFamily: 'fonts/Poppins-light.ttf',
+                                        fontSize: 18,
+                                      ),
+                                    ),
+                                    Text(
+                                      'Position',
+                                      style: TextStyle(
+                                        fontWeight: FontWeight.w300,
+                                        fontFamily: 'fonts/Poppins-light.ttf',
+                                        fontSize: 18,
+                                      ),
+                                    ),
+                                    Text(
+                                      'Reputation',
+                                      style: TextStyle(
+                                        fontWeight: FontWeight.w300,
+                                        fontFamily: 'fonts/Poppins-light.ttf',
+                                        fontSize: 18,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                                Column(
+                                  mainAxisSize: MainAxisSize.min,
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: const [
+                                    Text(
+                                      '98480XXXXX',
+                                      style: TextStyle(
+                                        fontWeight: FontWeight.w300,
+                                        fontFamily: 'fonts/Poppins-light.ttf',
+                                        fontSize: 18,
+                                      ),
+                                    ),
+                                    Text(
+                                      'Nepal , KTM',
+                                      style: TextStyle(
+                                        fontWeight: FontWeight.w300,
+                                        fontFamily: 'fonts/Poppins-light.ttf',
+                                        fontSize: 18,
+                                      ),
+                                    ),
+                                    Text(
+                                      'MALE',
+                                      style: TextStyle(
+                                        fontWeight: FontWeight.w300,
+                                        fontFamily: 'fonts/Poppins-light.ttf',
+                                        fontSize: 18,
+                                      ),
+                                    ),
+                                    Text(
+                                      'Customer',
+                                      style: TextStyle(
+                                        fontWeight: FontWeight.w300,
+                                        fontFamily: 'fonts/Poppins-light.ttf',
+                                        fontSize: 18,
+                                      ),
+                                    ),
+                                    Text(
+                                      '8.4/10',
+                                      style: TextStyle(
+                                        fontWeight: FontWeight.w300,
+                                        fontFamily: 'fonts/Poppins-light.ttf',
+                                        fontSize: 18,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ],
+                            ),
+                            const Divider(
+                              height: 25,
+                              thickness: 2,
+                              color: Color(0x7A000000),
+                            ),
+                            TextButton(
+                              onPressed: () {
+                                print('Button pressed ...');
+                                Navigator.pushNamed(
+                                    context, 'account_change_phone_pass');
+                              },
+                              child: const Text(
+                                'Change Number or Password',
+                                style: const TextStyle(
+                                  fontWeight: FontWeight.w300,
+                                  height: 1,
+                                  fontFamily: 'fonts/Poppins-light.ttf',
+                                  color: Colors.red,
+                                  fontSize: 18,
+                                ),
+                              ),
+                            ),
+
+                          ],
+
                         ),
                       ),
-                    ),
-                  ),
-                ),
-                Align(
-                  alignment: const AlignmentDirectional(0.8, -0.41),
-                  child: Container(
-                    width: 50,
-                    height: 50,
-                    decoration: const BoxDecoration(
-                      color: Colors.white,
-                      boxShadow: [
-                        const BoxShadow(
-                          blurRadius: 5,
-                          color: const Color(0x63000000),
-                          spreadRadius: 1,
-                        )
-                      ],
-                      shape: BoxShape.circle,
-                    ),
-                    child: IconButton(
-                      icon: const Icon(
-                        Icons.create,
-                        color: Colors.black,
-                        size: 26,
-                      ),
-                      onPressed: () {
-                        print('IconButton pressed ...');
-                        Navigator.pushNamed(context, 'account_edit');
-                      },
                     ),
                   ),
                 ),
