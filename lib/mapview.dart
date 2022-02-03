@@ -178,7 +178,6 @@ class _MapViewState extends State<MapView> {
                             bottomLeft: Radius.circular(20),
                           ),
                           child: GoogleMap(
-                            key: const Key("_googlemap"),
                             gestureRecognizers: <
                                 Factory<OneSequenceGestureRecognizer>>{
                               Factory<OneSequenceGestureRecognizer>(
@@ -311,6 +310,7 @@ class _MapViewState extends State<MapView> {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Container(
+                                  key: const Key("_scroll"),
                                   width: MediaQuery.of(context).size.width,
                                   constraints: BoxConstraints(
                                     maxWidth: MediaQuery.of(context).size.width,
