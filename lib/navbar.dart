@@ -21,7 +21,7 @@ class _Mynavbarstate extends State<Mynavbar> {
     const MyHomePage(),
     const MyStatementPage(),
     const MyAccountPage(),
-    const MyProperyPage(),
+    const MyPropertyPage(),
     const MySettingPage()
   ];
 

@@ -18,7 +18,7 @@ class _Aboutusstate extends State<Aboutus> {
     return Container(
         decoration: const BoxDecoration(
           image: DecorationImage(
-              image: AssetImage('assets/homebackground.png'), fit: BoxFit.fill),
+              image: AssetImage('assets/bodybackground.png'), fit: BoxFit.fill),
         ),
         child: SafeArea(
           top: true,
@@ -71,9 +71,11 @@ class _Aboutusstate extends State<Aboutus> {
                             height: 20,
                           ),
                           Text(
-                              "Park and Pee is a service provider system. It serves two major solution to the daily occuring problems that are parking issue and emergency toilet problem. As it has to main solution to the problems they are catagorised into Parking and Toilet. Parking offers you the most pleasant feature of parking your vehicles such as Car and Bike, you can find empty spaces for your automobile to park in a easy way. In a same way Toilet provides you the nearest location of the restrooms where you can feel fresh.",
-                              style: TextStyle(fontSize: 15),
-                              textAlign: TextAlign.justify),
+                            "Park and Pee is a service provider system. It serves two major solution to the daily occuring problems that are parking issue and emergency toilet problem. As it has to main solution to the problems they are catagorised into Parking and Toilet. Parking offers you the most pleasant feature of parking your vehicles such as Car and Bike, you can find empty spaces for your automobile to park in a easy way. In a same way Toilet provides you the nearest location of the restrooms where you can feel fresh.",
+                            style:
+                                TextStyle(fontSize: 15, color: Colors.black54),
+                            textAlign: TextAlign.justify,
+                          ),
                         ],
                       ),
                     ),
