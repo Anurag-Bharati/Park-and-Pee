@@ -26,7 +26,7 @@ class _MyAccountPageEditstate extends State<MyAccountPageEdit> {
   @override
   void initState() {
     super.initState();
-    textController1 = TextEditingController(text: 'MOHAN BASNET');
+    textController1 = TextEditingController(text: 'Mohan Basnet');
     textController2 = TextEditingController(
         text:
             'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eligendi non quis.');
@@ -41,7 +41,8 @@ class _MyAccountPageEditstate extends State<MyAccountPageEdit> {
           preferredSize: Size.zero,
           child: AppBar(
             elevation: 0,
-            backgroundColor: const Color(0xFF937FEE), // Colors.transparent
+            backgroundColor:
+                const Color.fromRGBO(64, 224, 208, 1), // Colors.transparent
           ),
         ),
         body: Form(
@@ -80,7 +81,7 @@ class _MyAccountPageEditstate extends State<MyAccountPageEdit> {
                           maxWidth: MediaQuery.of(context).size.width,
                         ),
                         decoration: const BoxDecoration(
-                          color: Color(0xFF937FEE),
+                          color: const Color.fromRGBO(64, 224, 208, 1),
                         ),
                       ),
                       Align(
@@ -122,7 +123,9 @@ class _MyAccountPageEditstate extends State<MyAccountPageEdit> {
                                 topLeft: Radius.circular(40),
                                 topRight: const Radius.circular(40),
                               ),
+
                               shape: BoxShape.rectangle,
+
                             ),
                             alignment: const AlignmentDirectional(0, 0),
                             child: Padding(
@@ -244,6 +247,7 @@ class _MyAccountPageEditstate extends State<MyAccountPageEdit> {
                                         return null;
                                       },
                                     ),
+
                                     Container(
                                       width: MediaQuery.of(context).size.width,
                                       height: 5,
@@ -517,6 +521,7 @@ class _MyAccountPageEditstate extends State<MyAccountPageEdit> {
                                                       width: 1,
                                                     ),
                                                     shape: const RoundedRectangleBorder(
+
                                                         borderRadius:
                                                             BorderRadius.all(
                                                                 Radius.circular(
@@ -550,11 +555,13 @@ class _MyAccountPageEditstate extends State<MyAccountPageEdit> {
                                                       Radius.circular(5),
                                                     ),
                                                   ),
+
                                                 ),
                                               ),
                                             ),
                                           ],
                                         ),
+
                                       ),
                                     ),
                                   ],

@@ -32,7 +32,7 @@ class _MyLoginState extends State<MyLogin> {
       var a = jsonDecode(res.body);
       // ignore: avoid_print
       print("Welcome ${a['name']}! Your ID is ${a['id']}");
-      Navigator.pushNamed(context, 'homepage');
+      Navigator.pushNamed(context, 'navbar');
     } else {
       // ignore: avoid_print
       print("User Doesn't Exists!");
@@ -94,7 +94,7 @@ class _MyLoginState extends State<MyLogin> {
                               child: Column(children: [
                                 Container(
                                   padding: const EdgeInsets.symmetric(
-                                      vertical: 40, horizontal: 24),
+                                      vertical: 24, horizontal: 24),
                                   decoration: BoxDecoration(
                                       color: Colors.transparent,
                                       borderRadius: BorderRadius.circular(25),
@@ -122,11 +122,6 @@ class _MyLoginState extends State<MyLogin> {
                                             return null;
                                           },
                                           decoration: InputDecoration(
-                                              errorStyle: TextStyle(
-                                                color: Colors.red[400],
-                                                fontWeight: FontWeight.bold,
-                                                fontSize: 13,
-                                              ),
                                               contentPadding:
                                                   const EdgeInsets.fromLTRB(
                                                       10, 0, 0, 0),
@@ -149,6 +144,7 @@ class _MyLoginState extends State<MyLogin> {
                                               .onUserInteraction,
                                           style: const TextStyle(
                                               color: Colors.black),
+                                          obscureText: true,
                                           controller: TextEditingController(
                                               text: user.password),
                                           onChanged: (val) {
@@ -160,7 +156,6 @@ class _MyLoginState extends State<MyLogin> {
                                             }
                                             return null;
                                           },
-                                          obscureText: true,
                                           decoration: InputDecoration(
                                               contentPadding:
                                                   const EdgeInsets.fromLTRB(
@@ -174,77 +169,36 @@ class _MyLoginState extends State<MyLogin> {
                                               )),
                                         ),
                                       ),
-                                      const SizedBox(height: 5),
-                                      Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.spaceBetween,
-                                          children: [
-                                            // SizedBox(
-                                            //   height: 23,
-                                            //   width: 150,
-                                            //   child: TextFormField(
-                                            //     maxLines: 1,
-                                            //     readOnly: true,
-                                            //     decoration:
-                                            //         const InputDecoration(
-                                            //             border:
-                                            //                 InputBorder.none),
-                                            //     // controller:
-                                            //     //     TextEditingController(
-                                            //     //   text: user.phone,
-                                            //     // ),
-                                            //     // onChanged: (val) {
-                                            //     //   user.phone = val;
-                                            //     //   user.password = val;
-                                            //     // },
-                                            //     // validator: (value) {
-                                            //     //   if (value!.isEmpty ) {
-                                            //     //     return 'Enter Phone or Password';
-                                            //     //   }
-                                            //     //   else {
-                                            //     //     return null;
-                                            //     //   }
-                                            //     // },
-                                            //   ),
-                                            // ),
-
-                                            ElevatedButton(
-                                              child: const Text(
-                                                "Admin",
-                                                style: TextStyle(
-                                                    fontWeight: FontWeight.bold,
-                                                    color: Color(0xffE32C32),
-                                                    fontSize: 18),
-                                              ),
-                                              // style: ElevatedButton.styleFrom(
-
-                                              // ),
-
-                                              onPressed: () {
-                                                Navigator.pushNamed(
-                                                    context, "admin");
-                                              },
-                                            ),
-                                            TextButton(
-                                              child: const Text(
-                                                'Forgot Password',
-                                                style: TextStyle(
-                                                  fontWeight: FontWeight.bold,
-                                                  color: Colors.black54,
-                                                  fontSize: 18,
-                                                ),
-                                              ),
-                                              onPressed: () {
-                                                Navigator.pushNamed(
-                                                    context, 'forgetpassword');
-                                              },
-                                              style: ElevatedButton.styleFrom(
-                                                textStyle: const TextStyle(
-                                                    fontWeight:
-                                                        FontWeight.w700),
-                                              ),
-                                            ),
-                                          ]),
+                                      const SizedBox(
+                                        height: 5,
+                                      ),
+                                      Container(
+                                        padding: const EdgeInsets.symmetric(
+                                          vertical: 0,
+                                          horizontal: 50,
+                                        ),
+                                        // padding:
+                                        //     const EdgeInsets.only(left: 165),
+                                        child: TextButton(
+                                          child: const Text(
+                                            'Forgot Password',
+                                            style: TextStyle(
+                                                fontSize: 18,
+                                                fontFamily:
+                                                    "fonts/Poppins-SemiBold.ttf",
+                                                color: Color.fromARGB(
+                                                    1000, 49, 53, 49)),
+                                          ),
+                                          onPressed: () {
+                                            Navigator.pushNamed(
+                                                context, 'forgetpassword');
+                                          },
+                                          style: ElevatedButton.styleFrom(
+                                            textStyle: const TextStyle(
+                                                fontWeight: FontWeight.w700),
+                                          ),
+                                        ),
+                                      ),
                                       Row(
                                         mainAxisAlignment:
                                             MainAxisAlignment.spaceBetween,
@@ -372,7 +326,6 @@ class _MyLoginState extends State<MyLogin> {
                                           const Text(
                                             "Don't Have Account?",
                                             style: TextStyle(
-                                                color: Colors.black38,
                                                 fontWeight: FontWeight.w300,
                                                 fontSize: 18,
                                                 fontFamily:
