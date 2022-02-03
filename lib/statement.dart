@@ -2,7 +2,6 @@
 
 import 'package:flutter/material.dart';
 
-
 double deviceHeight(BuildContext context) => MediaQuery.of(context).size.height;
 double deviceWidth(BuildContext context) => MediaQuery.of(context).size.width;
 
@@ -19,7 +18,7 @@ class _MyStatementPagestate extends State<MyStatementPage> {
     return Container(
       decoration: const BoxDecoration(
         image: DecorationImage(
-            image: AssetImage('assets/homebackground.png'), fit: BoxFit.fill),
+            image: AssetImage('assets/insidebackground.png'), fit: BoxFit.fill),
       ),
       child: const Scaffold(
         resizeToAvoidBottomInset: false,

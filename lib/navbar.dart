@@ -5,7 +5,7 @@ import 'package:parkandpee/home_page.dart';
 import 'package:parkandpee/property.dart';
 import 'package:parkandpee/statement.dart';
 
-import 'Setting.dart';
+import 'setting.dart';
 
 class Mynavbar extends StatefulWidget {
   const Mynavbar({Key? key}) : super(key: key);

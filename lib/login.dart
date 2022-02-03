@@ -73,8 +73,7 @@ class _MyLoginState extends State<MyLogin> {
     return Container(
         decoration: const BoxDecoration(
           image: DecorationImage(
-              image: AssetImage('assets/LRVBackground.png'),
-               fit: BoxFit.fill),
+              image: AssetImage('assets/LRVBackground.png'), fit: BoxFit.fill),
         ),
         child: SafeArea(
           top: true,
