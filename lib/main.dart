@@ -1,27 +1,20 @@
 // ignore_for_file: avoid_print
 
-import 'package:firebase_core/firebase_core.dart';
-import 'package:firebase_messaging/firebase_messaging.dart';
+import 'dependencies.dart';
 
-import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:parkandpee/aboutus.dart';
+import 'package:parkandpee/controller/admin/admin.dart';
 import 'package:parkandpee/controller/profile/account.dart';
-
 import 'package:parkandpee/controller/profile/account_change_phone_pass.dart';
-
 import 'package:parkandpee/controller/authentication/login.dart';
-
 import 'package:parkandpee/controller/home/navbar.dart';
 import 'package:parkandpee/controller/my_service/property.dart';
 import 'package:parkandpee/controller/authentication/register.dart';
+import 'package:parkandpee/controller/settings/Aboutus.dart';
 import 'package:parkandpee/service_owner/so_navbar.dart';
-
 import 'package:parkandpee/controller/authentication/verification.dart';
 import 'package:parkandpee/controller/authentication/forgetpassword.dart';
 import 'package:parkandpee/controller/authentication/newpassword.dart';
 import 'package:parkandpee/controller/profile/account_edit.dart';
-import 'controller/admin/admin.dart';
 
 ///Receive message when app is in background solution for on message
 Future<void> backgroundHandler(RemoteMessage message) async {

@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:parkandpee/Model/service.dart';
-import 'package:parkandpee/aboutus.dart';
+
 import 'package:parkandpee/controller/add_service/add_service_details_park.dart';
 import 'package:parkandpee/controller/add_service/add_service_details_pee.dart';
 import 'package:parkandpee/controller/add_service/service_location_learn_more.dart';
@@ -133,8 +133,8 @@ class _MapViewState extends State<MapView> {
   }
 
   double? size() {
-    // print("${MediaQuery.of(context).size}}");
-    if (deviceHeight(context) > 1000 && deviceWidth(context) > 500) {
+    if (MediaQuery.of(context).size.height > 1000 &&
+        MediaQuery.of(context).size.width > 500) {
       return 800;
     } else {
       return 520;
