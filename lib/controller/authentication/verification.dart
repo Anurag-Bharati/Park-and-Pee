@@ -1,5 +1,6 @@
+// ignore_for_file: avoid_print
+
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:parkandpee/controller/home/navbar.dart';
 import 'package:pinput/pin_put/pin_put.dart';
@@ -102,8 +103,7 @@ class _MyVerificationstate extends State<MyVerification> {
                       border: Border.all(color: Colors.black12)),
                   child: Column(
                     children: [
-                      Container(
-                          child: PinPut(
+                      PinPut(
                         fieldsCount: 6,
                         textStyle: const TextStyle(
                           fontSize: 25.0,
@@ -141,7 +141,7 @@ class _MyVerificationstate extends State<MyVerification> {
                                 const SnackBar(content: Text('invalid OTP')));
                           }
                         },
-                      )),
+                      ),
                       const SizedBox(
                         height: 30,
                       ),

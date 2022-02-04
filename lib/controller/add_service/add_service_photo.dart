@@ -590,6 +590,7 @@ class _MapViewState extends State<AddServicePhoto> {
     } else {
       widget.service.coverPicPath = jsonObject["fileDownloadUri"];
     }
+    // ignore: avoid_print
     print(widget.service.mainPicPath.toString() +
         " " +
         widget.service.coverPicPath.toString());

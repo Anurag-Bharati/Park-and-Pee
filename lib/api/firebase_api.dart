@@ -1,3 +1,5 @@
+// ignore_for_file: avoid_print
+
 import 'dart:io';
 import 'dart:typed_data';
 
@@ -10,6 +12,7 @@ class FirebaseApi {
 
       return ref.putFile(file);
     } on FirebaseException catch (e) {
+      print(e.message);
       return null;
     }
   }
@@ -20,6 +23,7 @@ class FirebaseApi {
 
       return ref.putData(data);
     } on FirebaseException catch (e) {
+      print(e.message);
       return null;
     }
   }

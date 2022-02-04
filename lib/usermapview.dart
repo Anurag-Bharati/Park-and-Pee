@@ -1,13 +1,10 @@
-import 'dart:ffi';
+// ignore_for_file: unused_field, avoid_print
 
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:parkandpee/controller/settings/Aboutus.dart';
 import 'package:parkandpee/Model/widgets/scroll_behavior.dart';
-
-import 'Model/map_util.dart';
-import 'Model/widgets/progress_step_widget.dart';
 
 class UserMapview extends StatefulWidget {
   const UserMapview({Key? key}) : super(key: key);
@@ -30,18 +27,18 @@ class _UserMapviewState extends State<UserMapview> {
   late GoogleMapController _mapController;
 
   LatLng _currentLatLng = const LatLng(27.689302498968424, 85.37620522883005);
-  late CameraPosition _newCameraPosition =
+  late final CameraPosition _newCameraPosition =
       CameraPosition(target: _currentLatLng, zoom: 15);
-  bool _toogleHybrid = false;
 
+  @override
   void initState() {
     super.initState();
     textController1 = TextEditingController();
     // setCustomMarker();
-    LocateMe();
+    locateMe();
   }
 
-  Future LocateMe() async {
+  Future locateMe() async {
     final Position position = await Geolocator.getCurrentPosition();
     _currentLatLng = LatLng(position.latitude, position.longitude);
     return _currentLatLng;
@@ -82,7 +79,7 @@ class _UserMapviewState extends State<UserMapview> {
                 children: [
                   Stack(
                     children: [
-                      Container(
+                      SizedBox(
                         width: double.infinity,
                         height: size(),
                         child: GoogleMap(
@@ -92,7 +89,7 @@ class _UserMapviewState extends State<UserMapview> {
                       ),
                       Container(
                         height: 200,
-                        decoration: BoxDecoration(
+                        decoration: const BoxDecoration(
                             // borderRadius: Radius.circular(radius)),
                             ),
                       )

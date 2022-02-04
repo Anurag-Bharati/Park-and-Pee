@@ -150,8 +150,7 @@ class _MyadminState extends State<Myadmin> {
                                                           right: 0,
                                                           top: 35,
                                                           left: 15),
-                                                  child: Container(
-                                                      child: Column(
+                                                  child: Column(
                                                     // ignore: prefer_const_literals_to_create_immutables
                                                     children: [
                                                       const Padding(
@@ -211,7 +210,7 @@ class _MyadminState extends State<Myadmin> {
                                                         ),
                                                       )
                                                     ],
-                                                  )),
+                                                  ),
                                                 )
                                               ],
                                             )
@@ -404,7 +403,7 @@ class _MyadminState extends State<Myadmin> {
                                           height: 80,
                                           width: 160,
                                           decoration: BoxDecoration(
-                                            color: Color(0xffAA00FF),
+                                            color: const Color(0xffAA00FF),
                                             // gradient: const LinearGradient(
                                             //     begin: Alignment.bottomLeft,
                                             //     end: Alignment.topRight,
@@ -565,8 +564,8 @@ class _MyadminState extends State<Myadmin> {
                                             child: Row(
                                               children: [
                                                 Column(
-                                                  children: [
-                                                    const Text(
+                                                  children: const [
+                                                    Text(
                                                       "Recent Activities",
                                                       style: TextStyle(
                                                           fontFamily:
@@ -591,8 +590,8 @@ class _MyadminState extends State<Myadmin> {
                                                       .spaceBetween,
                                               children: [
                                                 Column(
-                                                  children: [
-                                                    const CircleAvatar(
+                                                  children: const [
+                                                    CircleAvatar(
                                                       backgroundImage: AssetImage(
                                                           "assets/bijay.jpg"),
                                                       radius: 28,
@@ -600,8 +599,8 @@ class _MyadminState extends State<Myadmin> {
                                                   ],
                                                 ),
                                                 Column(
-                                                  children: [
-                                                    const Padding(
+                                                  children: const [
+                                                    Padding(
                                                       padding: EdgeInsets.only(
                                                           left: 0),
                                                       child: Text(
@@ -621,7 +620,7 @@ class _MyadminState extends State<Myadmin> {
                                                   ],
                                                 ),
                                                 Column(
-                                                  children: [
+                                                  children: const [
                                                     Text("17th Jan 2022"),
                                                     Text(
                                                       "               low",
@@ -645,8 +644,8 @@ class _MyadminState extends State<Myadmin> {
                                                       .spaceBetween,
                                               children: [
                                                 Column(
-                                                  children: [
-                                                    const CircleAvatar(
+                                                  children: const [
+                                                    CircleAvatar(
                                                       backgroundImage: AssetImage(
                                                           "assets/aayush.png"),
                                                       radius: 28,
@@ -654,8 +653,8 @@ class _MyadminState extends State<Myadmin> {
                                                   ],
                                                 ),
                                                 Column(
-                                                  children: [
-                                                    const Padding(
+                                                  children: const [
+                                                    Padding(
                                                       padding: EdgeInsets.only(
                                                           left: 0),
                                                       child: Text(
@@ -675,7 +674,7 @@ class _MyadminState extends State<Myadmin> {
                                                   ],
                                                 ),
                                                 Column(
-                                                  children: [
+                                                  children: const [
                                                     Text("23th Jan 2022"),
                                                     Text(
                                                       "               high",
@@ -699,8 +698,8 @@ class _MyadminState extends State<Myadmin> {
                                                       .spaceBetween,
                                               children: [
                                                 Column(
-                                                  children: [
-                                                    const CircleAvatar(
+                                                  children: const [
+                                                    CircleAvatar(
                                                       backgroundImage: AssetImage(
                                                           "assets/bhai1.png"),
                                                       radius: 28,
@@ -708,8 +707,8 @@ class _MyadminState extends State<Myadmin> {
                                                   ],
                                                 ),
                                                 Column(
-                                                  children: [
-                                                    const Padding(
+                                                  children: const [
+                                                    Padding(
                                                       padding: EdgeInsets.only(
                                                           left: 0),
                                                       child: Text(
@@ -729,7 +728,7 @@ class _MyadminState extends State<Myadmin> {
                                                   ],
                                                 ),
                                                 Column(
-                                                  children: [
+                                                  children: const [
                                                     Text("23th Jan 2022"),
                                                     Text(
                                                       "               high",

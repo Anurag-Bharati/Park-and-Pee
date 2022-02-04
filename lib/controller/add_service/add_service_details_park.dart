@@ -5,7 +5,6 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:parkandpee/Model/service.dart';
 import 'package:parkandpee/controller/add_service/add_service_photo.dart';
 import 'package:parkandpee/Model/user.dart';
-import 'package:parkandpee/controller/add_service/add_service_photo.dart';
 
 import '../../Model/widgets/progress_step_widget.dart';
 import 'add_service_photo.dart';

@@ -1,4 +1,4 @@
-// ignore_for_file: file_names, unnecessary_const, unused_field, non_constant_identifier_names, duplicate_ignore
+// ignore_for_file: file_names, unnecessary_const, unused_field, non_constant_identifier_names, duplicate_ignore, avoid_print
 import 'dart:convert';
 import 'dart:io';
 

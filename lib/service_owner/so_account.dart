@@ -1,3 +1,5 @@
+// ignore_for_file: avoid_print
+
 import 'package:flutter/material.dart';
 
 double deviceHeight(BuildContext context) => MediaQuery.of(context).size.height;
@@ -56,7 +58,7 @@ class _MySoAccountPagestate extends State<MySoAccountPage> {
                     maxWidth: MediaQuery.of(context).size.width,
                   ),
                   decoration: const BoxDecoration(
-                    color: const Color(0xFF937FEE),
+                    color: Color(0xFF937FEE),
                   ),
                 ),
                 Align(
@@ -94,7 +96,7 @@ class _MySoAccountPagestate extends State<MySoAccountPage> {
                         bottomLeft: Radius.circular(0),
                         bottomRight: Radius.circular(0),
                         topLeft: Radius.circular(80),
-                        topRight: const Radius.circular(80),
+                        topRight: Radius.circular(80),
                       ),
                       shape: BoxShape.rectangle,
                     ),
@@ -117,7 +119,7 @@ class _MySoAccountPagestate extends State<MySoAccountPage> {
                           ),
                           const Text(
                             'USER ID : 00001',
-                            style: const TextStyle(
+                            style: TextStyle(
                               fontWeight: FontWeight.w300,
                               fontFamily: 'fonts/Poppins-light.ttf',
                               fontSize: 18,
@@ -258,7 +260,7 @@ class _MySoAccountPagestate extends State<MySoAccountPage> {
                             },
                             child: const Text(
                               'Change Number or Password',
-                              style: const TextStyle(
+                              style: TextStyle(
                                 fontWeight: FontWeight.w300,
                                 height: 1,
                                 fontFamily: 'fonts/Poppins-light.ttf',
@@ -307,9 +309,9 @@ class _MySoAccountPagestate extends State<MySoAccountPage> {
                     decoration: const BoxDecoration(
                       color: Colors.white,
                       boxShadow: [
-                        const BoxShadow(
+                        BoxShadow(
                           blurRadius: 5,
-                          color: const Color(0x63000000),
+                          color: Color(0x63000000),
                           spreadRadius: 1,
                         )
                       ],
