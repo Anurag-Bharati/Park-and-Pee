@@ -3,9 +3,9 @@ import 'package:flutter/material.dart';
 
 import 'package:lottie/lottie.dart';
 import 'package:parkandpee/Model/service.dart';
-import 'package:parkandpee/user.dart';
+import 'package:parkandpee/Model/user.dart';
 
-import 'Model/progress_step_widget.dart';
+import '../../Model/widgets/progress_step_widget.dart';
 
 class AddServiceSuccess extends StatefulWidget {
   final Service service;

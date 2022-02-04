@@ -8,9 +8,9 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:path/path.dart' as p;
-import 'api/firebase_api.dart';
-import 'user.dart';
-import 'api.dart';
+import '../../api/firebase_api.dart';
+import '../../Model/user.dart';
+import '../../Model/api.dart';
 
 double deviceHeight(BuildContext context) => MediaQuery.of(context).size.height;
 double deviceWidth(BuildContext context) => MediaQuery.of(context).size.width;

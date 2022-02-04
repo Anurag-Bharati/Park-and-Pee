@@ -5,10 +5,10 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter_signin_button/flutter_signin_button.dart';
 import 'package:http/http.dart' as http;
-import 'package:parkandpee/verification.dart';
+import 'package:parkandpee/controller/authentication/verification.dart';
 
-import 'user.dart';
-import 'api.dart';
+import '../../Model/user.dart';
+import '../../Model/api.dart';
 
 class MyRegister extends StatefulWidget {
   const MyRegister({Key? key}) : super(key: key);

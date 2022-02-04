@@ -6,14 +6,14 @@ import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:parkandpee/Model/service.dart';
 import 'package:parkandpee/aboutus.dart';
-import 'package:parkandpee/add_service_details_park.dart';
-import 'package:parkandpee/add_service_details_pee.dart';
-import 'package:parkandpee/service_location_learn_more.dart';
-import 'package:parkandpee/user.dart';
+import 'package:parkandpee/controller/add_service/add_service_details_park.dart';
+import 'package:parkandpee/controller/add_service/add_service_details_pee.dart';
+import 'package:parkandpee/controller/add_service/service_location_learn_more.dart';
+import 'package:parkandpee/Model/user.dart';
 
-import 'Model/map_util.dart';
-import 'Model/progress_step_widget.dart';
-import 'Model/scroll_behavior.dart';
+import '../../Model/map_util.dart';
+import '../../Model/widgets/progress_step_widget.dart';
+import '../../Model/widgets/scroll_behavior.dart';
 
 class MapView extends StatefulWidget {
   const MapView({Key? key}) : super(key: key);

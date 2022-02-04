@@ -1,6 +1,6 @@
 // ignore_for_file: file_names
 
-import 'Model/service_main.dart';
+import 'service_main.dart';
 
 class User {
   int? id;

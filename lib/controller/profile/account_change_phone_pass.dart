@@ -1,6 +1,6 @@
 // ignore_for_file: file_names, unnecessary_const, avoid_print
 import 'package:flutter/material.dart';
-import 'package:parkandpee/account_verification.dart';
+import 'package:parkandpee/controller/profile/account_verification.dart';
 
 double deviceHeight(BuildContext context) => MediaQuery.of(context).size.height;
 double deviceWidth(BuildContext context) => MediaQuery.of(context).size.width;

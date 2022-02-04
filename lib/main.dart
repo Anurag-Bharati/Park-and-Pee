@@ -6,22 +6,22 @@ import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:parkandpee/aboutus.dart';
-import 'package:parkandpee/account.dart';
+import 'package:parkandpee/controller/profile/account.dart';
 
-import 'package:parkandpee/account_change_phone_pass.dart';
+import 'package:parkandpee/controller/profile/account_change_phone_pass.dart';
 
-import 'package:parkandpee/login.dart';
+import 'package:parkandpee/controller/authentication/login.dart';
 
-import 'package:parkandpee/navbar.dart';
-import 'package:parkandpee/property.dart';
-import 'package:parkandpee/register.dart';
+import 'package:parkandpee/controller/home/navbar.dart';
+import 'package:parkandpee/controller/my_service/property.dart';
+import 'package:parkandpee/controller/authentication/register.dart';
 import 'package:parkandpee/service_owner/so_navbar.dart';
 
-import 'package:parkandpee/verification.dart';
-import 'package:parkandpee/forgetpassword.dart';
-import 'package:parkandpee/newpassword.dart';
-import 'package:parkandpee/account_edit.dart';
-import 'admin.dart';
+import 'package:parkandpee/controller/authentication/verification.dart';
+import 'package:parkandpee/controller/authentication/forgetpassword.dart';
+import 'package:parkandpee/controller/authentication/newpassword.dart';
+import 'package:parkandpee/controller/profile/account_edit.dart';
+import 'controller/admin/admin.dart';
 
 ///Receive message when app is in background solution for on message
 Future<void> backgroundHandler(RemoteMessage message) async {

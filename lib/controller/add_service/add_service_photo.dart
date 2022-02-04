@@ -7,11 +7,11 @@ import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:parkandpee/Model/service.dart';
 import 'package:parkandpee/Model/service_main.dart';
-import 'package:parkandpee/add_service_success.dart';
+import 'package:parkandpee/controller/add_service/add_service_success.dart';
 import 'package:http/http.dart' as http;
-import 'package:parkandpee/api.dart';
-import 'package:parkandpee/user.dart';
-import 'Model/progress_step_widget.dart';
+import 'package:parkandpee/Model/api.dart';
+import 'package:parkandpee/Model/user.dart';
+import '../../Model/widgets/progress_step_widget.dart';
 
 class AddServicePhoto extends StatefulWidget {
   final Service service;

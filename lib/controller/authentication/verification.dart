@@ -1,7 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:parkandpee/navbar.dart';
+import 'package:parkandpee/controller/home/navbar.dart';
 import 'package:pinput/pin_put/pin_put.dart';
 
 double deviceHeight(BuildContext context) => MediaQuery.of(context).size.height;

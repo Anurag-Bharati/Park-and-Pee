@@ -2,9 +2,9 @@
 
 import 'package:flutter/material.dart';
 import 'package:parkandpee/Model/service.dart';
-import 'package:parkandpee/add_service_photo.dart';
-import 'package:parkandpee/user.dart';
-import 'Model/progress_step_widget.dart';
+import 'package:parkandpee/controller/add_service/add_service_photo.dart';
+import 'package:parkandpee/Model/user.dart';
+import '../../Model/widgets/progress_step_widget.dart';
 
 class AddServiceDetailsPee extends StatefulWidget {
   final Service service;

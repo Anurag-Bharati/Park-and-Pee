@@ -1,11 +1,11 @@
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter/material.dart';
-import 'package:parkandpee/account.dart';
-import 'package:parkandpee/home_page.dart';
-import 'package:parkandpee/property.dart';
-import 'package:parkandpee/statement.dart';
+import 'package:parkandpee/controller/profile/account.dart';
+import 'package:parkandpee/controller/home/home_page.dart';
+import 'package:parkandpee/controller/my_service/property.dart';
+import 'package:parkandpee/controller/my_service/statement.dart';
 
-import 'setting.dart';
+import '../../setting.dart';
 
 class Mynavbar extends StatefulWidget {
   const Mynavbar({Key? key}) : super(key: key);
