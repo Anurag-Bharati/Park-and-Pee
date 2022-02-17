@@ -42,7 +42,6 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      // title: 'Park And Pee',
       debugShowCheckedModeBanner: false,
       home: const MyLogin(),
 

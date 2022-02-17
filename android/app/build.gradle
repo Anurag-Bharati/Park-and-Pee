@@ -77,5 +77,3 @@ dependencies {
     // https://firebase.google.com/docs/android/setup#available-libraries
     implementation "androidx.browser:browser:1.2.0"
 }
-
-

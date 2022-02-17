@@ -1,6 +1,7 @@
 // ignore_for_file: file_names, unnecessary_const, avoid_print
 
 import 'package:flutter/material.dart';
+import 'package:parkandpee/model/api.dart';
 
 double deviceHeight(BuildContext context) => MediaQuery.of(context).size.height;
 double deviceWidth(BuildContext context) => MediaQuery.of(context).size.width;
@@ -125,14 +126,24 @@ class _MyAccountPagestate extends State<MyAccountPage> {
                                 height: MediaQuery.of(context).size.height * 1,
                                 child: ClipRRect(
                                   borderRadius: BorderRadius.circular(25),
-                                  child: Image.asset(
-                                    'assets/avatar.png',
-                                    width:
-                                        MediaQuery.of(context).size.width * 1,
-                                    height:
-                                        MediaQuery.of(context).size.width * 1,
-                                    fit: BoxFit.cover,
-                                  ),
+                                  child: Image.network(
+                                      API.getUrl("IMAGE LINK TODO"),
+                                      width:
+                                          MediaQuery.of(context).size.width * 1,
+                                      height:
+                                          MediaQuery.of(context).size.width * 1,
+                                      fit: BoxFit.cover, errorBuilder: (context,
+                                          Object exception,
+                                          StackTrace? stackTrace) {
+                                    return Image.asset(
+                                      'assets/avatar.png',
+                                      width:
+                                          MediaQuery.of(context).size.width * 1,
+                                      height:
+                                          MediaQuery.of(context).size.width * 1,
+                                      fit: BoxFit.cover,
+                                    );
+                                  }),
                                 ),
                               ),
                             ),

@@ -1,6 +1,9 @@
-// ignore_for_file: unnecessary_null_comparison
+// ignore_for_file: unnecessary_null_comparison, deprecated_member_use
 
+import 'dart:async';
 import 'dart:convert';
+import 'dart:io';
+import 'package:easy_debounce/easy_debounce.dart';
 import 'package:flutter/material.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:flutter_signin_button/flutter_signin_button.dart';
@@ -19,32 +22,52 @@ class MyLogin extends StatefulWidget {
 }
 
 class _MyLoginState extends State<MyLogin> {
+  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey();
   bool value = false;
   User user = User("", "", "");
-  Uri url = Uri.parse(API.getUrl("login"));
+  Uri url = Uri.parse(API.getUrl("user/auth"));
   final _formKey = GlobalKey<FormState>();
 
-  Future save() async {
-    var res = await http.post(url,
-        headers: {'Content-Type': 'application/json'},
-        body: json.encode({'number': user.phone, 'password': user.password}));
-    if (res.body.isNotEmpty) {
-      var a = jsonDecode(res.body);
-      // ignore: avoid_print
-      print("Welcome ${a['name']}! Your ID is ${a['id']}");
-      Navigator.pushNamed(context, 'navbar');
-    } else {
-      // ignore: avoid_print
-      print("User Doesn't Exists!");
+  Future save(
+      GlobalKey<ScaffoldState> scaffoldKey, BuildContext context) async {
+    try {
+      String encodedPass = base64.encode(utf8.encode(user.password));
+      var res = await http
+          .post(url,
+              headers: {'Content-Type': 'application/json'},
+              body: json.encode(
+                  {'number': user.phone.toString(), 'password': user.password}))
+          .timeout(
+            const Duration(seconds: 2),
+          );
+      if (res.statusCode == 404) {
+        _scaffoldKey.currentState?.showSnackBar(showSnackBar(
+            "Invalid User credentials", context, Colors.red[400], 2));
+      }
+      if (res.statusCode == 202) {
+        var a = jsonDecode(res.body);
+        // ignore: avoid_print
+        print("Welcome ${a['name']}! Your ID is ${a['id']}");
+        Navigator.pushNamed(context, 'navbar');
+      }
+    } on SocketException catch (_) {
+      _scaffoldKey.currentState?.showSnackBar(showSnackBar(
+          "Internet connection required", context, Colors.red[400], 2));
+    } on TimeoutException catch (_) {
+      _scaffoldKey.currentState?.showSnackBar(showSnackBar(
+          "Server isn't responding", context, Colors.orange[400], 2));
+    } on Exception catch (_) {
+      _scaffoldKey.currentState?.showSnackBar(showSnackBar(
+          "Sorry, someting went wrong", context, Colors.red[400], 2));
     }
   }
 
-  bool check() {
-    return checkNumber() && checkPassword();
+  bool checkNull() {
+    return user.phone.isNotEmpty;
   }
 
   bool checkNumber() {
-    return user.phone != null && user.phone.length == 10;
+    return user.phone.length == 10;
   }
 
   bool hasNumberAndChar(String password) {
@@ -62,302 +85,256 @@ class _MyLoginState extends State<MyLogin> {
     } else if (user.password.length < 8) {
       return false;
     } else if (!hasNumberAndChar(user.password)) {
-      return false;
+      return true;
     } else {
       return true;
     }
   }
 
+  SnackBar showSnackBar(String message, context, Color? color, int duration) {
+    FocusScope.of(context).unfocus();
+    final snackbar = SnackBar(
+        duration: Duration(seconds: duration),
+        backgroundColor: color,
+        content: Text(
+          message,
+          style: const TextStyle(
+              fontFamily: 'Poppins', fontWeight: FontWeight.w500),
+          textAlign: TextAlign.center,
+        ));
+    return snackbar;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
-        decoration: const BoxDecoration(
-          image: DecorationImage(
-              image: AssetImage('assets/LRVBackground.png'), fit: BoxFit.fill),
-        ),
-        child: SafeArea(
-          top: true,
-          child: Scaffold(
-            resizeToAvoidBottomInset: false,
-            backgroundColor: Colors.transparent,
-            body: Stack(
+      decoration: const BoxDecoration(
+        image: DecorationImage(
+            image: AssetImage('assets/LRVBackground.png'), fit: BoxFit.fill),
+      ),
+      child: Scaffold(
+        key: _scaffoldKey,
+        resizeToAvoidBottomInset: false,
+        backgroundColor: Colors.transparent,
+        body: SingleChildScrollView(
+          child: Padding(
+            padding: (MediaQuery.of(context).size.height > 1000 &&
+                    MediaQuery.of(context).size.width > 500)
+                ? const EdgeInsets.only(
+                    top: 350, left: 25, right: 25, bottom: 300)
+                : const EdgeInsets.only(
+                    top: 310, left: 25, right: 25, bottom: 300),
+            child: Column(
+              mainAxisSize: MainAxisSize.max,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                SingleChildScrollView(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Container(
-                        padding: const EdgeInsets.symmetric(
-                            vertical: 250, horizontal: 10),
-                        child: Form(
-                          key: _formKey,
-                          child: Column(children: [
-                            Container(
-                              padding: const EdgeInsets.symmetric(
-                                  vertical: 24, horizontal: 24),
-                              decoration: BoxDecoration(
-                                  color: Colors.transparent,
-                                  borderRadius: BorderRadius.circular(25),
-                                  border:
-                                      Border.all(color: Colors.transparent)),
-                              child: Column(
-                                children: [
-                                  SizedBox(
-                                    height: 50,
-                                    child: TextFormField(
-                                      keyboardType: TextInputType.number,
-                                      autovalidateMode:
-                                          AutovalidateMode.onUserInteraction,
-                                      style:
-                                          const TextStyle(color: Colors.black),
-                                      controller: TextEditingController(
-                                          text: user.phone),
-                                      onChanged: (val) {
-                                        user.phone = val;
-                                      },
-                                      validator: (value) {
-                                        if (value!.isEmpty) {
-                                          return 'Contact No is Empty';
-                                        }
-                                        return null;
-                                      },
-                                      decoration: InputDecoration(
-                                          contentPadding:
-                                              const EdgeInsets.fromLTRB(
-                                                  10, 0, 0, 0),
-                                          fillColor: Colors.white,
-                                          filled: true,
-                                          hintText: "Contact Number",
-                                          border: OutlineInputBorder(
-                                            borderRadius:
-                                                BorderRadius.circular(25),
-                                          )),
-                                    ),
-                                  ),
-                                  const SizedBox(
-                                    height: 15,
-                                  ),
-                                  SizedBox(
-                                    height: 50,
-                                    child: TextFormField(
-                                      autovalidateMode:
-                                          AutovalidateMode.onUserInteraction,
-                                      style:
-                                          const TextStyle(color: Colors.black),
-                                      obscureText: true,
-                                      controller: TextEditingController(
-                                          text: user.password),
-                                      onChanged: (val) {
-                                        user.password = val;
-                                      },
-                                      validator: (value) {
-                                        if (value!.isEmpty) {
-                                          return 'Password is Empty';
-                                        }
-                                        return null;
-                                      },
-                                      decoration: InputDecoration(
-                                          contentPadding:
-                                              const EdgeInsets.fromLTRB(
-                                                  10, 0, 0, 0),
-                                          fillColor: Colors.white,
-                                          filled: true,
-                                          hintText: "Password",
-                                          border: OutlineInputBorder(
-                                            borderRadius:
-                                                BorderRadius.circular(25),
-                                          )),
-                                    ),
-                                  ),
-                                  const SizedBox(
-                                    height: 5,
-                                  ),
-                                  Container(
-                                    padding: const EdgeInsets.symmetric(
-                                      vertical: 0,
-                                      horizontal: 50,
-                                    ),
-                                    // padding:
-                                    //     const EdgeInsets.only(left: 165),
-                                    child: TextButton(
-                                      child: const Text(
-                                        'Forgot Password',
-                                        style: TextStyle(
-                                            fontSize: 18,
-                                            fontFamily:
-                                                "fonts/Poppins-SemiBold.ttf",
-                                            color: Color.fromARGB(
-                                                1000, 49, 53, 49)),
-                                      ),
-                                      onPressed: () {
-                                        Navigator.pushNamed(
-                                            context, 'forgetpassword');
-                                      },
-                                      style: ElevatedButton.styleFrom(
-                                        textStyle: const TextStyle(
-                                            fontWeight: FontWeight.w700),
-                                      ),
-                                    ),
-                                  ),
-                                  Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
-                                    children: [
-                                      Row(children: <Widget>[
-                                        Checkbox(
-                                          value: value,
-                                          onChanged: (value) {
-                                            setState(() {
-                                              this.value = value!;
-                                            });
-                                          },
-                                        ),
-                                        const SizedBox(
-                                          width: 5,
-                                        ), //SizedBox
-                                        const Text(
-                                          'Remember me',
-                                          style: TextStyle(
-                                              color: Colors.black45,
-                                              fontSize: 20,
-                                              fontFamily:
-                                                  "fonts/Poppins-Regular.ttf"),
-                                        ),
-                                      ]),
-                                      Container(
-                                        padding: const EdgeInsets.symmetric(
-                                          vertical: 0,
-                                          horizontal: 5.5,
-                                        ),
-                                        height: 40,
-                                        width: 130,
-                                        child: ElevatedButton.icon(
-                                            onPressed: () {
-                                              // ignore: unrelated_type_equality_checks
-
-                                              if (_formKey.currentState!
-                                                  .validate()) {
-                                                if (check()) {
-                                                  save();
-                                                } else {
-                                                  // ignore: avoid_print
-                                                  print("Invalid Credentials");
-                                                }
-                                              }
-                                            },
-                                            style: ElevatedButton.styleFrom(
-                                              primary:
-                                                  Colors.deepPurpleAccent[400],
-                                              padding: const EdgeInsets.only(
-                                                  left: 15),
-                                              shape: RoundedRectangleBorder(
-                                                  borderRadius:
-                                                      BorderRadius.circular(
-                                                          25)),
-                                            ),
-                                            label: const Icon(
-                                              MdiIcons.arrowRightBoldCircle,
-                                              size: 40,
-                                            ),
-                                            icon: const Text("SIGN IN",
-                                                style: TextStyle(
-                                                    fontSize: 15,
-                                                    fontFamily:
-                                                        "fonts/Poppins-Bold.ttf"))),
-                                      ),
-                                    ],
-                                  ),
-                                  const SizedBox(
-                                    height: 15,
-                                  ),
-                                  Row(children: const <Widget>[
-                                    Expanded(
-                                        child: Divider(
-                                      color: Colors.black,
-                                      height: 20,
-                                    )),
-                                    Text(
-                                      "OR",
-                                      style: TextStyle(
-                                          fontWeight: FontWeight.bold,
-                                          fontSize: 14),
-                                    ),
-                                    Expanded(
-                                        child: Divider(
-                                      color: Colors.black,
-                                    )),
-                                  ]),
-                                  const SizedBox(
-                                    height: 15,
-                                  ),
-                                  Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
-                                    children: [
-                                      SignInButton(
-                                        Buttons.GoogleDark,
-                                        mini: false,
-                                        onPressed: () {},
-                                      ),
-                                      SignInButton(
-                                        Buttons.Facebook,
-                                        mini: true,
-                                        onPressed: () {
-                                          Navigator.pushNamed(context, 'admin');
-                                        },
-                                      ),
-                                      SignInButton(
-                                        Buttons.Apple,
-                                        mini: true,
-                                        onPressed: () {},
-                                      ),
-                                    ],
-                                  ),
-                                  const SizedBox(
-                                    height: 15,
-                                  ),
-                                  Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
-                                    children: [
-                                      const Text(
-                                        "Don't Have Account?",
-                                        style: TextStyle(
-                                            fontWeight: FontWeight.w300,
-                                            fontSize: 18,
-                                            fontFamily:
-                                                "fonts/Poppins-Regular.ttf"),
-                                      ),
-                                      TextButton(
-                                        onPressed: () {
-                                          Navigator.pushNamed(
-                                              context, 'register');
-                                        },
-                                        child: const Text(
-                                          'Sign up',
-                                          style: TextStyle(
-                                              fontFamily:
-                                                  "fonts/Poppins-Bold.ttf",
-                                              color: Color.fromARGB(
-                                                  1000, 42, 111, 249),
-                                              fontSize: 25,
-                                              fontWeight: FontWeight.bold),
-                                        ),
-                                      ),
-                                    ],
-                                  )
-                                ],
-                              ),
-                            ),
-                          ]),
-                        ),
-                      ),
-                    ],
+                SizedBox(
+                  height: 50,
+                  child: TextFormField(
+                    keyboardType: TextInputType.number,
+                    style: const TextStyle(color: Colors.black),
+                    controller: TextEditingController(text: user.phone),
+                    onChanged: (val) {
+                      user.phone = val;
+                    },
+                    decoration: InputDecoration(
+                        contentPadding: const EdgeInsets.fromLTRB(10, 0, 0, 0),
+                        fillColor: Colors.white,
+                        filled: true,
+                        hintText: "Contact Number",
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(15),
+                        )),
                   ),
                 ),
+                const SizedBox(
+                  height: 15,
+                ),
+                SizedBox(
+                  height: 50,
+                  child: TextFormField(
+                    style: const TextStyle(color: Colors.black),
+                    obscureText: true,
+                    controller: TextEditingController(text: user.password),
+                    onChanged: (val) {
+                      user.password = val;
+                    },
+                    decoration: InputDecoration(
+                        contentPadding: const EdgeInsets.fromLTRB(10, 0, 0, 0),
+                        fillColor: Colors.white,
+                        filled: true,
+                        hintText: "Password",
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(15),
+                        )),
+                  ),
+                ),
+                const SizedBox(
+                  height: 20,
+                ),
+                Row(
+                  mainAxisSize: MainAxisSize.max,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: [
+                    TextButton(
+                      child: Text(
+                        'Forgot Password',
+                        style: TextStyle(
+                            fontSize: 18,
+                            fontFamily: "fonts/Poppins-SemiBold.ttf",
+                            color: Colors.blue[500]),
+                      ),
+                      onPressed: () {
+                        Navigator.pushNamed(context, 'forgetpassword');
+                      },
+                      style: ElevatedButton.styleFrom(
+                        textStyle: const TextStyle(fontWeight: FontWeight.w700),
+                      ),
+                    ),
+                    Container(
+                      padding: const EdgeInsets.symmetric(
+                        vertical: 0,
+                        horizontal: 5.5,
+                      ),
+                      height: 50,
+                      width: 150,
+                      child: ElevatedButton.icon(
+                        onPressed: () {
+                          // ignore: unrelated_type_equality_checks
+
+                          if (!checkNull()) {
+                            _scaffoldKey.currentState?.showSnackBar(
+                                showSnackBar("Please fill up all the fields",
+                                    context, Colors.red[400], 3));
+                          } else if (!checkNumber()) {
+                            _scaffoldKey.currentState?.showSnackBar(
+                                showSnackBar("Invalid Phone number", context,
+                                    Colors.red[400], 3));
+                          } else if (!checkPassword()) {
+                            _scaffoldKey.currentState?.showSnackBar(
+                                showSnackBar("Password does not match", context,
+                                    Colors.red[400], 3));
+                          } else {
+                            _scaffoldKey.currentState?.removeCurrentSnackBar();
+                            _scaffoldKey.currentState?.showSnackBar(
+                                showSnackBar(
+                                    "Trying to log in, Please Wait..." +
+                                        user.name,
+                                    context,
+                                    Colors.green[400],
+                                    2));
+                            EasyDebounce.debounce('login-debouncer',
+                                const Duration(milliseconds: 1200), () {
+                              save(
+                                _scaffoldKey,
+                                context,
+                              );
+                            });
+                          }
+                        },
+                        style: ElevatedButton.styleFrom(
+                          primary: Colors.blue[500],
+                          padding: const EdgeInsets.only(left: 10),
+                          shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(25)),
+                        ),
+                        label: Icon(
+                          MdiIcons.arrowRightBoldCircle,
+                          color: Colors.blue[800],
+                          size: 40,
+                        ),
+                        icon: const Text(
+                          "SIGN IN",
+                          style: TextStyle(
+                              fontSize: 18,
+                              fontWeight: FontWeight.bold,
+                              fontFamily: "fonts/Poppins-Bold.ttf"),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+                const SizedBox(
+                  height: 15,
+                ),
+                Row(children: const <Widget>[
+                  Expanded(
+                      child: Divider(
+                    color: Colors.black,
+                    height: 20,
+                  )),
+                  Text(
+                    "OR",
+                    style: TextStyle(
+                        color: Colors.grey,
+                        fontWeight: FontWeight.bold,
+                        fontSize: 14),
+                  ),
+                  Expanded(
+                      child: Divider(
+                    color: Colors.black,
+                  )),
+                ]),
+                const SizedBox(
+                  height: 15,
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    SignInButton(
+                      Buttons.GoogleDark,
+                      mini: false,
+                      onPressed: () {},
+                    ),
+                    SignInButton(
+                      Buttons.Facebook,
+                      mini: true,
+                      onPressed: () {
+                        Navigator.pushNamed(context, 'admin');
+                      },
+                    ),
+                    SignInButton(
+                      Buttons.Apple,
+                      mini: true,
+                      onPressed: () {},
+                    ),
+                  ],
+                ),
+                const SizedBox(
+                  height: 15,
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    const Text(
+                      "Don't Have Account?",
+                      style: TextStyle(
+                          fontWeight: FontWeight.w300,
+                          fontSize: 18,
+                          fontFamily: "fonts/Poppins-Regular.ttf"),
+                    ),
+                    TextButton(
+                      onPressed: () {
+                        Navigator.pushNamed(context, 'register');
+                      },
+                      child: const Text(
+                        'Sign up',
+                        style: TextStyle(
+                            fontFamily: "fonts/Poppins-Bold.ttf",
+                            color: Color.fromARGB(1000, 42, 111, 249),
+                            fontSize: 20,
+                            fontWeight: FontWeight.bold),
+                      ),
+                    ),
+                  ],
+                )
               ],
             ),
           ),
-        ));
+        ),
+      ),
+    );
   }
 }
