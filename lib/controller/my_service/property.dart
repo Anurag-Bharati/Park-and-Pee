@@ -1,16 +1,17 @@
-// ignore_for_file: file_names, unnecessary_const, unused_field, non_constant_identifier_names, duplicate_ignore, avoid_print
+// ignore_for_file: file_names, unnecessary_const, unused_field, non_constant_identifier_names, duplicate_ignore, avoid_print, deprecated_member_use
+import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
 
+import 'package:easy_debounce/easy_debounce.dart';
 import 'package:file_picker/file_picker.dart';
-import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
+import 'package:parkandpee/controller/add_service/mapview.dart';
+import 'package:parkandpee/model/api.dart';
 import 'package:path/path.dart' as p;
-import '../../api/firebase_api.dart';
-import '../../Model/user.dart';
-import '../../Model/api.dart';
+import '../../model/model_core.dart';
 
 double deviceHeight(BuildContext context) => MediaQuery.of(context).size.height;
 double deviceWidth(BuildContext context) => MediaQuery.of(context).size.width;
@@ -23,11 +24,11 @@ class MyPropertyPage extends StatefulWidget {
 }
 
 class _MyPropertyPagestate extends State<MyPropertyPage> {
-  UploadTask? task;
+  final _scaffoldKey = GlobalKey<ScaffoldState>();
   File? file;
 
   // """"""""""""""""Date Picker"""""""""""""""""""""""
-  DateTime date = DateTime(2022, 12, 22);
+  DateTime date = DateTime.now();
 
   final int _counter = 0;
   String? dropDownValue;
@@ -44,70 +45,123 @@ class _MyPropertyPagestate extends State<MyPropertyPage> {
     'Other',
   ];
   bool value = false;
-  User user = User("", "", "");
-  Uri url = Uri.parse(API.getUrl("register"));
+
+  User user = User();
+  late Uri url;
   final _formKey = GlobalKey<FormState>();
 
-  Future save() async {
-    var res = await http.post(url,
-        headers: {'Content-Type': 'application/json'},
-        body: json.encode({
-          'name': user.name,
-          'number': user.phone,
-          'password': user.password
-        }));
-    if (res.body.isNotEmpty) {
-      var a = jsonDecode(res.body);
-      // ignore: avoid_print
-      print(
-          "Thanks ${a['name']}! Your number (${user.phone}) has been successfully registered and your ID is ${a['id']}");
-      Navigator.pushNamed(context, 'verification');
-    } else {
-      // ignore: avoid_print
-      print("User Doesn't Exists!");
+  Future save(
+      GlobalKey<ScaffoldState> scaffoldKey, BuildContext context) async {
+    _scaffoldKey.currentState!.hideCurrentSnackBar();
+    try {
+      var res = await http
+          .put(url,
+              headers: {'Content-Type': 'application/json'},
+              body: json.encode({
+                'legal_name': user.legalName.toString(),
+                'current_address': user.currentAddress.toString(),
+                'business_number': user.businessNumber.toString(),
+                'dob': user.dob,
+                'citizenship': user.citizenship.toString(),
+                'gender': user.gender.toString(),
+                'verified': true
+              }))
+          .timeout(
+            const Duration(seconds: 2),
+          );
+      if (res.statusCode == 404) {
+        _scaffoldKey.currentState?.showSnackBar(showSnackBar(
+            "Invalid User credentials", context, Colors.red[400], 2));
+      }
+      if (res.statusCode == 200) {
+        // TODO Transfer user
+
+        Navigator.pushAndRemoveUntil<void>(
+          context,
+          MaterialPageRoute(
+            builder: (context) => MapView(
+              user: user,
+            ),
+          ),
+          ModalRoute.withName("/"),
+        );
+      }
+    } on SocketException catch (_) {
+      _scaffoldKey.currentState?.showSnackBar(showSnackBar(
+          "Internet connection required", context, Colors.red[400], 2));
+    } on TimeoutException catch (_) {
+      _scaffoldKey.currentState?.showSnackBar(showSnackBar(
+          "Server isn't responding", context, Colors.orange[400], 2));
+    } on Exception catch (_) {
+      _scaffoldKey.currentState?.showSnackBar(showSnackBar(
+          "Sorry, someting went wrong", context, Colors.red[400], 2));
     }
   }
 
-  bool check() {
-    return checkNumber() && checkPassword() && checkName();
+  bool checkLegalName() {
+    if (user.legalName == null) {
+      return false;
+    } else if (user.legalName!.length < 3) {
+      return false;
+    }
+    return true;
   }
 
-  bool checkNumber() {
-    // ignore: unnecessary_null_comparison
-    return user.phone != null && user.phone.length == 10;
+  bool checkAddress() {
+    if (user.currentAddress == null) {
+      return false;
+    } else if (user.currentAddress!.length < 3) {
+      return false;
+    }
+    return true;
   }
 
-  bool checkName() {
-    return user.name.length > 2 && user.name.length < 30;
+  bool checkDob() {
+    return user.dob != null;
   }
 
-  bool hasNumberAndChar(String password) {
-    bool hasUppercase = password.contains(RegExp(r'[A-Z]'));
-    bool hasDigits = password.contains(RegExp(r'[0-9]'));
-    bool hasLowercase = password.contains(RegExp(r'[a-z]'));
-    bool hasSpecialCharacters =
-        password.contains(RegExp(r'[!@#$%^&*(),.?":{}|<>]'));
-    return hasDigits & hasUppercase & hasLowercase & hasSpecialCharacters;
+  bool checkCitizenship() {
+    return user.citizenship != null;
+  }
+
+  bool checkGender() {
+    return user.gender != null;
+  }
+
+  bool checkContact() {
+    if (user.businessNumber == null) {
+      return false;
+    } else if (user.businessNumber!.length != 10) {
+      return false;
+    }
+    return true;
+  }
+
+  SnackBar showSnackBar(String message, context, Color? color, int duration) {
+    final snackbar = SnackBar(
+        elevation: 0,
+        behavior: SnackBarBehavior.floating,
+        duration: Duration(seconds: duration),
+        backgroundColor: color,
+        content: Text(
+          message,
+          style: const TextStyle(
+              fontFamily: 'Poppins', fontWeight: FontWeight.w500),
+          textAlign: TextAlign.center,
+        ));
+
+    return snackbar;
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    url = Uri.parse(API.getUrl("user/${1}"));
   }
 
   @override
   void dispose() {
     super.dispose();
-  }
-
-  bool checkPassword() {
-    // ignore: unnecessary_null_comparison
-    if (user.password == null || user.confirmPass == null) {
-      return false;
-    } else if (user.password.length < 8) {
-      return false;
-    } else if (!hasNumberAndChar(user.password)) {
-      return false;
-    } else if (user.password != user.confirmPass) {
-      return false;
-    } else {
-      return true;
-    }
   }
 
   @override
@@ -121,6 +175,7 @@ class _MyPropertyPagestate extends State<MyPropertyPage> {
       child: SafeArea(
         top: true,
         child: Scaffold(
+          key: _scaffoldKey,
           resizeToAvoidBottomInset: false,
           backgroundColor: Colors.transparent,
           body: Stack(children: [
@@ -131,133 +186,92 @@ class _MyPropertyPagestate extends State<MyPropertyPage> {
                   Container(
                     padding: const EdgeInsets.symmetric(
                         vertical: 120, horizontal: 10),
-                    child: Form(
-                      key: _formKey,
-                      child: Column(children: [
-                        const Text(
-                          "Are You the Property Owner ? \n Register Now",
-                          textAlign: TextAlign.center,
-                          style: TextStyle(
-                              fontSize: 22,
-                              fontWeight: FontWeight.bold,
-                              color: Colors.black54),
-                        ),
-                        const SizedBox(
-                          height: 20,
-                        ),
-                        Container(
-                          padding: const EdgeInsets.symmetric(
-                              vertical: 0, horizontal: 24),
-                          decoration: BoxDecoration(
-                              color: Colors.transparent,
-                              borderRadius: BorderRadius.circular(25),
-                              border: Border.all(color: Colors.transparent)),
-                          child: Column(children: [
+                    child: Column(children: [
+                      const Text(
+                        "Are You the Property Owner ? \n Register Now",
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                            fontSize: 22,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.black54),
+                      ),
+                      const SizedBox(
+                        height: 20,
+                      ),
+                      Container(
+                        padding: const EdgeInsets.symmetric(
+                            vertical: 0, horizontal: 24),
+                        decoration: BoxDecoration(
+                            color: Colors.transparent,
+                            borderRadius: BorderRadius.circular(25),
+                            border: Border.all(color: Colors.transparent)),
+                        child: Column(children: [
 //@@@@@@@@@@@@@@@@@@@@@@ Legal Name Text Form Field @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
-                            SizedBox(
-                              height: 50,
-                              child: TextFormField(
-                                autovalidateMode:
-                                    AutovalidateMode.onUserInteraction,
-                                style: const TextStyle(color: Colors.black),
-                                controller:
-                                    TextEditingController(text: user.name),
-                                onChanged: (val) {
-                                  user.name = val;
-                                },
-                                validator: (value) {
-                                  if (value!.isEmpty) {
-                                    return 'Please Enter your Name';
-                                  }
-                                  return null;
-                                },
-                                decoration: InputDecoration(
-                                    contentPadding:
-                                        const EdgeInsets.fromLTRB(10, 0, 0, 0),
-                                    fillColor: Colors.white,
-                                    filled: true,
-                                    errorStyle: const TextStyle(
-                                      height: 0.008,
-                                      color: Colors.redAccent,
-                                    ),
-                                    errorBorder: OutlineInputBorder(
-                                      borderRadius: BorderRadius.circular(25),
-                                      borderSide: const BorderSide(
-                                          color: Colors.redAccent, width: 1),
-                                    ),
-                                    focusedErrorBorder: OutlineInputBorder(
-                                      borderRadius: BorderRadius.circular(25),
-                                      borderSide: const BorderSide(
-                                          color: Colors.blue, width: 2),
-                                    ),
-                                    hintText: "Enter Your Legal Name",
-                                    hintStyle: const TextStyle(fontSize: 14),
-                                    enabledBorder: OutlineInputBorder(
-                                      borderSide: const BorderSide(
-                                          width: 2, color: Colors.black26),
-                                      borderRadius: BorderRadius.circular(25),
-                                    ),
-                                    border: OutlineInputBorder(
-                                      borderRadius: BorderRadius.circular(25),
-                                    )),
-                              ),
-                            ),
-                            const SizedBox(
-                              height: 15,
-                            ),
+
 //@@@@@@@@@@@@@@@@@@@@@@ Close Legal Name Text Form Field @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 
 //@@@@@@@@@@@@@@@@@@@@@@ Address Text Form Field and DropDown @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 
-                            Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  SizedBox(
-                                    height: 50,
-                                    width: 170,
+                          Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: [
+                                SizedBox(
+                                  width: 165,
+                                  child: TextFormField(
+                                    style: const TextStyle(
+                                        color: Colors.black, fontSize: 16),
+                                    controller: TextEditingController(
+                                        text: user.legalName),
+                                    onChanged: (val) {
+                                      user.legalName = val;
+                                    },
+                                    decoration: InputDecoration(
+                                        contentPadding:
+                                            const EdgeInsets.symmetric(
+                                                vertical: 20.0,
+                                                horizontal: 10.0),
+                                        fillColor: Colors.white,
+                                        filled: true,
+                                        hintText: "Legal Name",
+                                        hintStyle:
+                                            const TextStyle(fontSize: 16),
+                                        enabledBorder: OutlineInputBorder(
+                                          borderSide: const BorderSide(
+                                              width: 2, color: Colors.black26),
+                                          borderRadius:
+                                              BorderRadius.circular(25),
+                                        ),
+                                        border: OutlineInputBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(25),
+                                        )),
+                                  ),
+                                ),
+                                Center(
+                                  child: SizedBox(
+                                    width: 165,
                                     child: TextFormField(
-                                      autovalidateMode:
-                                          AutovalidateMode.onUserInteraction,
-                                      style: const TextStyle(),
+                                      keyboardType: TextInputType.number,
+                                      style: const TextStyle(
+                                        color: Colors.black,
+                                        fontSize: 16,
+                                      ),
                                       controller: TextEditingController(
-                                          text: user.password),
+                                          text: user.businessNumber),
                                       onChanged: (val) {
-                                        user.password = val;
-                                      },
-                                      validator: (value) {
-                                        if (value!.isEmpty) {
-                                          return 'Please Enter your Address';
-                                        }
-                                        return null;
+                                        user.businessNumber = val;
                                       },
                                       decoration: InputDecoration(
                                           contentPadding:
-                                              const EdgeInsets.fromLTRB(
-                                                  10, 0, 0, 0),
+                                              const EdgeInsets.symmetric(
+                                                  vertical: 20.0,
+                                                  horizontal: 10.0),
                                           fillColor: Colors.white,
                                           filled: true,
-                                          errorStyle: const TextStyle(
-                                            height: 0.008,
-                                            color: Colors.redAccent,
-                                          ),
-                                          errorBorder: OutlineInputBorder(
-                                            borderRadius:
-                                                BorderRadius.circular(25),
-                                            borderSide: const BorderSide(
-                                                color: Colors.redAccent,
-                                                width: 1),
-                                          ),
-                                          focusedErrorBorder:
-                                              OutlineInputBorder(
-                                            borderRadius:
-                                                BorderRadius.circular(25),
-                                            borderSide: const BorderSide(
-                                                color: Colors.blue, width: 2),
-                                          ),
-                                          hintText: "Current Address",
+                                          hintText: "Business No.",
                                           hintStyle:
-                                              const TextStyle(fontSize: 14),
+                                              const TextStyle(fontSize: 16),
                                           enabledBorder: OutlineInputBorder(
                                             borderSide: const BorderSide(
                                                 width: 2,
@@ -271,108 +285,38 @@ class _MyPropertyPagestate extends State<MyPropertyPage> {
                                           )),
                                     ),
                                   ),
+                                ),
 
 // ~~~~~~~~~~~~~~~~~~~DropDown Butoon~~~~~~~~~~~~~~~~~~
-                                  SizedBox(
-                                      height: 60,
-                                      width: MediaQuery.of(context).size.width *
-                                          0.4,
-                                      child: DropdownButtonFormField(
-                                        icon: const Icon(
-                                          Icons.keyboard_arrow_down,
-                                        ),
-                                        iconSize: 25,
-                                        iconEnabledColor: Colors.green,
-                                        decoration: InputDecoration(
-                                            enabledBorder: OutlineInputBorder(
-                                              borderSide: const BorderSide(
-                                                  width: 2,
-                                                  color: Colors.black26),
-                                              borderRadius:
-                                                  BorderRadius.circular(25.0),
-                                            ),
-                                            border: const OutlineInputBorder(
-                                              borderRadius: BorderRadius.all(
-                                                Radius.circular(25.0),
-                                              ),
-                                            ),
-                                            filled: true,
-                                            hintStyle: TextStyle(
-                                                color: Colors.grey[800]),
-                                            hintText: "Select Services",
-                                            fillColor: Colors.white),
-                                        value: dropDownValue,
-                                        // ignore: non_constant_identifier_names
-                                        onChanged: (String? Value) {
-                                          setState(() {
-                                            dropDownValue = Value;
-                                          });
-                                        },
-                                        // ignore: non_constant_identifier_names
-                                        items: ItemList.map((Items) =>
-                                            DropdownMenuItem(
-                                                value: Items,
-                                                child: Container(
-                                                    alignment: Alignment.center,
-                                                    child:
-                                                        Text(Items)))).toList(),
-                                      ))
-                                ]),
-                            const SizedBox(
-                              height: 15,
-                            ),
+                              ]),
+                          const SizedBox(
+                            height: 20,
+                          ),
 
 // @@@@@@@@@@@@@@@@@@@@@@@@ Birthdate @@@@@@@@@@@@@@@@@@@@@@@@@@
-                            Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  SizedBox(
-                                    height: 50,
-                                    width: 170,
+                          Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Center(
+                                  child: SizedBox(
+                                    width: 165,
                                     child: TextFormField(
-                                      autovalidateMode:
-                                          AutovalidateMode.onUserInteraction,
-                                      style:
-                                          const TextStyle(color: Colors.black),
+                                      style: const TextStyle(),
                                       controller: TextEditingController(
-                                          text: user.name),
+                                          text: user.currentAddress),
                                       onChanged: (val) {
-                                        user.name = val;
-                                      },
-                                      validator: (value) {
-                                        if (value!.isEmpty) {
-                                          return 'Please Enter Contact No.';
-                                        }
-                                        return null;
+                                        user.currentAddress = val;
                                       },
                                       decoration: InputDecoration(
                                           contentPadding:
-                                              const EdgeInsets.fromLTRB(
-                                                  10, 0, 0, 0),
+                                              const EdgeInsets.symmetric(
+                                                  vertical: 20.0,
+                                                  horizontal: 10.0),
                                           fillColor: Colors.white,
                                           filled: true,
-                                          errorStyle: const TextStyle(
-                                            height: 0.008,
-                                            color: Colors.redAccent,
-                                          ),
-                                          errorBorder: OutlineInputBorder(
-                                            borderRadius:
-                                                BorderRadius.circular(25),
-                                            borderSide: const BorderSide(
-                                                color: Colors.redAccent,
-                                                width: 1),
-                                          ),
-                                          focusedErrorBorder:
-                                              OutlineInputBorder(
-                                            borderRadius:
-                                                BorderRadius.circular(25),
-                                            borderSide: const BorderSide(
-                                                color: Colors.blue, width: 2),
-                                          ),
-                                          hintText: "Business Contact No.",
+                                          hintText: "Current Address",
                                           hintStyle:
-                                              const TextStyle(fontSize: 14),
+                                              const TextStyle(fontSize: 16),
                                           enabledBorder: OutlineInputBorder(
                                             borderSide: const BorderSide(
                                                 width: 2,
@@ -386,213 +330,238 @@ class _MyPropertyPagestate extends State<MyPropertyPage> {
                                           )),
                                     ),
                                   ),
-                                  SizedBox(
-                                      height: 50,
-                                      width: MediaQuery.of(context).size.width *
-                                          0.4,
-                                      child: ElevatedButton.icon(
-                                        onPressed: () async {
-                                          DateTime? newDate =
-                                              await showDatePicker(
-                                                  context: context,
-                                                  initialDate: date,
-                                                  firstDate: DateTime(1900),
-                                                  lastDate: DateTime(2100));
-                                          //If cancel then  null
-                                          if (newDate == null) return;
-
-                                          //if "OK" then DateTime
-                                          setState(() => date = newDate);
-                                        },
-                                        style: ElevatedButton.styleFrom(
-                                          shape: const RoundedRectangleBorder(
-                                              borderRadius: BorderRadius.all(
-                                            Radius.circular(25),
-                                          )),
-                                          primary: Colors.orange[500],
-                                          textStyle:
-                                              const TextStyle(fontSize: 12),
-                                        ),
-                                        icon: const Icon(
-                                          MdiIcons.calendarToday,
-                                          size: 25,
-                                        ),
-                                        label: Text(
-                                          '${date.year}/${date.month}/${date.day}',
-                                          style: const TextStyle(
-                                              fontSize: 15,
-                                              fontWeight: FontWeight.w300),
-                                        ),
-                                      )),
-                                  const SizedBox(
-                                    height: 15,
-                                  ),
-                                ]),
+                                ),
+                                SizedBox(
+                                    height: 60,
+                                    width:
+                                        MediaQuery.of(context).size.width * 0.4,
+                                    child: DropdownButtonFormField(
+                                      icon: const Icon(
+                                        Icons.keyboard_arrow_down,
+                                      ),
+                                      iconSize: 25,
+                                      iconEnabledColor: Colors.green,
+                                      decoration: InputDecoration(
+                                          enabledBorder: OutlineInputBorder(
+                                            borderSide: const BorderSide(
+                                                width: 2,
+                                                color: Colors.black26),
+                                            borderRadius:
+                                                BorderRadius.circular(25),
+                                          ),
+                                          border: const OutlineInputBorder(
+                                            borderRadius: BorderRadius.all(
+                                              Radius.circular(25.0),
+                                            ),
+                                          ),
+                                          filled: true,
+                                          hintStyle: TextStyle(
+                                              color: Colors.grey[800]),
+                                          hintText: "Select Gender",
+                                          fillColor: Colors.white),
+                                      value: dropDownGenderValue,
+                                      // ignore: non_constant_identifier_names
+                                      onChanged: (String? Value) {
+                                        user.gender = Value;
+                                        setState(() {
+                                          dropDownGenderValue = Value;
+                                        });
+                                      },
+                                      // ignore: non_constant_identifier_names
+                                      items: GenderList.map((GItems) =>
+                                          DropdownMenuItem(
+                                              value: GItems,
+                                              child: Container(
+                                                  alignment: Alignment.center,
+                                                  child:
+                                                      Text(GItems)))).toList(),
+                                    ))
+                              ]),
 
 // @@@@@@@@@@@@@@@@@@@@@@@@ close Birthdate @@@@@@@@@@@@@@@@@@@@@@@@@@
 
-                            const SizedBox(
-                              height: 15,
-                            ),
+                          const SizedBox(
+                            height: 20,
+                          ),
 //@@@@@@@@@@@@@@@@@@@@@@ Citizen Ship And DropDown Butoon @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
-                            Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  SizedBox(
-                                      height: 50,
-                                      width: 170,
-                                      child: ElevatedButton.icon(
-                                        onPressed: () {
-                                          selectFile();
-                                        },
-                                        style: ElevatedButton.styleFrom(
-                                          shape: RoundedRectangleBorder(
-                                              borderRadius:
-                                                  BorderRadius.circular(25)),
-                                          primary: Colors.orange[500],
-                                          onPrimary: Colors.white,
-                                          textStyle:
-                                              const TextStyle(fontSize: 12),
-                                        ),
-                                        icon: const Icon(
-                                          MdiIcons.fileDocumentEditOutline,
-                                        ),
-                                        label: const Text("Upload Citizenship"),
-                                      )),
-                                  SizedBox(
-                                      height: 60,
-                                      width: MediaQuery.of(context).size.width *
-                                          0.4,
-                                      child: DropdownButtonFormField(
-                                        icon: const Icon(
-                                          Icons.keyboard_arrow_down,
-                                        ),
-                                        iconSize: 25,
-                                        iconEnabledColor: Colors.green,
-                                        decoration: InputDecoration(
-                                            enabledBorder: OutlineInputBorder(
-                                              borderSide: const BorderSide(
-                                                  width: 2,
-                                                  color: Colors.black26),
-                                              borderRadius:
-                                                  BorderRadius.circular(25),
-                                            ),
-                                            border: const OutlineInputBorder(
-                                              borderRadius: BorderRadius.all(
-                                                Radius.circular(25.0),
-                                              ),
-                                            ),
-                                            filled: true,
-                                            hintStyle: TextStyle(
-                                                color: Colors.grey[800]),
-                                            hintText: "Select Gender",
-                                            fillColor: Colors.white),
-                                        value: dropDownGenderValue,
-                                        // ignore: non_constant_identifier_names
-                                        onChanged: (String? Value) {
-                                          setState(() {
-                                            dropDownGenderValue = Value;
-                                          });
-                                        },
-                                        // ignore: non_constant_identifier_names
-                                        items: GenderList.map((GItems) =>
-                                            DropdownMenuItem(
-                                                value: GItems,
-                                                child: Container(
-                                                    alignment: Alignment.center,
-                                                    child: Text(
-                                                        GItems)))).toList(),
-                                      ))
-                                ]),
+                          Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                SizedBox(
+                                    height: 60,
+                                    width: 155,
+                                    child: ElevatedButton.icon(
+                                      onPressed: () async {
+                                        await selectFile(
+                                            _scaffoldKey, context, user);
+                                      },
+                                      style: ElevatedButton.styleFrom(
+                                        shape: RoundedRectangleBorder(
+                                            borderRadius:
+                                                BorderRadius.circular(25)),
+                                        primary: Colors.orange[500],
+                                        onPrimary: Colors.white,
+                                        textStyle:
+                                            const TextStyle(fontSize: 12),
+                                      ),
+                                      icon: const Icon(
+                                        MdiIcons.fileDocumentEditOutline,
+                                      ),
+                                      label: const Text("Upload Citizenship"),
+                                    )),
+                                SizedBox(
+                                    height: 60,
+                                    width: 155,
+                                    child: ElevatedButton.icon(
+                                      onPressed: () async {
+                                        DateTime? newDate =
+                                            await showDatePicker(
+                                                context: context,
+                                                initialDate: date,
+                                                firstDate: DateTime(1900),
+                                                lastDate: DateTime(2100));
+                                        //If cancel then  null
+                                        if (newDate == null) return;
 
-//@@@@@@@@@@@@@@@@@@@@@@ Citizen Ship And DropDown Butoon @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
-                            const SizedBox(
-                              height: 10,
-                            ),
-                            Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  SizedBox(
-                                    height: 20,
-                                    width:
-                                        MediaQuery.of(context).size.width * 0.4,
-                                    child: Text(
-                                      fileName,
-                                      style:
-                                          const TextStyle(color: Colors.grey),
-                                    ),
-                                  ),
-                                  const SizedBox(height: 20),
-                                  task != null
-                                      ? buildUploadStatus(task!)
-                                      : Container(),
-                                ]),
-
-                            const SizedBox(
-                              height: 20,
-                            ),
-                            Row(children: <Widget>[
-                              Checkbox(
-                                activeColor: Colors.orange,
-                                shape: const CircleBorder(),
-                                tristate: false,
-                                value: value,
-                                onChanged: (value) {
-                                  setState(() {
-                                    this.value = value!;
-                                  });
-                                },
-                              ),
-
-                              const SizedBox(
-                                width: 1,
-                              ), //SizedBox
-                              const Text(
-                                'Agree to our Terms and Condition \n and Privacy Policy',
-                                style: TextStyle(
-                                    color: Colors.black45,
-                                    fontSize: 15,
-                                    fontFamily: "fonts/Poppins-Regular.ttf"),
-                              ),
-                            ]),
-
-                            const SizedBox(
-                              height: 30,
-                            ),
-                            SizedBox(
-                              //  padding: EdgeInsets.only(left:50),
-                              height: 40,
-                              width: 150,
-                              child: ElevatedButton(
-                                child: const Text('Register',
-                                    style: TextStyle(
-                                        fontSize: 15,
-                                        fontFamily: "fonts/Poppins-Bold.ttf")),
-                                onPressed: () {
-                                  uploadFile();
-                                  if (_formKey.currentState!.validate()) {
-                                    if (check()) {
-                                      save();
-                                    } else {
-                                      // ignore: avoid_print
-                                      print("Invalid Credentials");
-                                    }
-                                  }
-                                },
-                                style: ElevatedButton.styleFrom(
-                                  primary: Colors.green,
-                                  shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(25)),
+                                        //if "OK" then DateTime
+                                        setState(() => {date = newDate});
+                                        var a = date.toString().split(" ");
+                                        user.dob = a[0];
+                                      },
+                                      style: ElevatedButton.styleFrom(
+                                        shape: const RoundedRectangleBorder(
+                                            borderRadius: BorderRadius.all(
+                                          Radius.circular(25),
+                                        )),
+                                        primary: Colors.orange[500],
+                                        textStyle:
+                                            const TextStyle(fontSize: 12),
+                                      ),
+                                      icon: const Icon(
+                                        MdiIcons.calendarToday,
+                                        size: 25,
+                                      ),
+                                      label: Text(
+                                        '${date.year}/${date.month}/${date.day}',
+                                        style: const TextStyle(
+                                            fontSize: 15,
+                                            fontWeight: FontWeight.w300),
+                                      ),
+                                    )),
+                                const SizedBox(
+                                  height: 15,
                                 ),
+                              ]),
+
+//@@@@@@@@@@@@@@@@@@@@@@ Citizen Ship And DropDown Butoon @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+                          const SizedBox(
+                            height: 20,
+                          ),
+
+                          SizedBox(
+                            child: Center(
+                              child: Text(
+                                'Selected: ' + fileName,
+                                style: const TextStyle(color: Colors.grey),
                               ),
                             ),
-                          ]),
-                        ),
-                      ]),
-                    ),
-                  )
+                          ),
+                          const SizedBox(height: 15),
+
+                          Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: <Widget>[
+                                Checkbox(
+                                  activeColor: Colors.orange,
+                                  shape: const CircleBorder(),
+                                  tristate: false,
+                                  value: value,
+                                  onChanged: (value) {
+                                    setState(() {
+                                      this.value = value!;
+                                    });
+                                  },
+                                ),
+
+                                const SizedBox(
+                                  width: 1,
+                                ), //SizedBox
+                                const Text(
+                                  'Agree to our Terms and Condition \n and Privacy Policy',
+                                  style: TextStyle(
+                                      color: Colors.black45,
+                                      fontSize: 15,
+                                      fontFamily: "fonts/Poppins-Regular.ttf"),
+                                ),
+                              ]),
+
+                          const SizedBox(
+                            height: 20,
+                          ),
+                          SizedBox(
+                            //  padding: EdgeInsets.only(left:50),
+                            height: 60,
+                            width: 180,
+                            child: ElevatedButton(
+                              child: const Text('Register',
+                                  style: TextStyle(
+                                      fontSize: 22,
+                                      fontFamily: "fonts/Poppins-Bold.ttf")),
+                              onPressed: () {
+                                if (!checkLegalName()) {
+                                  _scaffoldKey.currentState?.showSnackBar(
+                                      showSnackBar("Invalid Legal Name",
+                                          context, Colors.red[400], 2));
+                                } else if (!checkAddress()) {
+                                  _scaffoldKey.currentState?.showSnackBar(
+                                      showSnackBar(
+                                          "Please, Provide your current address",
+                                          context,
+                                          Colors.red[400],
+                                          2));
+                                } else if (!checkContact()) {
+                                  _scaffoldKey.currentState?.showSnackBar(
+                                      showSnackBar("Invalid Business Number",
+                                          context, Colors.red[400], 2));
+                                } else if (!checkDob()) {
+                                  _scaffoldKey.currentState?.showSnackBar(
+                                      showSnackBar(
+                                          "Please, Select your date of birth",
+                                          context,
+                                          Colors.red[400],
+                                          2));
+                                } else if (!checkGender()) {
+                                  _scaffoldKey.currentState?.showSnackBar(
+                                      showSnackBar(
+                                          "Please, Provide your gender",
+                                          context,
+                                          Colors.red[400],
+                                          2));
+                                } else {
+                                  _scaffoldKey.currentState?.showSnackBar(
+                                      showSnackBar(
+                                          "Now sending the request, Please wait...",
+                                          context,
+                                          Colors.green[400],
+                                          2));
+                                  EasyDebounce.debounce(
+                                      "property-debouncer",
+                                      const Duration(milliseconds: 1200),
+                                      () => {save(_scaffoldKey, context)});
+                                }
+                              },
+                              style: ElevatedButton.styleFrom(
+                                primary: Colors.green,
+                                shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(25)),
+                              ),
+                            ),
+                          ),
+                        ]),
+                      ),
+                    ]),
+                  ),
                 ],
               ),
             )
@@ -602,47 +571,48 @@ class _MyPropertyPagestate extends State<MyPropertyPage> {
     );
   }
 
-  Future selectFile() async {
-    final result = await FilePicker.platform.pickFiles(allowMultiple: false);
+  Future selectFile(GlobalKey<ScaffoldState> scaffoldKey, BuildContext context,
+      User user) async {
+    final result = await FilePicker.platform.pickFiles(
+      allowMultiple: false,
+      type: FileType.custom,
+      allowedExtensions: ['png', 'jpg', 'jpeg'],
+    );
 
-    if (result == null) return;
+    if (result == null) {
+      _scaffoldKey.currentState?.showSnackBar(
+          showSnackBar("No file selected", context, Colors.red[400], 1));
+      return;
+    }
+    _scaffoldKey.currentState?.showSnackBar(showSnackBar(
+        "Picture: \"${result.names[0].toString()}\" is selected",
+        context,
+        Colors.green[400],
+        2));
     final path = result.files.single.path!;
-
+    _asyncFileUpload(File(result.files.elementAt(0).path.toString()),
+        1.toString(), "citizenship", user);
     setState(() => file = File(path));
   }
+}
 
-  Future uploadFile() async {
-    if (file == null) return;
+_asyncFileUpload(File file, String id, String type, User user) async {
+  //create multipart request for POST or PATCH method
+  var request =
+      http.MultipartRequest("POST", Uri.parse(API.getUrl("uploadFile")));
+  //add text fields
+  request.fields["id"] = id;
+  request.fields["type"] = type;
+  //create multipart using filepath, string or bytes
+  var pic = await http.MultipartFile.fromPath("file", file.path);
+  //add multipart to request
+  request.files.add(pic);
+  var response = await request.send();
 
-    final fileName = p.basename(file!.path);
-    final destination = 'files/$fileName';
+  //Get the response from the server
+  var responseData = await response.stream.toBytes();
+  var responseString = String.fromCharCodes(responseData);
+  var jsonObject = jsonDecode(responseString);
 
-    task = FirebaseApi.uploadFile(destination, file!);
-    setState(() {});
-
-    if (task == null) return;
-
-    final snapshot = await task!.whenComplete(() {});
-    final urlDownload = await snapshot.ref.getDownloadURL();
-
-    print('Download-Link: $urlDownload');
-  }
-
-  Widget buildUploadStatus(UploadTask task) => StreamBuilder<TaskSnapshot>(
-        stream: task.snapshotEvents,
-        builder: (context, snapshot) {
-          if (snapshot.hasData) {
-            final snap = snapshot.data!;
-            final progress = snap.bytesTransferred / snap.totalBytes;
-            final percentage = (progress * 100).toStringAsFixed(2);
-
-            return Text(
-              '$percentage %',
-              style: const TextStyle(color: Colors.grey),
-            );
-          } else {
-            return Container();
-          }
-        },
-      );
+  user.citizenship = jsonObject["fileDownloadUri"];
 }

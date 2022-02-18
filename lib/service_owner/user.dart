@@ -1,6 +1,6 @@
-// ignore_for_file: file_names
+// ignore_for_file: file_names, non_constant_identifier_names
 
-import 'service_main.dart';
+import '../model/service_main.dart';
 
 class User {
   int? id;
@@ -10,9 +10,9 @@ class User {
   String? confirmPass;
   List<ServiceMain> services = [];
 
-  String? idPath;
-  String? address;
-  String? businessPhone;
+  String? legal_name;
+  String? current_address;
+  String? business_number;
   String? gender;
   String? legalName;
 

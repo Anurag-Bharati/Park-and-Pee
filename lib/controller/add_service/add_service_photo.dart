@@ -5,16 +5,16 @@ import 'dart:io';
 
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
-import 'package:parkandpee/Model/service.dart';
-import 'package:parkandpee/Model/service_main.dart';
+import 'package:parkandpee/model/service_main.dart';
 import 'package:parkandpee/controller/add_service/add_service_success.dart';
 import 'package:http/http.dart' as http;
-import 'package:parkandpee/Model/api.dart';
-import 'package:parkandpee/Model/user.dart';
+import 'package:parkandpee/model/api.dart';
+import 'package:parkandpee/model/model_core.dart' show Service, User;
+
 import '../../Model/widgets/progress_step_widget.dart';
 
 class AddServicePhoto extends StatefulWidget {
-  final Service service;
+  final ServiceMain service;
   final User user;
 
   const AddServicePhoto({Key? key, required this.service, required this.user})
@@ -248,7 +248,8 @@ class _MapViewState extends State<AddServicePhoto> {
                                                           .elementAt(0)
                                                           .path
                                                           .toString()),
-                                                      widget.user.id.toString(),
+                                                      widget.user.userId
+                                                          .toString(),
                                                       "main");
                                                 });
                                               }
@@ -324,7 +325,7 @@ class _MapViewState extends State<AddServicePhoto> {
                                                             .elementAt(0)
                                                             .path
                                                             .toString()),
-                                                        widget.user.id
+                                                        widget.user.userId
                                                             .toString(),
                                                         "cover");
                                                   });
@@ -464,7 +465,7 @@ class _MapViewState extends State<AddServicePhoto> {
                                                 user: widget.user,
                                               ),
                                             ),
-                                            ModalRoute.withName("/"),
+                                            ModalRoute.withName("navbar"),
                                           );
                                         }
                                       },
@@ -514,18 +515,15 @@ class _MapViewState extends State<AddServicePhoto> {
     final ServiceMain service = ServiceMain(
         id: null,
         name: widget.service.name,
-        locationType: _locationType(widget.service.locType),
-        serviceType: widget.service.serviceType == "Parking"
-            ? ServiceType.PARK
-            : ServiceType.PEE,
-        latitude: widget.service.coordinates["latitude"],
-        longitude: widget.service.coordinates["longitude"],
-        amenities: ServiceMain.encodeListToString(widget.service.amenity),
+        locationType: widget.service.locationType,
+        serviceType: widget.service.serviceType,
+        latitude: widget.service.latitude,
+        longitude: widget.service.longitude,
+        amenities: widget.service.amenities,
         mainPicPath: widget.service.mainPicPath,
         coverPicPath: widget.service.coverPicPath);
 
-    Uri addServiceUri = Uri.parse(
-        "http://192.168.1.3:8080/api/user/" + widget.user.id.toString());
+    Uri addServiceUri = Uri.parse(API.getUrl("user/${widget.user.userId}"));
 
     var response = await http.put(
       addServiceUri,
@@ -534,7 +532,7 @@ class _MapViewState extends State<AddServicePhoto> {
         "services": [
           {
             "name": service.name,
-            "location_type": widget.service.locType,
+            "location_type": widget.service.locationType,
             "service_type": widget.service.serviceType,
             "latitude": service.latitude!.toDouble(),
             "longitude": service.longitude!.toDouble(),
@@ -545,8 +543,7 @@ class _MapViewState extends State<AddServicePhoto> {
         ]
       }),
     );
-    if (response.body.isNotEmpty) {
-      widget.user.services.add(service);
+    if (response.statusCode == 200) {
     } else {
       _scaffoldKey.currentState?.showSnackBar(showSnackBar(
           "Sorry! Something went wrong. Please Try again.",
@@ -556,22 +553,10 @@ class _MapViewState extends State<AddServicePhoto> {
     }
   }
 
-  LocationType _locationType(String? locationType) {
-    if (locationType == "Hotel") {
-      return LocationType.HOTEL;
-    } else if (locationType == "Restaurant") {
-      return LocationType.RESTAURANT;
-    } else if (locationType == "Home") {
-      return LocationType.HOME;
-    } else {
-      return LocationType.OTHER;
-    }
-  }
-
   _asyncFileUpload(File file, String id, String type) async {
     //create multipart request for POST or PATCH method
-    var request = http.MultipartRequest(
-        "POST", Uri.parse("http://192.168.1.3:8080/api/uploadFile"));
+    var request =
+        http.MultipartRequest("POST", Uri.parse(API.getUrl("uploadFile")));
     //add text fields
     request.fields["id"] = id;
     request.fields["type"] = type;

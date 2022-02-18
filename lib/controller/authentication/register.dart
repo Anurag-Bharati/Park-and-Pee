@@ -1,6 +1,8 @@
 // ignore_for_file: prefer_const_constructors, deprecated_member_use
 
+import 'dart:async';
 import 'dart:convert';
+import 'dart:io';
 
 import 'package:easy_debounce/easy_debounce.dart';
 import 'package:flutter/material.dart';
@@ -8,8 +10,8 @@ import 'package:flutter_signin_button/flutter_signin_button.dart';
 import 'package:http/http.dart' as http;
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:parkandpee/controller/authentication/verification.dart';
+import 'package:parkandpee/model/model_core.dart';
 
-import '../../Model/user.dart';
 import '../../Model/api.dart';
 
 class MyRegister extends StatefulWidget {
@@ -22,42 +24,57 @@ class MyRegister extends StatefulWidget {
 class _MyRegisterState extends State<MyRegister> {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey();
   bool value = false;
-  User user = User("", "", "");
-  Uri url = Uri.parse(API.getUrl("register"));
-  final _formKey = GlobalKey<FormState>();
+  String? confirmPass;
+
+  // DUMMY_VALUE
+  User user = User(userId: 1);
+  Uri url = Uri.parse(API.getUrl("user/auth"));
 
   Future save(
       GlobalKey<ScaffoldState> scaffoldKey, BuildContext context) async {
-    var res = await http.post(url,
-        headers: {'Content-Type': 'application/json'},
-        body: json.encode({
-          'name': user.name,
-          'number': user.phone,
-          'password': user.password
-        }));
-    if (res.body.isNotEmpty) {
-      var a = jsonDecode(res.body);
-      // ignore: avoid_print
-      print(
-          "Thanks ${a['name']}! Your number (${user.phone}) has been successfully registered and your ID is ${a['id']}");
-      Navigator.of(context).push(
-          MaterialPageRoute(builder: (context) => MyVerification(user.phone)));
-    } else {
-      // ignore: avoid_print
-      print("User Doesn't Exists!");
+    try {
+      String encodedPass = base64.encode(utf8.encode(user.password.toString()));
+      var res = await http
+          .post(url,
+              headers: {'Content-Type': 'application/json'},
+              body: json.encode({
+                'name': user.name,
+                'number': user.number.toString(),
+                'password': user.password
+              }))
+          .timeout(
+            const Duration(seconds: 2),
+          );
+      if (res.statusCode == 404) {
+        _scaffoldKey.currentState?.showSnackBar(showSnackBar(
+            "Invalid User credentials", context, Colors.red[400], 2));
+      }
+      if (res.statusCode == 202) {
+        // TODO Transfer user
+        Navigator.pushNamed(context, 'navbar');
+      }
+    } on SocketException catch (_) {
+      _scaffoldKey.currentState?.showSnackBar(showSnackBar(
+          "Internet connection required", context, Colors.red[400], 2));
+    } on TimeoutException catch (_) {
+      _scaffoldKey.currentState?.showSnackBar(showSnackBar(
+          "Server isn't responding", context, Colors.orange[400], 2));
+    } on Exception catch (_) {
+      _scaffoldKey.currentState?.showSnackBar(showSnackBar(
+          "Sorry, someting went wrong", context, Colors.red[400], 2));
     }
   }
 
   bool checkNull() {
-    return user.phone.isNotEmpty && user.name.isNotEmpty;
+    return user.number != null && user.name != null;
   }
 
   bool checkNumber() {
-    return user.phone.length == 10;
+    return user.number!.length == 10;
   }
 
   bool checkName() {
-    return user.name.length > 2 && user.name.length < 30;
+    return user.name!.length > 2 && user.name!.length < 30;
   }
 
   bool hasNumberAndChar(String password) {
@@ -70,11 +87,11 @@ class _MyRegisterState extends State<MyRegister> {
   }
 
   bool checkPasswordLength() {
-    return user.password.length < 8;
+    return user.password!.length < 8;
   }
 
   bool checkPasswordMatch() {
-    return user.password != user.confirmPass;
+    return user.password != confirmPass;
   }
 
   SnackBar showSnackBar(String message, context, Color? color, int duration) {
@@ -142,10 +159,11 @@ class _MyRegisterState extends State<MyRegister> {
                 SizedBox(
                   height: 50,
                   child: TextFormField(
+                    keyboardType: TextInputType.number,
                     style: TextStyle(color: Colors.black),
-                    controller: TextEditingController(text: user.phone),
+                    controller: TextEditingController(text: user.number),
                     onChanged: (val) {
-                      user.phone = val;
+                      user.number = val;
                     },
                     decoration: InputDecoration(
                         contentPadding: EdgeInsets.fromLTRB(10, 0, 0, 0),
@@ -187,9 +205,9 @@ class _MyRegisterState extends State<MyRegister> {
                   child: TextFormField(
                     style: TextStyle(),
                     obscureText: true,
-                    controller: TextEditingController(text: user.confirmPass),
+                    controller: TextEditingController(text: confirmPass),
                     onChanged: (val) {
-                      user.confirmPass = val;
+                      confirmPass = val;
                     },
                     decoration: InputDecoration(
                       contentPadding: EdgeInsets.fromLTRB(10, 0, 0, 0),
@@ -243,7 +261,8 @@ class _MyRegisterState extends State<MyRegister> {
                       } else {
                         _scaffoldKey.currentState?.removeCurrentSnackBar();
                         _scaffoldKey.currentState?.showSnackBar(showSnackBar(
-                            "Trying to log in, Please Wait..." + user.name,
+                            "Trying to log in, Please Wait..." +
+                                user.name.toString(),
                             context,
                             Colors.green[400],
                             2));

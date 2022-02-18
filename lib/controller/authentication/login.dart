@@ -8,7 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:flutter_signin_button/flutter_signin_button.dart';
 import 'package:http/http.dart' as http;
-import '../../Model/user.dart';
+import 'package:parkandpee/model/model_core.dart' show User;
 import '../../Model/api.dart';
 
 double deviceHeight(BuildContext context) => MediaQuery.of(context).size.height;
@@ -24,19 +24,20 @@ class MyLogin extends StatefulWidget {
 class _MyLoginState extends State<MyLogin> {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey();
   bool value = false;
-  User user = User("", "", "");
+  User user = User(userId: 1);
   Uri url = Uri.parse(API.getUrl("user/auth"));
-  final _formKey = GlobalKey<FormState>();
 
   Future save(
       GlobalKey<ScaffoldState> scaffoldKey, BuildContext context) async {
     try {
-      String encodedPass = base64.encode(utf8.encode(user.password));
+      String encodedPass = base64.encode(utf8.encode(user.password.toString()));
       var res = await http
           .post(url,
               headers: {'Content-Type': 'application/json'},
-              body: json.encode(
-                  {'number': user.phone.toString(), 'password': user.password}))
+              body: json.encode({
+                'number': user.number.toString(),
+                'password': user.password
+              }))
           .timeout(
             const Duration(seconds: 2),
           );
@@ -45,9 +46,7 @@ class _MyLoginState extends State<MyLogin> {
             "Invalid User credentials", context, Colors.red[400], 2));
       }
       if (res.statusCode == 202) {
-        var a = jsonDecode(res.body);
-        // ignore: avoid_print
-        print("Welcome ${a['name']}! Your ID is ${a['id']}");
+        // TODO Transfer user
         Navigator.pushNamed(context, 'navbar');
       }
     } on SocketException catch (_) {
@@ -63,11 +62,11 @@ class _MyLoginState extends State<MyLogin> {
   }
 
   bool checkNull() {
-    return user.phone.isNotEmpty;
+    return user.number != null;
   }
 
   bool checkNumber() {
-    return user.phone.length == 10;
+    return user.number!.length == 10;
   }
 
   bool hasNumberAndChar(String password) {
@@ -82,9 +81,9 @@ class _MyLoginState extends State<MyLogin> {
   bool checkPassword() {
     if (user.password == null) {
       return false;
-    } else if (user.password.length < 8) {
+    } else if (user.password!.length < 8) {
       return false;
-    } else if (!hasNumberAndChar(user.password)) {
+    } else if (!hasNumberAndChar(user.password.toString())) {
       return true;
     } else {
       return true;
@@ -134,9 +133,9 @@ class _MyLoginState extends State<MyLogin> {
                   child: TextFormField(
                     keyboardType: TextInputType.number,
                     style: const TextStyle(color: Colors.black),
-                    controller: TextEditingController(text: user.phone),
+                    controller: TextEditingController(text: user.number),
                     onChanged: (val) {
-                      user.phone = val;
+                      user.number = val;
                     },
                     decoration: InputDecoration(
                         contentPadding: const EdgeInsets.fromLTRB(10, 0, 0, 0),
@@ -221,7 +220,7 @@ class _MyLoginState extends State<MyLogin> {
                             _scaffoldKey.currentState?.showSnackBar(
                                 showSnackBar(
                                     "Trying to log in, Please Wait..." +
-                                        user.name,
+                                        user.name.toString(),
                                     context,
                                     Colors.green[400],
                                     2));

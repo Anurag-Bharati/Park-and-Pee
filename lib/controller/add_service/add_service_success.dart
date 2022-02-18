@@ -2,13 +2,13 @@
 import 'package:flutter/material.dart';
 
 import 'package:lottie/lottie.dart';
-import 'package:parkandpee/Model/service.dart';
-import 'package:parkandpee/Model/user.dart';
+import 'package:parkandpee/model/service_main.dart';
 
+import '../../model/model_core.dart';
 import '../../Model/widgets/progress_step_widget.dart';
 
 class AddServiceSuccess extends StatefulWidget {
-  final Service service;
+  final ServiceMain service;
   final User user;
   const AddServiceSuccess({Key? key, required this.service, required this.user})
       : super(key: key);

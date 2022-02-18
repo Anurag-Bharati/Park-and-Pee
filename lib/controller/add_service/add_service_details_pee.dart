@@ -1,13 +1,14 @@
 // ignore_for_file: deprecated_member_use
 
 import 'package:flutter/material.dart';
-import 'package:parkandpee/Model/service.dart';
 import 'package:parkandpee/controller/add_service/add_service_photo.dart';
-import 'package:parkandpee/Model/user.dart';
+import 'package:parkandpee/model/service_main.dart';
+
 import '../../Model/widgets/progress_step_widget.dart';
+import '../../model/model_core.dart';
 
 class AddServiceDetailsPee extends StatefulWidget {
-  final Service service;
+  final ServiceMain service;
   final User user;
 
   const AddServiceDetailsPee(
@@ -671,9 +672,10 @@ class _MapViewState extends State<AddServiceDetailsPee> {
 
                                             widget.service.name =
                                                 textController1.text.toString();
-                                            widget.service.locType =
+                                            widget.service.locationType =
                                                 dropDownValue.toString();
-                                            widget.service.setAmenity([
+                                            widget.service.amenities =
+                                                ServiceMain.encodeListToString([
                                               _amenity1,
                                               _amenity2,
                                               _amenity3,

@@ -4,19 +4,20 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:parkandpee/Model/service.dart';
+import 'package:parkandpee/model/model_core.dart' show User;
+import 'package:parkandpee/model/service_main.dart';
 
 import 'package:parkandpee/controller/add_service/add_service_details_park.dart';
 import 'package:parkandpee/controller/add_service/add_service_details_pee.dart';
 import 'package:parkandpee/controller/add_service/service_location_learn_more.dart';
-import 'package:parkandpee/Model/user.dart';
 
 import '../../Model/map_util.dart';
 import '../../Model/widgets/progress_step_widget.dart';
 import '../../Model/widgets/scroll_behavior.dart';
 
 class MapView extends StatefulWidget {
-  const MapView({Key? key}) : super(key: key);
+  final User user;
+  const MapView({Key? key, required this.user}) : super(key: key);
 
   double deviceHeight(BuildContext context) {
     final double height = MediaQuery.of(context).size.height;
@@ -31,9 +32,7 @@ class MapView extends StatefulWidget {
 
 class _MapViewState extends State<MapView> {
   final _scaffoldKey = GlobalKey<ScaffoldState>();
-  late Service _service;
-  // DUMMY_VALUE
-  final User _user = User("Anurag", "98480XXXXX", "12345");
+  final ServiceMain _service = ServiceMain();
 
   String _text = "NOT SELECTED";
   bool _textSelected = false;
@@ -62,10 +61,9 @@ class _MapViewState extends State<MapView> {
   @override
   void initState() {
     super.initState();
-    // DUMMY_VALUE
-    _user.id = 1;
     setCustomMarker();
     getCurrentLocation();
+    widget.user.userId = 1;
   }
 
   void getCurrentLocation() async {
@@ -425,6 +423,8 @@ class _MapViewState extends State<MapView> {
                                       onChanged: (String? Value) {
                                         setState(() {
                                           dropDownValue = Value;
+                                          _service.serviceType = Value;
+                                          print(_service.serviceType);
                                         });
                                       },
                                       // ignore: non_constant_identifier_names
@@ -533,11 +533,11 @@ class _MapViewState extends State<MapView> {
                                                         Colors.red[400],
                                                         1));
                                               } else {
-                                                _service = Service(
-                                                    _selectedLocation!.latitude,
+                                                _service.latitude =
+                                                    _selectedLocation!.latitude;
+                                                _service.longitude =
                                                     _selectedLocation!
-                                                        .longitude,
-                                                    dropDownValue!);
+                                                        .longitude;
 
                                                 Navigator.push(
                                                   context,
@@ -548,13 +548,14 @@ class _MapViewState extends State<MapView> {
                                                             ? AddServiceDetails(
                                                                 service:
                                                                     _service,
-                                                                user: _user,
+                                                                user:
+                                                                    widget.user,
                                                               )
                                                             : AddServiceDetailsPee(
                                                                 service:
                                                                     _service,
-                                                                user: _user,
-                                                              ),
+                                                                user: widget
+                                                                    .user),
                                                   ),
                                                 );
                                               }

@@ -10,15 +10,15 @@ String serviceToJson(List<ServiceMain> data) =>
 
 class ServiceMain {
   ServiceMain({
-    required this.id,
-    required this.name,
-    required this.locationType,
-    required this.serviceType,
-    required this.latitude,
-    required this.longitude,
-    required this.amenities,
-    required this.mainPicPath,
-    required this.coverPicPath,
+    this.id,
+    this.name,
+    this.locationType,
+    this.serviceType,
+    this.latitude,
+    this.longitude,
+    this.amenities,
+    this.mainPicPath,
+    this.coverPicPath,
   });
 
   /// This function decodes boolean value stored in string to a list of booleans
@@ -41,21 +41,21 @@ class ServiceMain {
     return amenities;
   }
 
-  final int? id;
-  final String? name;
-  final LocationType? locationType;
-  final ServiceType? serviceType;
-  final double? latitude;
-  final double? longitude;
-  final String? amenities;
-  final String? mainPicPath;
-  final String? coverPicPath;
+  int? id;
+  String? name;
+  String? locationType;
+  String? serviceType;
+  double? latitude;
+  double? longitude;
+  String? amenities;
+  String? mainPicPath;
+  String? coverPicPath;
 
   factory ServiceMain.fromJson(Map<String, dynamic> json) => ServiceMain(
         id: json["service_id"],
         name: json["name"],
-        locationType: locationTypeValues.map[json["location_type"]],
-        serviceType: serviceTypeValues.map[json["service_type"]],
+        locationType: json["location_type"],
+        serviceType: json["service_type"],
         latitude: json["latitude"].toDouble(),
         longitude: json["longitude"].toDouble(),
         amenities: json["amenities"],
@@ -66,38 +66,12 @@ class ServiceMain {
   Map<String, dynamic> toJson() => {
         "service_id": id,
         "name": name,
-        "location_type": locationTypeValues.reverse![locationType],
-        "service_type": serviceTypeValues.reverse![serviceType],
+        "location_type": locationType,
+        "service_type": serviceType,
         "latitude": latitude,
         "longitude": longitude,
         "amenities": amenities,
         "main_pic_path": mainPicPath,
         "cover_pic_path": coverPicPath,
       };
-}
-
-enum LocationType { RESTAURANT, HOTEL, HOME, OTHER }
-
-final locationTypeValues = EnumValues({
-  "Hotel": LocationType.HOTEL,
-  "Restaurant": LocationType.RESTAURANT,
-  "Home": LocationType.HOME,
-  "Other": LocationType.OTHER
-});
-
-enum ServiceType { PEE, PARK }
-
-final serviceTypeValues =
-    EnumValues({"Parking": ServiceType.PARK, "Toilet": ServiceType.PEE});
-
-class EnumValues<T> {
-  Map<String, T> map;
-  Map<T, String>? reverseMap;
-
-  EnumValues(this.map);
-
-  Map<T, String>? get reverse {
-    reverseMap ??= map.map((k, v) => MapEntry(v, k));
-    return reverseMap;
-  }
 }
