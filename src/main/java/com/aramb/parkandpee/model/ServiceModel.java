@@ -12,6 +12,8 @@ public class ServiceModel {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Integer service_id;
 
+    Integer service_owner;
+
     @Column(nullable = false)
     public String name;
 

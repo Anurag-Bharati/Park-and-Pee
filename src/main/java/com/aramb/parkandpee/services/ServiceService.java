@@ -11,7 +11,8 @@ public interface ServiceService {
     ServiceModel getServiceById(int id);
     void deleteService(int id);
     ServiceModel updateService(ServiceModel service, int id);
-    Page<ServiceModel> findPaginated(int pageNo, int pageSize);
-    List<ServiceModel> getAllClosest(double lat, double lng);
+    Page<ServiceModel> getAllClosest(int pageNo, int pageSize,double lat, double lng, double distance);
+    Page<ServiceModel> getClosestPark(int pageNo, int pageSize,double lat, double lng, double distance);
+    Page<ServiceModel> getClosestPee(int pageNo, int pageSize,double lat, double lng, double distance);
 
 }

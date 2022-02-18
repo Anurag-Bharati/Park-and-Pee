@@ -8,6 +8,7 @@ public interface ServiceUser{
     User saveUser(User user);
     List<User> getAllUsers();
     User getUserById(int id);
+    User getUserByNumberAndPassword(String number, String pass);
     User updateUser(User user,int id);
     void deleteUser(int id);
 }

@@ -1,7 +1,6 @@
 package com.aramb.parkandpee.model;
 
 import lombok.Data;
-
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -23,4 +22,21 @@ public class User {
     public String number;
 
     public String password;
+    public String profile_pic;
+
+    @Column(nullable = false)
+    public boolean verified = false;
+
+    public String legal_name;
+
+    public String current_address;
+
+    public String business_number;
+
+    public String dob;
+
+    public String citizenship;
+
+    public String gender;
+
 }

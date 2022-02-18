@@ -36,20 +36,28 @@ public class ServiceUserImpl implements ServiceUser {
     }
 
     @Override
+    public User getUserByNumberAndPassword(String number, String pass) {
+        User user = userRepo.findByNumberAndPassword(number, pass);
+        if (user!=null) return user;
+        else throw new ResourceNotFoundException("User", "Number", number);
+    }
+
+    @Override
     public User updateUser(User user,int id) {
         User isThere = userRepo.findById(id).orElseThrow(() -> new ResourceNotFoundException("User", "Id",id));
-        if(user.name!=null && user.name.length()>2) {
-            isThere.setName(user.getName());
-        }
-        if (user.number!=null) {
-            isThere.setNumber(user.getNumber());
-        }
-        if(user.password!=null){
-            isThere.setPassword(user.getPassword());
-        }
-        if(user.getServices()!=null){
-            isThere.getServices().addAll(user.getServices());
-        }
+        if(user.name!=null && user.name.length()>2) isThere.setName(user.getName());
+
+        if (user.number!=null) isThere.setNumber(user.getNumber());
+        if(user.password!=null) isThere.setPassword(user.getPassword());
+
+        if(user.getServices()!=null) isThere.getServices().addAll(user.getServices());
+
+        if(user.legal_name!=null) isThere.setLegal_name(user.getLegal_name());
+        if(user.business_number!=null) isThere.setBusiness_number(user.getBusiness_number());
+        if(user.current_address!=null) isThere.setCurrent_address(user.getCurrent_address());
+        if(user.gender!=null) isThere.setGender(user.getGender());
+        if(user.citizenship!=null) isThere.setCitizenship(user.getCitizenship());
+        if(user.dob!=null) isThere.setDob(user.getDob());
         userRepo.save(isThere);
         return isThere;
     }

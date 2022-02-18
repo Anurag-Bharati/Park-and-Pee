@@ -49,15 +49,20 @@ public class ServiceServiceImpl implements ServiceService {
     }
 
     @Override
-    public Page<ServiceModel> findPaginated(int pageNo, int pageSize) {
+    public Page<ServiceModel> getAllClosest(int pageNo, int pageSize,double lat, double lng, double distance) {
+
         Pageable pageable = PageRequest.of(pageNo, pageSize);
-        return this.serviceRepo.findAll(pageable);
+        return serviceRepo.getAllClosest(lat,lng, pageable,distance);
     }
-
     @Override
-    public List<ServiceModel> getAllClosest(double lat, double lng) {
-        return serviceRepo.getAllClosest(lat,lng);
+    public Page<ServiceModel> getClosestPark(int pageNo, int pageSize,double lat, double lng, double distance) {
+        Pageable pageable = PageRequest.of(pageNo, pageSize);
+        return serviceRepo.getClosestParkingService(lat,lng, pageable,distance);
     }
-
+    @Override
+    public Page<ServiceModel> getClosestPee(int pageNo, int pageSize,double lat, double lng, double distance) {
+        Pageable pageable = PageRequest.of(pageNo, pageSize);
+        return serviceRepo.getClosestPeeingService(lat,lng, pageable,distance);
+    }
 
 }

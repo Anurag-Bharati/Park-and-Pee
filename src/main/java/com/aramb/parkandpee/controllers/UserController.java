@@ -22,6 +22,10 @@ public class UserController {
     public ResponseEntity<User> saveUser(@RequestBody User user) {
         return new ResponseEntity<>(userService.saveUser(user), HttpStatus.CREATED);
     }
+    @PostMapping("auth")
+    public ResponseEntity<User> getUser(@RequestBody User user) {
+        return new ResponseEntity<>(userService.getUserByNumberAndPassword(user.number,user.password), HttpStatus.ACCEPTED);
+    }
 
     @GetMapping
     public List<User> getAllUsers(){
@@ -29,8 +33,9 @@ public class UserController {
     }
 
     @GetMapping("{id}")
-    public ResponseEntity<User> getUserByID(@PathVariable("id") int id){
-        return new ResponseEntity<>(userService.getUserById(id),HttpStatus.OK);
+    public ResponseEntity<User> getUserByID(@PathVariable("id") String id){
+        int iid = Integer.parseInt(id);
+        return new ResponseEntity<>(userService.getUserById(iid),HttpStatus.OK);
     }
     @PutMapping("{id}")
     public ResponseEntity<User> updateUser(@PathVariable("id") int id,@RequestBody User user ){

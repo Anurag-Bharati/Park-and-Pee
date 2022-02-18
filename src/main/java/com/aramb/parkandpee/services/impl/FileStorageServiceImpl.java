@@ -16,6 +16,8 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Objects;
 
 @Service
@@ -47,10 +49,11 @@ public class FileStorageServiceImpl implements FileStorageService {
 
     @Override
     public String storeFile(MultipartFile file, int id, String type) {
-
-        // Normalize file name
+        SimpleDateFormat formatter = new SimpleDateFormat(" dd-MM-yyyy HH-mm-ss");
+        Date date = new Date();
+        // Normalize file name and add upload date
         String originalFileName = StringUtils.cleanPath(Objects.requireNonNull(file.getOriginalFilename()));
-        String fileName = id+type+getFileType(originalFileName);
+        String fileName = id+type+formatter.format(date)+getFileType(originalFileName);
 
         try {
             // Check if the file's name contains invalid characters

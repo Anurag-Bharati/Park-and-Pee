@@ -11,7 +11,6 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
@@ -31,10 +30,7 @@ public class FileController {
 
         String fileName = fileStorageService.storeFile(file, id, type);
 
-        String fileDownloadUri = ServletUriComponentsBuilder.fromCurrentContextPath()
-                .path("api/downloadFile/")
-                .path(fileName)
-                .toUriString();
+        String fileDownloadUri = "api/downloadFile/"+fileName;
 
         return new UploadFileResponse(fileName, fileDownloadUri,
                 file.getContentType(), file.getSize());
@@ -44,7 +40,9 @@ public class FileController {
     public ResponseEntity<Resource> downloadFile(@PathVariable String fileName, HttpServletRequest request) {
         // Load file as Resource
         Resource resource = fileStorageService.loadFileAsResource(fileName);
-
+        if (resource==null) return ResponseEntity.unprocessableEntity().contentType(MediaType.parseMediaType("application/octet-stream"))
+                .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + null + "\"")
+                .body(null);
         // Try to determine file's content type
         String contentType = null;
         try {
@@ -57,6 +55,7 @@ public class FileController {
         if (contentType == null) {
             contentType = "application/octet-stream";
         }
+
 
         return ResponseEntity.ok()
                 .contentType(MediaType.parseMediaType(contentType))
