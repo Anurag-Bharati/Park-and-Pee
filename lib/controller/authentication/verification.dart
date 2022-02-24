@@ -128,7 +128,10 @@ class _MyVerificationstate extends State<MyVerification> {
                                 .then((value) async {
                               if (value.user != null) {
                                 Navigator.of(context).push(MaterialPageRoute(
-                                    builder: (context) => const Mynavbar()));
+                                    builder: (context) => const Mynavbar(
+                                          user: null,
+                                          initialMenu: 0,
+                                        )));
                               }
                               print("lol");
                             });

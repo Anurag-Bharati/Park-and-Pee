@@ -8,8 +8,8 @@ import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
-import 'package:parkandpee/controller/add_service/mapview.dart';
 import 'package:parkandpee/model/api.dart';
+import 'package:parkandpee/service_owner/so_dashboard_concept.dart';
 import 'package:path/path.dart' as p;
 import '../../model/model_core.dart';
 
@@ -64,7 +64,7 @@ class _MyPropertyPagestate extends State<MyPropertyPage> {
                 'dob': user.dob,
                 'citizenship': user.citizenship.toString(),
                 'gender': user.gender.toString(),
-                'verified': true
+                'is_so': true
               }))
           .timeout(
             const Duration(seconds: 2),
@@ -74,16 +74,14 @@ class _MyPropertyPagestate extends State<MyPropertyPage> {
             "Invalid User credentials", context, Colors.red[400], 2));
       }
       if (res.statusCode == 200) {
-        // TODO Transfer user
-
-        Navigator.pushAndRemoveUntil<void>(
+        User newUser = User.fromMap(jsonDecode(res.body));
+        Navigator.pushReplacement(
           context,
           MaterialPageRoute(
-            builder: (context) => MapView(
-              user: user,
+            builder: (context) => SoDashBoard(
+              user: newUser,
             ),
           ),
-          ModalRoute.withName("/"),
         );
       }
     } on SocketException catch (_) {

@@ -5,9 +5,17 @@ import 'package:parkandpee/controller/home/home_page.dart';
 import 'package:parkandpee/controller/my_service/property.dart';
 import 'package:parkandpee/controller/my_service/statement.dart';
 import 'package:parkandpee/controller/settings/Setting.dart';
+import 'package:parkandpee/model/model_core.dart';
+import 'package:parkandpee/service_owner/so_dashboard_concept.dart';
 
 class Mynavbar extends StatefulWidget {
-  const Mynavbar({Key? key}) : super(key: key);
+  final User? user;
+  final int initialMenu;
+  const Mynavbar({
+    Key? key,
+    required this.user,
+    required this.initialMenu,
+  }) : super(key: key);
 
   @override
   _Mynavbarstate createState() => _Mynavbarstate();
@@ -16,13 +24,25 @@ class Mynavbar extends StatefulWidget {
 class _Mynavbarstate extends State<Mynavbar> {
   // final navigationKey = GlobalKey<CurvedNavigationBarState>();
   int selectedIndex = 0;
-  final screen = [
-    const MyHomePage(),
-    const MyStatementPage(),
-    const MyAccountPage(),
-    const MyPropertyPage(),
-    const MySettingPage()
-  ];
+  List<Widget> screen = [];
+
+  @override
+  void initState() {
+    super.initState();
+    screen.addAll([
+      MyHomePage(
+        user: widget.user as User,
+      ),
+      const MyStatementPage(),
+      const MyAccountPage(),
+      const MyPropertyPage(),
+      const MySettingPage(),
+      SoDashBoard(
+        user: widget.user as User,
+      ),
+    ]);
+    selectedIndex = widget.initialMenu;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -73,7 +93,11 @@ class _Mynavbarstate extends State<Mynavbar> {
               onTap: (index) {
                 debugPrint("Current Index is $index");
                 setState(() {
-                  selectedIndex = index;
+                  if (index == 3 && widget.user!.is_so as bool) {
+                    selectedIndex = 5;
+                  } else {
+                    selectedIndex = index;
+                  }
                 });
               },
             ),

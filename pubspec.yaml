@@ -62,6 +62,8 @@ dependencies:
     fluttertoast: ^8.0.8
     # for debouncing reqs
     easy_debounce: ^2.0.2+1
+    pull_to_refresh: ^2.0.0
+    syncfusion_flutter_sliders: ^19.4.52
 
 dev_dependencies:
     flutter_test:

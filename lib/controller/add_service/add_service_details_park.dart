@@ -655,7 +655,7 @@ class _MapViewState extends State<AddServiceDetails> {
                                               _amenity5,
                                               _amenity6
                                             ]);
-                                            Navigator.push(
+                                            Navigator.pushReplacement(
                                               context,
                                               MaterialPageRoute(
                                                   builder: (context) =>

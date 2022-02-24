@@ -18,7 +18,7 @@ class User {
     this.number,
     this.password,
     this.profilePic,
-    this.hasService,
+    this.is_so,
     this.legalName,
     this.currentAddress,
     this.businessNumber,
@@ -33,7 +33,7 @@ class User {
   String? number;
   String? password;
   String? profilePic;
-  bool? hasService;
+  bool? is_so;
   String? legalName;
   String? currentAddress;
   String? businessNumber;
@@ -51,7 +51,7 @@ class User {
         number: json["number"] == null ? null : json["number"],
         password: json["password"] == null ? null : json["password"],
         profilePic: json["profile_pic"],
-        hasService: json["has_service"] == null ? null : json["has_service"],
+        is_so: json["is_so"] == null ? null : json["is_so"],
         legalName: json["legal_name"],
         currentAddress: json["current_address"],
         businessNumber: json["business_number"],
@@ -69,7 +69,7 @@ class User {
         "number": number == null ? null : number,
         "password": password == null ? null : password,
         "profile_pic": profilePic,
-        "has_service": hasService == null ? null : hasService,
+        "is_so": is_so == null ? null : is_so,
         "legal_name": legalName,
         "current_address": currentAddress,
         "business_number": businessNumber,

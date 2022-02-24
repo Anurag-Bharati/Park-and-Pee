@@ -539,7 +539,7 @@ class _MapViewState extends State<MapView> {
                                                     _selectedLocation!
                                                         .longitude;
 
-                                                Navigator.push(
+                                                Navigator.pushReplacement(
                                                   context,
                                                   MaterialPageRoute(
                                                     builder: (context) =>

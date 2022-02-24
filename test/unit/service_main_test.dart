@@ -9,7 +9,7 @@ void main() {
   Future<ServiceMain?> getServiceObject() async {
     late final List<ServiceMain> listOfServices;
     dynamic response = await http.get(
-      Uri.parse("http://192.168.1.3:8080/api/service"),
+      Uri.parse("http://192.168.1.5:8080/api/service"),
     );
     if (response.body.isNotEmpty) {
       listOfServices = (json.decode(response.body) as List)
@@ -48,7 +48,6 @@ void main() {
       () async {
     //ARRANGE
     late final dynamic result;
-
     //ACT
     result = await getServiceObject();
     //ASSERT

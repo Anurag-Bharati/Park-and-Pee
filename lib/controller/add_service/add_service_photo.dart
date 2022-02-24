@@ -9,15 +9,15 @@ import 'package:parkandpee/model/service_main.dart';
 import 'package:parkandpee/controller/add_service/add_service_success.dart';
 import 'package:http/http.dart' as http;
 import 'package:parkandpee/model/api.dart';
-import 'package:parkandpee/model/model_core.dart' show Service, User;
+import 'package:parkandpee/model/model_core.dart' show User;
 
 import '../../Model/widgets/progress_step_widget.dart';
 
 class AddServicePhoto extends StatefulWidget {
   final ServiceMain service;
-  final User user;
+  User user;
 
-  const AddServicePhoto({Key? key, required this.service, required this.user})
+  AddServicePhoto({Key? key, required this.service, required this.user})
       : super(key: key);
   double deviceHeight(BuildContext context) =>
       MediaQuery.of(context).size.height;
@@ -456,7 +456,7 @@ class _MapViewState extends State<AddServicePhoto> {
                                         } else {
                                           // ignore: unrelated_type_equality_checks
                                           _asyncUploadToDatabase();
-                                          Navigator.pushAndRemoveUntil<void>(
+                                          Navigator.pushReplacement(
                                             context,
                                             MaterialPageRoute(
                                               builder: (context) =>
@@ -465,7 +465,6 @@ class _MapViewState extends State<AddServicePhoto> {
                                                 user: widget.user,
                                               ),
                                             ),
-                                            ModalRoute.withName("navbar"),
                                           );
                                         }
                                       },
@@ -544,6 +543,7 @@ class _MapViewState extends State<AddServicePhoto> {
       }),
     );
     if (response.statusCode == 200) {
+      widget.user = User.fromMap(json.decode(response.body));
     } else {
       _scaffoldKey.currentState?.showSnackBar(showSnackBar(
           "Sorry! Something went wrong. Please Try again.",

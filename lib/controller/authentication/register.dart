@@ -9,10 +9,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter_signin_button/flutter_signin_button.dart';
 import 'package:http/http.dart' as http;
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
-import 'package:parkandpee/controller/authentication/verification.dart';
+import 'package:parkandpee/controller/authentication/login.dart';
+
 import 'package:parkandpee/model/model_core.dart';
 
 import '../../Model/api.dart';
+
+String encode(String? password) {
+  return base64.encode(utf8.encode(password.toString()));
+}
 
 class MyRegister extends StatefulWidget {
   const MyRegister({Key? key}) : super(key: key);
@@ -27,7 +32,7 @@ class _MyRegisterState extends State<MyRegister> {
   String? confirmPass;
 
   // DUMMY_VALUE
-  User user = User(userId: 1);
+  User user = User();
   Uri url = Uri.parse(API.getUrl("user/auth"));
 
   Future save(
@@ -50,8 +55,8 @@ class _MyRegisterState extends State<MyRegister> {
             "Invalid User credentials", context, Colors.red[400], 2));
       }
       if (res.statusCode == 202) {
-        // TODO Transfer user
-        Navigator.pushNamed(context, 'navbar');
+        Navigator.pushReplacement(
+            context, MaterialPageRoute(builder: (context) => MyLogin()));
       }
     } on SocketException catch (_) {
       _scaffoldKey.currentState?.showSnackBar(showSnackBar(

@@ -2,7 +2,9 @@
 import 'package:flutter/material.dart';
 
 import 'package:lottie/lottie.dart';
+import 'package:parkandpee/controller/home/navbar.dart';
 import 'package:parkandpee/model/service_main.dart';
+import 'package:parkandpee/service_owner/so_dashboard_concept.dart';
 
 import '../../model/model_core.dart';
 import '../../Model/widgets/progress_step_widget.dart';
@@ -184,7 +186,15 @@ class _MapViewState extends State<AddServiceSuccess> {
                                     child: ElevatedButton(
                                       child: const Text("OKEY"),
                                       onPressed: () {
-                                        // TODO
+                                        Navigator.pushReplacement(
+                                          context,
+                                          MaterialPageRoute(
+                                            builder: (context) => Mynavbar(
+                                              user: widget.user,
+                                              initialMenu: 5,
+                                            ),
+                                          ),
+                                        );
 
                                         _scaffoldKey.currentState
                                             ?.removeCurrentSnackBar();

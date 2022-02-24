@@ -8,11 +8,45 @@ import 'package:flutter/material.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:flutter_signin_button/flutter_signin_button.dart';
 import 'package:http/http.dart' as http;
+import 'package:parkandpee/controller/home/navbar.dart';
 import 'package:parkandpee/model/model_core.dart' show User;
 import '../../Model/api.dart';
 
 double deviceHeight(BuildContext context) => MediaQuery.of(context).size.height;
 double deviceWidth(BuildContext context) => MediaQuery.of(context).size.width;
+
+bool checkNull(String? number) {
+  return number != null;
+}
+
+bool checkNumber(String? number) {
+  return number!.length == 10;
+}
+
+bool hasNumberAndChar(String? password) {
+  bool hasUppercase = password!.contains(RegExp(r'[A-Z]'));
+  bool hasDigits = password.contains(RegExp(r'[0-9]'));
+  bool hasLowercase = password.contains(RegExp(r'[a-z]'));
+  bool hasSpecialCharacters =
+      password.contains(RegExp(r'[!@#$%^&*(),.?":{}|<>]'));
+  return hasDigits & hasUppercase & hasLowercase & hasSpecialCharacters;
+}
+
+bool checkPassword(String? password) {
+  if (password == null) {
+    return false;
+  } else if (password.length < 8) {
+    return false;
+  } else if (!hasNumberAndChar(password.toString())) {
+    return true;
+  } else {
+    return true;
+  }
+}
+
+String encode(String? password) {
+  return base64.encode(utf8.encode(password.toString()));
+}
 
 class MyLogin extends StatefulWidget {
   const MyLogin({Key? key}) : super(key: key);
@@ -30,7 +64,6 @@ class _MyLoginState extends State<MyLogin> {
   Future save(
       GlobalKey<ScaffoldState> scaffoldKey, BuildContext context) async {
     try {
-      String encodedPass = base64.encode(utf8.encode(user.password.toString()));
       var res = await http
           .post(url,
               headers: {'Content-Type': 'application/json'},
@@ -46,8 +79,15 @@ class _MyLoginState extends State<MyLogin> {
             "Invalid User credentials", context, Colors.red[400], 2));
       }
       if (res.statusCode == 202) {
-        // TODO Transfer user
-        Navigator.pushNamed(context, 'navbar');
+        User user = User.fromMap(json.decode(res.body));
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+              builder: (context) => Mynavbar(
+                    user: user,
+                    initialMenu: 0,
+                  )),
+        );
       }
     } on SocketException catch (_) {
       _scaffoldKey.currentState?.showSnackBar(showSnackBar(
@@ -58,35 +98,6 @@ class _MyLoginState extends State<MyLogin> {
     } on Exception catch (_) {
       _scaffoldKey.currentState?.showSnackBar(showSnackBar(
           "Sorry, someting went wrong", context, Colors.red[400], 2));
-    }
-  }
-
-  bool checkNull() {
-    return user.number != null;
-  }
-
-  bool checkNumber() {
-    return user.number!.length == 10;
-  }
-
-  bool hasNumberAndChar(String password) {
-    bool hasUppercase = password.contains(RegExp(r'[A-Z]'));
-    bool hasDigits = password.contains(RegExp(r'[0-9]'));
-    bool hasLowercase = password.contains(RegExp(r'[a-z]'));
-    bool hasSpecialCharacters =
-        password.contains(RegExp(r'[!@#$%^&*(),.?":{}|<>]'));
-    return hasDigits & hasUppercase & hasLowercase & hasSpecialCharacters;
-  }
-
-  bool checkPassword() {
-    if (user.password == null) {
-      return false;
-    } else if (user.password!.length < 8) {
-      return false;
-    } else if (!hasNumberAndChar(user.password.toString())) {
-      return true;
-    } else {
-      return true;
     }
   }
 
@@ -203,27 +214,23 @@ class _MyLoginState extends State<MyLogin> {
                         onPressed: () {
                           // ignore: unrelated_type_equality_checks
 
-                          if (!checkNull()) {
+                          if (!checkNull(user.number)) {
                             _scaffoldKey.currentState?.showSnackBar(
                                 showSnackBar("Please fill up all the fields",
                                     context, Colors.red[400], 3));
-                          } else if (!checkNumber()) {
+                          } else if (!checkNumber(user.number)) {
                             _scaffoldKey.currentState?.showSnackBar(
                                 showSnackBar("Invalid Phone number", context,
                                     Colors.red[400], 3));
-                          } else if (!checkPassword()) {
+                          } else if (!checkPassword(user.password)) {
                             _scaffoldKey.currentState?.showSnackBar(
                                 showSnackBar("Password does not match", context,
                                     Colors.red[400], 3));
                           } else {
                             _scaffoldKey.currentState?.removeCurrentSnackBar();
                             _scaffoldKey.currentState?.showSnackBar(
-                                showSnackBar(
-                                    "Trying to log in, Please Wait..." +
-                                        user.name.toString(),
-                                    context,
-                                    Colors.green[400],
-                                    2));
+                                showSnackBar("Trying to log in, Please Wait...",
+                                    context, Colors.green[400], 2));
                             EasyDebounce.debounce('login-debouncer',
                                 const Duration(milliseconds: 1200), () {
                               save(
@@ -285,7 +292,9 @@ class _MyLoginState extends State<MyLogin> {
                     SignInButton(
                       Buttons.GoogleDark,
                       mini: false,
-                      onPressed: () {},
+                      onPressed: () {
+                        Navigator.pushNamed(context, 'so_navbar');
+                      },
                     ),
                     SignInButton(
                       Buttons.Facebook,
