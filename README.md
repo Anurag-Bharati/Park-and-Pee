@@ -141,7 +141,7 @@ MEMBERS :
 5) Aayush Raj Joshi    [ Coventry ID : 11494759 ]
   
   
-[contributors-shield]:https://img.shields.io/github/contributors/Anurag-Bharati/Park-And-Pee?style=for-the-badge
+[contributors-shield]:https://img.shields.io/github/contributors-anon/Anurag-Bharati/Park-and-Pee?style=for-the-badge
 [size-shield]:https://img.shields.io/github/repo-size/Anurag-Bharati/Park-And-Pee?style=for-the-badge
 [size-url]: https://github.com/Anurag-Bharati/Park-And-Pee
 [lastCommit-shield]:https://img.shields.io/github/last-commit/Anurag-Bharati/Park-And-Pee?style=for-the-badge
