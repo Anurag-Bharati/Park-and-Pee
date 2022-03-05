@@ -6,6 +6,9 @@
 [![Contributors][contributors-shield]][contrib-url]
 [![size][size-shield]][size-url]
 [![LastCommit][lastCommit-shield]][size-url]
+![SearchHit][hits-shield]
+![ReleaseDownloads][downloads-shield]
+![License][license-shield]
 
 </div>
 
@@ -146,3 +149,6 @@ MEMBERS :
 [size-url]: https://github.com/Anurag-Bharati/Park-And-Pee
 [lastCommit-shield]:https://img.shields.io/github/last-commit/Anurag-Bharati/Park-And-Pee?style=for-the-badge
 [contrib-url]:https://github.com/Anurag-Bharati/Park-and-Pee/graphs/contributors
+[hits-shield]:https://img.shields.io/github/search/anurag-bharati/Park-and-Pee/all?color=green&label=repo%20hits&style=for-the-badge
+[downloads-shield]:https://img.shields.io/github/downloads/anurag-bharati/park-and-pee/total?style=for-the-badge
+[license-shield]:https://img.shields.io/github/license/anurag-bharati/park-and-pee?style=for-the-badge
