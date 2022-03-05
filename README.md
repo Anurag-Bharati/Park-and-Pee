@@ -13,7 +13,7 @@
 <br />
 <p align="center">
   <a href="https://github.com/Anurag-Bharati/Park-and-Pee">
-    <img src="" alt="Logo" width="180" height="160">
+    <img src="https://github.com/Anurag-Bharati/Park-and-Pee/blob/main/profile_parknpee.png" alt="Logo" width="180" height="180">
   </a>
 
   <h3 align="center">Park And Pee</h3>
@@ -66,7 +66,7 @@
 
 
 
-  ![Product Name Screen Shot](https://github.com/Anurag-Bharati/Park-and-Pee/HomePage.png)
+  ![Product Name Screen Shot](https://github.com/Anurag-Bharati/Park-and-Pee/blob/main/cover_parknpee.png)
 
 
 Raccoons InnRoom is a hotel management software that allows hotel administration of the hotel to organize, manage and operate almost every activity of a functioning hotel.
@@ -85,7 +85,7 @@ Features:
 Park and Pee is free to use and open source. So, You can also contribute to this project. 
 
 ### Built With
-<p align="left"> <a href="https://flutter.dev/" target="_blank"> <img src="https://sangams.com.np/wp-content/uploads/2021/02/flutter-logo-sharing.png" alt="flutter" width="937" height="461"/> </a> <a href="https://spring.io/" target="_blank"> <img src="https://cdn.programadoresbrasil.com.br/wp-content/uploads/2021/05/Spring-BOOT-Interview-questions-1.jpg" alt="spring boot" width="534" height="296"/> </a></p>
+<p align="left"> <a href="https://flutter.dev/" target="_blank"> <img src="https://sangams.com.np/wp-content/uploads/2021/02/flutter-logo-sharing.png" alt="flutter" width="937" height="461"/> </a> <a href="https://spring.io/" target="_blank"> <img src="https://cdn.programadoresbrasil.com.br/wp-content/uploads/2021/05/Spring-BOOT-Interview-questions-1.jpg" alt="spring boot" width="937" height="461"/> </a></p>
   
 * [Flutter](https://flutter.dev)
 * [Spring boot](https://spring.io/)
