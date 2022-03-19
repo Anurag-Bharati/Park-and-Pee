@@ -58,6 +58,7 @@ public class ServiceUserImpl implements ServiceUser {
         if(user.gender!=null) isThere.setGender(user.getGender());
         if(user.citizenship!=null) isThere.setCitizenship(user.getCitizenship());
         if(user.dob!=null) isThere.setDob(user.getDob());
+        if(user.is_so) isThere.set_so(user.is_so());
         userRepo.save(isThere);
         return isThere;
     }
