@@ -25,7 +25,7 @@ public class User {
     public String profile_pic;
 
     @Column(nullable = false)
-    public boolean verified = false;
+    public boolean is_so = false;
 
     public String legal_name;
 
