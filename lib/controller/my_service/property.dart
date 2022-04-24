@@ -17,7 +17,8 @@ double deviceHeight(BuildContext context) => MediaQuery.of(context).size.height;
 double deviceWidth(BuildContext context) => MediaQuery.of(context).size.width;
 
 class MyPropertyPage extends StatefulWidget {
-  const MyPropertyPage({Key? key}) : super(key: key);
+  final User user;
+  const MyPropertyPage({Key? key, required this.user}) : super(key: key);
 
   @override
   _MyPropertyPagestate createState() => _MyPropertyPagestate();
@@ -75,6 +76,11 @@ class _MyPropertyPagestate extends State<MyPropertyPage> {
       }
       if (res.statusCode == 200) {
         User newUser = User.fromMap(jsonDecode(res.body));
+        print(newUser.userId);
+        print(newUser.userId);
+        print(newUser.userId);
+        print(newUser.userId);
+        print(newUser.userId);
         Navigator.pushReplacement(
           context,
           MaterialPageRoute(
@@ -154,7 +160,7 @@ class _MyPropertyPagestate extends State<MyPropertyPage> {
   @override
   void initState() {
     super.initState();
-    url = Uri.parse(API.getUrl("user/${1}"));
+    url = Uri.parse(API.getUrl("user/${widget.user.userId}"));
   }
 
   @override

@@ -28,7 +28,6 @@ class AddServicePhoto extends StatefulWidget {
 
 class _MapViewState extends State<AddServicePhoto> {
   final _scaffoldKey = GlobalKey<ScaffoldState>();
-  Uri url = Uri.parse(API.getUrl("login"));
 
   @override
   void initState() {
@@ -523,6 +522,8 @@ class _MapViewState extends State<AddServicePhoto> {
         coverPicPath: widget.service.coverPicPath);
 
     Uri addServiceUri = Uri.parse(API.getUrl("user/${widget.user.userId}"));
+    print("ADD PHOTO THIS SHOULD FUCKING NOT BE 1 !!!!!!!!!!!!!!! => " +
+        widget.user.userId.toString());
 
     var response = await http.put(
       addServiceUri,

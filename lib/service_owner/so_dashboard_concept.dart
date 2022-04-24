@@ -108,7 +108,7 @@ class _SoDashBoardState extends State<SoDashBoard> {
                                     API.base +
                                     API.port +
                                     API.service +
-                                    "widget.user.profilePic.toString()",
+                                    widget.user.profilePic.toString(),
                                 width: 100,
                                 height: 100,
                                 fit: BoxFit.cover, errorBuilder: (context,

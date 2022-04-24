@@ -72,7 +72,7 @@ class _MyLoginState extends State<MyLogin> {
                 'password': user.password
               }))
           .timeout(
-            const Duration(seconds: 2),
+            const Duration(seconds: 5),
           );
       if (res.statusCode == 404) {
         _scaffoldKey.currentState?.showSnackBar(showSnackBar(

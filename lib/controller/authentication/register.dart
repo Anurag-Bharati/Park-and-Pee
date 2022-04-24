@@ -6,7 +6,6 @@ import 'dart:io';
 
 import 'package:easy_debounce/easy_debounce.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_signin_button/flutter_signin_button.dart';
 import 'package:http/http.dart' as http;
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:parkandpee/controller/authentication/login.dart';
@@ -33,7 +32,7 @@ class _MyRegisterState extends State<MyRegister> {
 
   // DUMMY_VALUE
   User user = User();
-  Uri url = Uri.parse(API.getUrl("user/auth"));
+  Uri url = Uri.parse(API.getUrl("user"));
 
   Future save(
       GlobalKey<ScaffoldState> scaffoldKey, BuildContext context) async {
@@ -54,7 +53,11 @@ class _MyRegisterState extends State<MyRegister> {
         _scaffoldKey.currentState?.showSnackBar(showSnackBar(
             "Invalid User credentials", context, Colors.red[400], 2));
       }
-      if (res.statusCode == 202) {
+      if (res.statusCode == 409) {
+        _scaffoldKey.currentState?.showSnackBar(
+            showSnackBar("User already exist", context, Colors.red[400], 2));
+      }
+      if (res.statusCode == 201) {
         Navigator.pushReplacement(
             context, MaterialPageRoute(builder: (context) => MyLogin()));
       }
@@ -266,7 +269,7 @@ class _MyRegisterState extends State<MyRegister> {
                       } else {
                         _scaffoldKey.currentState?.removeCurrentSnackBar();
                         _scaffoldKey.currentState?.showSnackBar(showSnackBar(
-                            "Trying to log in, Please Wait..." +
+                            "Trying to register, Please Wait..." +
                                 user.name.toString(),
                             context,
                             Colors.green[400],

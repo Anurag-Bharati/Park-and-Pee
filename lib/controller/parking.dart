@@ -3,7 +3,6 @@
 import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
-import 'dart:math';
 
 import 'package:easy_debounce/easy_debounce.dart';
 import 'package:flutter/material.dart';
@@ -240,7 +239,7 @@ class _ParkingServicesState extends State<ParkingServices> {
                                   API.protocol +
                                       API.base +
                                       API.port +
-                                      service.mainPicPath,
+                                      "${service.mainPicPath == null ? "" : service.mainPicPath}",
                                   cacheHeight: 256,
                                   cacheWidth: 256,
                                   filterQuality: FilterQuality.medium,
@@ -371,7 +370,7 @@ class _ParkingServicesState extends State<ParkingServices> {
     double oneMeterDegree = 0.000009009;
     double merge = dLat > dLng ? dLat : dLng;
     double meter = (1 / oneMeterDegree) * merge;
-    return ((meter * 2.5) / 60).toStringAsPrecision(2) + "\nmin";
+    return ((meter * 2.5) / 60 / 2).toStringAsPrecision(2) + "\nmin";
   }
 
   getTimeTakeCar(double latitude, double longitude) {
