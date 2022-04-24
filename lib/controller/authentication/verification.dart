@@ -2,6 +2,7 @@
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:parkandpee/controller/authentication/login.dart';
 import 'package:parkandpee/controller/home/navbar.dart';
 import 'package:pinput/pin_put/pin_put.dart';
 
@@ -128,10 +129,7 @@ class _MyVerificationstate extends State<MyVerification> {
                                 .then((value) async {
                               if (value.user != null) {
                                 Navigator.of(context).push(MaterialPageRoute(
-                                    builder: (context) => const Mynavbar(
-                                          user: null,
-                                          initialMenu: 0,
-                                        )));
+                                    builder: (context) => const MyLogin()));
                               }
                               print("lol");
                             });

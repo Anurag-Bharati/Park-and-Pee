@@ -1,14 +1,12 @@
 // ignore_for_file: avoid_print
 
-import 'package:parkandpee/controller/home/navbar.dart';
-
 import 'dependencies.dart';
 
 import 'package:parkandpee/controller/admin/admin.dart';
 import 'package:parkandpee/controller/profile/account.dart';
 import 'package:parkandpee/controller/profile/account_change_phone_pass.dart';
 import 'package:parkandpee/controller/authentication/login.dart';
-import 'package:parkandpee/controller/my_service/property.dart';
+
 import 'package:parkandpee/controller/authentication/register.dart';
 import 'package:parkandpee/controller/settings/Aboutus.dart';
 import 'package:parkandpee/controller/authentication/verification.dart';
@@ -54,7 +52,6 @@ class MyApp extends StatelessWidget {
         'account': (context) => const MyAccountPage(),
         'account_edit': (context) => const MyAccountPageEdit(),
         'admin': (context) => const Myadmin(),
-        'property': (context) => const MyPropertyPage(),
         'account_change_phone_pass': (context) => const MyAccountPageChange(),
       },
     );

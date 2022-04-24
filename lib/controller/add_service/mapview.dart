@@ -63,7 +63,6 @@ class _MapViewState extends State<MapView> {
     super.initState();
     setCustomMarker();
     getCurrentLocation();
-    widget.user.userId = 1;
   }
 
   void getCurrentLocation() async {
@@ -538,7 +537,10 @@ class _MapViewState extends State<MapView> {
                                                 _service.longitude =
                                                     _selectedLocation!
                                                         .longitude;
-
+                                                print(
+                                                    "THIS SHOULD FUCKING NOT BE 1 !!!!!!!!!!!!!!! => " +
+                                                        widget.user.userId
+                                                            .toString());
                                                 Navigator.pushReplacement(
                                                   context,
                                                   MaterialPageRoute(

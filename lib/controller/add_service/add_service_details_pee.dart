@@ -669,7 +669,10 @@ class _MapViewState extends State<AddServiceDetailsPee> {
                                                     context,
                                                     Colors.green[400],
                                                     1));
-
+                                            print(
+                                                "THIS SHOULD FUCKING NOT BE 1 !!!!!!!!!!!!!!! => " +
+                                                    widget.user.userId
+                                                        .toString());
                                             widget.service.name =
                                                 textController1.text.toString();
                                             widget.service.locationType =

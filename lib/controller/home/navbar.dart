@@ -9,7 +9,7 @@ import 'package:parkandpee/model/model_core.dart';
 import 'package:parkandpee/service_owner/so_dashboard_concept.dart';
 
 class Mynavbar extends StatefulWidget {
-  final User? user;
+  final User user;
   final int initialMenu;
   const Mynavbar({
     Key? key,
@@ -31,14 +31,14 @@ class _Mynavbarstate extends State<Mynavbar> {
     super.initState();
     screen.addAll([
       MyHomePage(
-        user: widget.user as User,
+        user: widget.user,
       ),
       const MyStatementPage(),
       const MyAccountPage(),
-      const MyPropertyPage(),
+      MyPropertyPage(user: widget.user),
       const MySettingPage(),
       SoDashBoard(
-        user: widget.user as User,
+        user: widget.user,
       ),
     ]);
     selectedIndex = widget.initialMenu;
@@ -93,7 +93,7 @@ class _Mynavbarstate extends State<Mynavbar> {
               onTap: (index) {
                 debugPrint("Current Index is $index");
                 setState(() {
-                  if (index == 3 && widget.user!.is_so as bool) {
+                  if (index == 3 && widget.user.is_so as bool) {
                     selectedIndex = 5;
                   } else {
                     selectedIndex = index;
